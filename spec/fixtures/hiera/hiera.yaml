@@ -1,0 +1,21 @@
+---
+version: 5
+# generally you use the same backend for all levels of the hiearchy so this prevents
+# having to duplicate this for every layer
+defaults:
+  datadir: ../../../data
+  data_hash: yaml_data
+hierarchy:
+  - name: "Per-environment secrets"
+    path: "secure.eyaml"
+    lookup_key: eyaml_lookup_key
+    options:
+      pkcs7_private_key: keys/private_key.pkcs7.pem
+      pkcs7_public_key:  keys/public_key.pkcs7.pem
+  - name: "Per-node data"
+    path: "nodes/%{trusted.hostname}.yaml"
+    # Omitting datadir and data_hash to use defaults.
+  - name: "common"
+    path: "common.yaml"
+    # Omitting datadir and data_hash to use defaults.
+    

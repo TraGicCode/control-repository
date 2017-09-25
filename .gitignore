@@ -1,0 +1,9 @@
+.vagrant/
+.pe_build/
+.bundle/
+.vscode/
+.binaries/
+log/
+# keys/
+spec/fixtures/manifests
+spec/fixtures/modules

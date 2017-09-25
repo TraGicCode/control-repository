@@ -1,0 +1,5 @@
+---
+puppet_enterprise::master::code_manager::post_environment_hooks:
+  - url: 'https://%{trusted.certname}:4433/classifier-api/v1/update-classes'
+    use-client-ssl: true
+puppet_enterprise::license_key_path: '/etc/puppetlabs/license.key'

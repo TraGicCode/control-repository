@@ -1,0 +1,83 @@
+fixtures:
+  symlinks:
+    profile: "#{source_dir}/site/profile"
+    role: "#{source_dir}/site/role"
+  repositories:
+    apt:
+      repo: 'https://github.com/puppetlabs/puppetlabs-apt'
+      ref:  '4.1.0'
+    archive:
+      repo: 'https://github.com/voxpupuli/puppet-archive'
+      ref:  '2.0.0'
+    chocolatey:
+      repo: 'https://github.com/puppetlabs/puppetlabs-chocolatey'
+      ref:  '3.0.0'
+    concat:
+      repo: 'https://github.com/puppetlabs/puppetlabs-concat'
+      ref:  '4.0.1'
+    dsc:
+      repo: 'https://github.com/puppetlabs/puppetlabs-dsc'
+      ref:  '1.4.0'
+    grafana:
+      repo: 'https://github.com/voxpupuli/puppet-grafana'
+      ref:  'v4.0.1'
+    graphite:
+      repo: 'https://github.com/echocat/puppet-graphite'
+      ref:  'v7.1.0'
+    inifile:
+      repo: 'https://github.com/puppetlabs/puppetlabs-inifile'
+      ref:  '2.0.0'
+    java:
+      repo: 'https://github.com/puppetlabs/puppetlabs-java'
+      ref:  '2.1.0'
+    jenkins:
+      repo: 'https://github.com/jenkinsci/puppet-jenkins'
+      ref:  '23df7764d58aed80b573621b102f82a702217a7a'
+    node_encrypt:
+      repo: 'https://github.com/binford2k/binford2k-node_encrypt'
+      ref:  'd021a17d34e726affafa3290577a6da563b251b9'
+    nservicebusservicecontrol:
+      repo: 'https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol'
+      branch: 'master'
+    powershell:
+      repo: 'https://github.com/puppetlabs/puppetlabs-powershell'
+      ref:  '2.1.2'
+    rabbitmq:
+      repo: 'https://github.com/voxpupuli/puppet-rabbitmq'
+      ref:  'v7.0.0'
+    ravendb: 
+      repo: 'https://github.com/tragiccode/tragiccode-ravendb'
+      ref:  'master'
+    reboot:
+      repo: 'https://github.com/puppetlabs/puppetlabs-reboot'
+      ref:  '1.2.1'
+    registry:
+      repo: 'https://github.com/puppetlabs/puppetlabs-registry'
+      ref:  '1.1.4'
+    ruby:
+      repo: 'https://github.com/puppetlabs/puppetlabs-ruby'
+      ref:  '1.0.0'
+    rvm:
+      repo: 'https://github.com/maestrodev/puppet-rvm'
+      ref:  'v1.13.1'
+    splunk:
+      repo: 'https://github.com/voxpupuli/puppet-splunk'
+      ref:  'v6.2.0'
+    squid:
+      repo: 'https://github.com/voxpupuli/puppet-squid'
+      ref:  'v0.5.0'
+    staging:
+      repo: 'https://github.com/voxpupuli/puppet-staging'
+      ref:  'v2.2.0'
+    stdlib:
+      repo: 'https://github.com/puppetlabs/puppetlabs-stdlib'
+      ref:  '4.20.0'
+    vault:
+      repo: 'https://github.com/jsok/puppet-vault'
+      ref:  'v1.2.7'
+    wget:
+      repo: 'https://github.com/maestrodev/puppet-wget'
+      ref:  'v1.7.3'
+    wsus_client:
+      repo: 'https://github.com/puppetlabs/puppetlabs-wsus_client'
+      ref:  '1.0.3'
