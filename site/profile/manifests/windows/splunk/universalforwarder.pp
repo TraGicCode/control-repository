@@ -7,7 +7,7 @@ class profile::windows::splunk::universalforwarder(
   redact('splunk_dot_secret_file_content')
 
   class { 'splunk::params':
-    server   => 'cvpspk01.nobrainer2.com',
+    server   => 'splunkserver-001.local',
     src_root => 'https://storage.googleapis.com/puppet-provisioning-binaries/splunk',
     version  => '6.6.2',
     build    => '4b804538c686',
@@ -44,6 +44,15 @@ class profile::windows::splunk::universalforwarder(
     password_content     => ':admin:$6$ppd1j5iNShf7TXxF$iRbBaeWLYbmPQwJOZ4McPJHSeTwXV3o52Oay.BG5Yaj5MbHLxHYmCjssHmNHhvSbAu7dk9PYdZD50h3p1Eadz0::Administrator:admin:changeme@example.com::',
     secret_file          => 'C:\\Program Files\\SplunkUniversalForwarder\\etc\\auth\\splunk.secret',
     secret               => $splunk_dot_secret_file_content,
+  }
+
+  ###############################################
+  # Configure forwarder to be a deployment client
+  ###############################################
+  splunkforwarder_deploymentclient { 'deployment-server':
+    section => 'target-broker:deploymentServer',
+    setting => 'targetUri',
+    value   => 'splunkserver-001.local:8089',
   }
 
   splunkforwarder_input { 'windows-eventlog-application-index':
