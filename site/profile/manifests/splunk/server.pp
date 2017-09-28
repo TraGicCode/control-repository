@@ -36,7 +36,11 @@ class profile::splunk::server {
     ensure            => present,
     path              => '/opt/splunk/etc/system/local/serverclass.conf',
     section           => 'serverClass:WindowsMachines:app:Splunk_TA_windows',
+    key_val_separator => ' = ',
+    setting           => 'restartIfNeeded',
+    value             => 'true',
   }
+
 
   # [serverClass:WindowsMachineTypes:app:WindowsApp]
   # [serverClass:LinuxMachineTypes]
