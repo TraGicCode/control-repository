@@ -88,7 +88,7 @@ class profile::windows::splunk::universalforwarder(
   splunkforwarder_input { 'windows-eventlog-security-disabled':
     section => 'WinEventLog://Security',
     setting => 'disabled',
-    value   => 1,
+    value   => 0,
   }
 
   splunkforwarder_input { 'windows-eventlog-system-index':

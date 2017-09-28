@@ -73,6 +73,6 @@ class profile::linux::splunk::universalforwarder(
   splunkforwarder_input { 'syslog-disabled':
     section => 'monitor:///var/log/syslog',
     setting => 'disabled',
-    value   => 1,
+    value   => 0,
   }
 }
