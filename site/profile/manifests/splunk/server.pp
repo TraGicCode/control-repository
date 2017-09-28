@@ -32,10 +32,16 @@ class profile::splunk::server {
     value             => 'windows-*',
   }
 
+  ini_setting { 'serverclass-windows-technology-addon':
+    ensure            => present,
+    path              => '/opt/splunk/etc/system/local/serverclass.conf',
+    section           => 'serverClass:WindowsMachines:app:Splunk_TA_windows',
+  }
+
   # [serverClass:WindowsMachineTypes:app:WindowsApp]
-# [serverClass:LinuxMachineTypes]
-# machineTypesFilter=linux-i686, linux-x86_64
-ini_setting { 'serverclass-linux-machine-types':
+  # [serverClass:LinuxMachineTypes]
+  # machineTypesFilter=linux-i686, linux-x86_64
+  ini_setting { 'serverclass-linux-machine-types':
     ensure            => present,
     path              => '/opt/splunk/etc/system/local/serverclass.conf',
     section           => 'serverClass:LinuxMachines',
@@ -43,6 +49,17 @@ ini_setting { 'serverclass-linux-machine-types':
     setting           => 'machineTypesFilter',
     value             => 'linux-i686, linux-x86_64',
   }
+
+
+
+
+  # TODO: Somehow automate installation of Splunk Technology Addon because i need to COPY the extracted folder on the splunk server
+  # from : /opt/splunk/etc/apps/Splunk_TA_windows
+  # To:   /opt/splunk/etc/deployment-apps/Splunk_TA_windows
+  # cp -a /opt/splunk/etc/apps/Splunk_TA_windows/ /opt/splunk/etc/deployment-apps/
+
+
+
 
   # /opt/splunk/etc/system/local/web.conf
   # [settings]
