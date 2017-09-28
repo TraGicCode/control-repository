@@ -58,6 +58,15 @@ class profile::linux::splunk::universalforwarder(
     secret               => $splunk_dot_secret_file_content,
   }
 
+  ###############################################
+  # Configure forwarder to be a deployment client
+  ###############################################
+  splunkforwarder_deploymentclient { 'deployment-server':
+    section => 'target-broker:deploymentServer',
+    setting => 'targetUri',
+    value   => 'splunkserver-001.local:8089',
+  }
+
   splunkforwarder_input { 'syslog-index':
     section => 'monitor:///var/log/syslog',
     setting => 'index',
