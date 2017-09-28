@@ -4,7 +4,7 @@ node_group { 'PE Master - Customized':
   classes              => {
     'puppet_enterprise::profile::master' => {
       # r10k/code manager
-      'r10k_remote'                              => 'https://github.com/TraGicCode/control-repo.git',
+      'r10k_remote'                              => 'https://github.com/TraGicCode/control-repository.git',
       'code_manager_auto_configure'              => true,
       # graphite support             
       'metrics_graphite_enabled'                 => true,
