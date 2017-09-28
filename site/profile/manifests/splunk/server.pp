@@ -16,7 +16,7 @@ class profile::splunk::server {
   # which clients to include.  Include them all!
   ini_setting { 'serverclass-global-whitelist':
     ensure            => present,
-    path              => '/opt/splunkforwarder/etc/system/local/serverclass.conf',
+    path              => '/opt/splunk/etc/system/local/serverclass.conf',
     section           => 'global',
     key_val_separator => ' = ',
     setting           => 'whitelist.0',
@@ -25,7 +25,7 @@ class profile::splunk::server {
 
   ini_setting { 'serverclass-windows-machine-types':
     ensure            => present,
-    path              => '/opt/splunkforwarder/etc/system/local/serverclass.conf',
+    path              => '/opt/splunk/etc/system/local/serverclass.conf',
     section           => 'serverClass:WindowsMachines',
     key_val_separator => ' = ',
     setting           => 'machineTypesFilter',
@@ -37,7 +37,7 @@ class profile::splunk::server {
 # machineTypesFilter=linux-i686, linux-x86_64
 ini_setting { 'serverclass-linux-machine-types':
     ensure            => present,
-    path              => '/opt/splunkforwarder/etc/system/local/serverclass.conf',
+    path              => '/opt/splunk/etc/system/local/serverclass.conf',
     section           => 'serverClass:LinuxMachines',
     key_val_separator => ' = ',
     setting           => 'machineTypesFilter',
