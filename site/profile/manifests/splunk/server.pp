@@ -13,6 +13,36 @@ class profile::splunk::server {
 
 
   include splunk
+  # which clients to include.  Include them all!
+  ini_setting { 'serverclass-global-whitelist':
+    ensure            => present,
+    path              => '/opt/splunkforwarder/etc/system/local/serverclass.conf',
+    section           => 'global',
+    key_val_separator => ' = ',
+    setting           => 'whitelist.0',
+    value             => '*',
+  }
+
+  ini_setting { 'serverclass-windows-machine-types':
+    ensure            => present,
+    path              => '/opt/splunkforwarder/etc/system/local/serverclass.conf',
+    section           => 'serverClass:WindowsMachines',
+    key_val_separator => ' = ',
+    setting           => 'machineTypesFilter',
+    value             => 'windows-*',
+  }
+
+  # [serverClass:WindowsMachineTypes:app:WindowsApp]
+# [serverClass:LinuxMachineTypes]
+# machineTypesFilter=linux-i686, linux-x86_64
+ini_setting { 'serverclass-linux-machine-types':
+    ensure            => present,
+    path              => '/opt/splunkforwarder/etc/system/local/serverclass.conf',
+    section           => 'serverClass:LinuxMachines',
+    key_val_separator => ' = ',
+    setting           => 'machineTypesFilter',
+    value             => 'linux-i686, linux-x86_64',
+  }
 
   # /opt/splunk/etc/system/local/web.conf
   # [settings]
@@ -88,6 +118,19 @@ class profile::splunk::server {
   ######################################
   ## PuppetServer logs
   # https://docs.puppet.com/pe/latest/install_what_and_where.html#log-files-installed
+  splunk_indexes { 'g_puppetserver-index-homePath':
+    section => 'g_puppetserver',
+    setting => 'homePath',
+    value   => '$SPLUNK_DB/g_puppetserver/db',
+    require => Class['splunk'],
+  }
+
+  splunk_indexes { 'puppetserver-index-maxTotalDataSizeMB':
+    section => 'g_puppetserver',
+    setting => 'maxTotalDataSizeMB',
+    value   => '1024',
+    require => Class['splunk'],
+  }
   splunk_indexes { 'puppetserver-index-colddb':
     section => 'g_puppetserver',
     setting => 'coldPath',
