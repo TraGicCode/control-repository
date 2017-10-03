@@ -44,7 +44,7 @@ fixtures:
       ref:  '2.1.2'
     rabbitmq:
       repo: 'https://github.com/voxpupuli/puppet-rabbitmq'
-      ref:  'v7.0.0'
+      ref:  'v7.1.0'
     ravendb: 
       repo: 'https://github.com/tragiccode/tragiccode-ravendb'
       ref:  'master'
