@@ -4,7 +4,7 @@ class profile::splunk::server {
 
   # TODO:
   #      Currently i don't have an automated way to enable remote forwarding in splunk on the server
-  #      settings => forwarding and recieving => Recieve Data => Configure Recieving => enable
+  #      settings => forwarding and receiving => Receive Data => Configure Receiving => enable
   class { 'splunk::params':
       src_root => 'https://storage.googleapis.com/puppet-provisioning-binaries',
       version  => '6.6.2',

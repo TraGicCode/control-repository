@@ -57,7 +57,7 @@ First you will need to generate some encryption keys.  Simply run the following 
 ```
 
 
-The content you want encrypted should live in a file with the .eyaml extension.  It should intially have the unencrypted value wrapped in some markers eyaml expects to find
+The content you want encrypted should live in a file with the .eyaml extension.  It should initially have the unencrypted value wrapped in some markers eyaml expects to find
 
 Example
 ```

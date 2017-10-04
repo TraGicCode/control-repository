@@ -7,7 +7,7 @@ class profile::windows::sqlserver {
   # Setup Svc account
   # Change where logs are stored
 
-  # Apparantly this can be done.  I guess to protect the iso?
+  # Apparently this can be done.  I guess to protect the iso?
   #The ISO Must have execute rights on it so make sure our service has rights to mount it
   # acl { 'c:/staging/profile/SQLServer2014-x64-ENU.iso':
   #   permissions  => [
