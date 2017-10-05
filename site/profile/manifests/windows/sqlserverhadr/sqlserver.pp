@@ -42,4 +42,40 @@ class profile::windows::sqlserverhadr::sqlserver(
   #       'password' => $domain_administrator_password,
   #     },
   # }
+
+  splunkforwarder_input { 'windows-eventlog-failoverclustering-operational-index':
+    section => 'WinEventLog://Microsoft-Windows-FailoverClustering/Operational',
+    setting => 'index',
+    value   => 'wineventlog',
+  }
+
+  splunkforwarder_input { 'windows-eventlog-failoverclustering-operational-sourcetype':
+    section => 'WinEventLog://Microsoft-Windows-FailoverClustering/Operational',
+    setting => 'sourcetype',
+    value   => 'WinEventLog:System',
+  }
+
+  splunkforwarder_input { 'windows-eventlog-failoverclustering-operational-disabled':
+    section => 'WinEventLog://Microsoft-Windows-FailoverClustering/Operational',
+    setting => 'disabled',
+    value   => 0,
+  }
+
+  splunkforwarder_input { 'windows-eventlog-failoverclustering-diagnostic-index':
+    section => 'WinEventLog://Microsoft-Windows-FailoverClustering/Diagnostic',
+    setting => 'index',
+    value   => 'wineventlog',
+  }
+
+  splunkforwarder_input { 'windows-eventlog-failoverclustering-diagnostic-sourcetype':
+    section => 'WinEventLog://Microsoft-Windows-FailoverClustering/Diagnostic',
+    setting => 'sourcetype',
+    value   => 'WinEventLog:System',
+  }
+
+  splunkforwarder_input { 'windows-eventlog-failoverclustering-diagnostic-disabled':
+    section => 'WinEventLog://Microsoft-Windows-FailoverClustering/Diagnostic',
+    setting => 'disabled',
+    value   => 0,
+  }
 }
