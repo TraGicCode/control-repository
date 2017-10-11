@@ -8,9 +8,8 @@ class profile::windows::splunk::universalforwarder(
 
   class { 'splunk::params':
     server   => 'splunkserver-001.local',
-    src_root => 'https://storage.googleapis.com/puppet-provisioning-binaries/splunk',
-    version  => '6.6.2',
-    build    => '4b804538c686',
+    version  => '7.0.0',
+    build    => 'c8a78efdd40f',
   }
 
   class { 'splunk::forwarder':
