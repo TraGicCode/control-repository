@@ -54,7 +54,7 @@ class profile::windows::activedirectory::domaincontroller(
       require                           => Dsc_windowsfeature['AD-Domain-Services'],
       notify                            => Reboot['new_domain_controller_reboot'],
     }
-    # TODO: pick Ethernet 2 when running inside virtualbox
+
     dsc_xdnsserveraddress { 'DnsServerAddresses':
       ensure             => 'present',
       dsc_address        => '127.0.0.1',
