@@ -38,7 +38,7 @@ class profile::splunk::server {
     section           => 'serverClass:WindowsMachines:app:Splunk_TA_windows',
     key_val_separator => ' = ',
     setting           => 'restartIfNeeded',
-    value             => 'true',
+    value             => true,
   }
 
 
