@@ -13,56 +13,45 @@ class profile::splunk::server {
 
 
   include splunk
+
   # which clients to include.  Include them all!
-  ini_setting { 'serverclass-global-whitelist':
-    ensure            => present,
-    path              => '/opt/splunk/etc/system/local/serverclass.conf',
-    section           => 'global',
-    key_val_separator => ' = ',
-    setting           => 'whitelist.0',
-    value             => '*',
+  splunk_serverclass { 'serverclass-global-whitelist':
+    section => 'global',
+    setting => 'whitelist.0',
+    value   => '*',
+    require => Class['splunk'],
   }
 
-  ini_setting { 'serverclass-windows-machine-types':
-    ensure            => present,
-    path              => '/opt/splunk/etc/system/local/serverclass.conf',
-    section           => 'serverClass:WindowsMachines',
-    key_val_separator => ' = ',
-    setting           => 'machineTypesFilter',
-    value             => 'windows-*',
+  # Which server classes we have
+  splunk_serverclass { 'serverclass-windows-machines':
+    section => 'serverClass:WindowsMachines',
+    setting => 'machineTypesFilter',
+    value   => 'windows-*',
+    require => Class['splunk'],
   }
 
-  ini_setting { 'serverclass-windows-technology-addon':
-    ensure            => present,
-    path              => '/opt/splunk/etc/system/local/serverclass.conf',
-    section           => 'serverClass:WindowsMachines:app:Splunk_TA_windows',
-    key_val_separator => ' = ',
-    setting           => 'restartIfNeeded',
-    value             => true,
+  splunk_serverclass { 'serverclass-windows-technology-addon':
+    section => 'serverClass:WindowsMachines:app:Splunk_TA_windows',
+    setting => 'restartIfNeeded',
+    value   => true,
+    require => Class['splunk'],
   }
-
 
   # [serverClass:WindowsMachineTypes:app:WindowsApp]
   # [serverClass:LinuxMachineTypes]
   # machineTypesFilter=linux-i686, linux-x86_64
-  ini_setting { 'serverclass-linux-machine-types':
-    ensure            => present,
-    path              => '/opt/splunk/etc/system/local/serverclass.conf',
-    section           => 'serverClass:LinuxMachines',
-    key_val_separator => ' = ',
-    setting           => 'machineTypesFilter',
-    value             => 'linux-i686, linux-x86_64',
+  splunk_serverclass { 'serverclass-linux-machines':
+    section => 'serverClass:LinuxMachines',
+    setting => 'machineTypesFilter',
+    value   => 'linux-i686, linux-x86_64',
+    require => Class['splunk'],
   }
-
-
 
 
   # TODO: Somehow automate installation of Splunk Technology Addon because i need to COPY the extracted folder on the splunk server
   # from : /opt/splunk/etc/apps/Splunk_TA_windows
   # To:   /opt/splunk/etc/deployment-apps/Splunk_TA_windows
   # cp -a /opt/splunk/etc/apps/Splunk_TA_windows/ /opt/splunk/etc/deployment-apps/
-
-
 
 
   # /opt/splunk/etc/system/local/web.conf
