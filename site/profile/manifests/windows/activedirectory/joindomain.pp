@@ -11,7 +11,7 @@ class profile::windows::activedirectory::joindomain(
     dsc_joinou     => $domain_join_ou,
     dsc_credential => {
       'user'     => $domain_join_username,
-      'password' => $domain_join_password
+      'password' => Sensitive($domain_join_password),
     },
   }
 

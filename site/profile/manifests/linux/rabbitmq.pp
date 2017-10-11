@@ -17,6 +17,6 @@ class profile::linux::rabbitmq {
   rabbitmq_user { 'administrator':
     ensure   => 'present',
     admin    => true,
-    password => 'administrator',
+    password => Sensitive('administrator'),
   }
 }

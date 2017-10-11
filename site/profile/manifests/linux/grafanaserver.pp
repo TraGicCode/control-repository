@@ -3,7 +3,6 @@
 #
 class profile::linux::grafanaserver {
 
-    notify { 'hello world!': }
     class { 'graphite': }
     class { 'grafana':
       install_method => 'package',
@@ -32,13 +31,13 @@ class profile::linux::grafanaserver {
     is_default       => true,
     grafana_url      => 'http://localhost:3000',
     grafana_user     => 'admin',
-    grafana_password => 'admin',
+    grafana_password => Sensitive('admin'),
   }
 
   grafana_dashboard { 'puppetmaster-stats':
     grafana_url      => 'http://localhost:3000',
     grafana_user     => 'admin',
-    grafana_password => 'admin',
+    grafana_password => Sensitive('admin'),
     content          => file('profile/linux/grafanaserver/puppetmaster-metrics-dashboard.json'),
   }
 

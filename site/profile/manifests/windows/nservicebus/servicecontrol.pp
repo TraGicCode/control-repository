@@ -9,6 +9,6 @@ class profile::windows::nservicebus::servicecontrol {
         package_name                       => 'Particular Software ServiceControl Management',
         package_install_options_log_path   => 'C:\\Particular.ServiceControl.install.log',
         package_uninstall_options_log_path => 'C:\\Particular.ServiceControl.uninstall.log',
-        # license_xml                        => '',
+        # license_xml                        => Sensitive(''),
     }
 }

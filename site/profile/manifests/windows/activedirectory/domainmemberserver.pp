@@ -19,7 +19,7 @@ class profile::windows::activedirectory::domainmemberserver(
     dsc_domainname => $domain_name,
     dsc_credential => {
         'user'     => $domain_join_username,
-        'password' => $domain_join_password,
+        'password' => Sensitive($domain_join_password),
     },
     notify         => Reboot['new_domain_member_server'],
   }

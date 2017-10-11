@@ -101,7 +101,7 @@ class profile::windows::sqlserver {
     # dsc_setupprocesstimeout => 7200, # 2 hours
     dsc_setupcredential     => {
         'user'     => 'vagrant',
-        'password' => 'vagrant',
+        'password' => Sensitive('vagrant'),
     },
   }
 
