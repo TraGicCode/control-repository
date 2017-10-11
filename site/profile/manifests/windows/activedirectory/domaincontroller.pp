@@ -60,7 +60,7 @@ class profile::windows::activedirectory::domaincontroller(
       dsc_address        => '127.0.0.1',
       dsc_interfacealias => 'Ethernet 2',
       dsc_addressfamily  => 'IPv4',
-      # dsc_validate       => true,
+      dsc_validate       => true,
     }
   } else {
 
