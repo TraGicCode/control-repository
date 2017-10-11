@@ -60,7 +60,7 @@ class profile::windows::activedirectory::domaincontroller(
       dsc_address        => $facts['networking']['ip'],
       dsc_interfacealias => $facts['networking']['primary'],
       dsc_addressfamily  => 'IPv4',
-      dsc_validate       => true,
+      # dsc_validate       => true,
     }
   } else {
 
@@ -71,7 +71,7 @@ class profile::windows::activedirectory::domaincontroller(
       dsc_address        => [ $first_dc_internal_ipv4_address ],
       dsc_interfacealias => $facts['networking']['primary'],
       dsc_addressfamily  => 'IPv4',
-      dsc_validate       => true,
+      # dsc_validate       => true,
     }
 
     # TODO: Should we have code to wait for the domain to exist before adding an additional domain controller?
