@@ -37,7 +37,7 @@ class profile::windows::sqlserver {
     dsc_sourcepath          => 'D:\\',
     #dsc_sourcecredential   => {
     #     'user'     => $domain_administrator_user,
-    #     'password' => $domain_administrator_password,
+    #     'password' => Sensitive($domain_administrator_password),
     # },
     dsc_suppressreboot      => false,
     dsc_forcereboot         => true,
@@ -55,11 +55,11 @@ class profile::windows::sqlserver {
     # dsc_InstanceDir => 'C:\\Program Files\\Microsoft SQL Server',
     # dsc_sqlsvcaccount   => {
     #     'user'     => $domain_administrator_user,
-    #     'password' => $domain_administrator_password,
+    #     'password' => Sensitive($domain_administrator_password),
     # },
     # dsc_agtsvcaccount   => {
     #     'user'     => $domain_administrator_user,
-    #     'password' => $domain_administrator_password,
+    #     'password' => Sensitive($domain_administrator_password),
     # },
     # dsc_sqlcollation => '',
     dsc_sqlsysadminaccounts => ['vagrant'],
@@ -73,15 +73,15 @@ class profile::windows::sqlserver {
     # dsc_sqlbackupdir        => 'C:\\Program Files\\Microsoft SQL Server\\MSSQL13.MSSQLSERVER\\MSSQL\\Backup',
     # dsc_ftsvcaccount   => {
     #     'user'     => 'vagrant',
-    #     'password' => 'vagrant',
+    #     'password' => Sensitive('vagrant'),
     # },
     # dsc_rssvcaccount   => {
     #     'user'     => 'vagrant',
-    #     'password' => 'vagrant',
+    #     'password' => Sensitive('vagrant'),
     # },
     # dsc_assvcaccount   => {
     #     'user'     => 'vagrant',
-    #     'password' => 'vagrant',
+    #     'password' => Sensitive('vagrant'),
     # },
     # dsc_ascollation => 'SQL_Latin1_General_CP1_CI_AS',
     # dsc_assysadminaccounts => ['vagrant'],
@@ -92,7 +92,7 @@ class profile::windows::sqlserver {
     # dsc_asconfdir           =>  'C:\\MSOLAP\\Config',
     # dsc_issvcaccount   => {
     #     'user'     => 'vagrant',
-    #     'password' => 'vagrant',
+    #     'password' => Sensitive('vagrant'),
     # },
     # dsc_browsersvcstartuptype => 'Automatic',
     # dsc_failoverclustergroupname => 'SQL Server (MSSQLSERVER)',

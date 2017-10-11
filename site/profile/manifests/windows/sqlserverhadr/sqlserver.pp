@@ -8,6 +8,8 @@ class profile::windows::sqlserverhadr::sqlserver(
   Pattern[/^\d+\.\d+\.\d+\.\d+$/] $fail_over_cluster_static_ip,
 ) {
 
+  redact('domain_administrator_password')
+
   dsc_windowsfeature { 'Failover-Clustering':
     dsc_ensure => 'present',
     dsc_name   => 'Failover-Clustering',

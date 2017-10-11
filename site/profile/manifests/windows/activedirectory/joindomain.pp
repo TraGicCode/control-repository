@@ -5,6 +5,8 @@ class profile::windows::activedirectory::joindomain(
   String $domain_join_ou,
 ) {
 
+  redact('domain_join_password')
+
   dsc_xcomputer { "Join ${domain_name} domain":
     dsc_name       => $facts['hostname'],
     dsc_domainname => $domain_name,

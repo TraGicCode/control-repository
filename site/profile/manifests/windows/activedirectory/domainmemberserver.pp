@@ -13,6 +13,8 @@ class profile::windows::activedirectory::domainmemberserver(
   # String $domain_join_ou,
 ) {
 
+  redact('domain_join_password')
+
   dsc_xcomputer { "join ${domain_name} domain":
     ensure         => 'present',
     dsc_name       => $facts['hostname'],
