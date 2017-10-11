@@ -14,20 +14,7 @@ profile::windows::common::activedirectory::domain_administrator_password: >
     NEK5GQhxTq+xCd/YbkO6iq7rGHdvqreuQiGi7LuNazK+0Tb60m2kWPEsrqYd
     itCPOjA8BgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBCpfgmXB3TVaODWjINN
     hNSKgBCFAmGC+3esTB8fxO1AVAxi]
-profile::linux::splunk::universalforwarder::splunk_dot_secret_file_content: >
-    ENC[PKCS7,MIICKwYJKoZIhvcNAQcDoIICHDCCAhgCAQAxggEhMIIBHQIBADAFMAACAQEw
-    DQYJKoZIhvcNAQEBBQAEggEAM048Gcz5dTJ/OvSjEPuqFhs0lcC8cGbevspx
-    4DNTOkeqYxIaY+lfqxw4YjwQ4CdVMxENFJA38k0aKJ09hWdyQ6cqod7s6NeK
-    I4hlQtuPzLWYOySR5LNtqr4L1x1gK8pN72yIZVXfad7gSZxA+J0hBcnfnfiD
-    Q17WURZDv/Enw6OPXteASvpWHSwGpUa/edT2vZSzolmtzVkkaShE8RHp/Zcq
-    qThD4hgxtBYSc2YqPcI/8u32yTyOxPbo6jP69KEYS2qSYZ2h74dNx9Er9kXG
-    T1DmcpQUQczzmW4kpzDBHYls5Ka/QgJ1fDga2A7L7KUF39o4+1WBmL3l3Xsv
-    ljGV5TCB7QYJKoZIhvcNAQcBMB0GCWCGSAFlAwQBKgQQsSbP3vzS2ZQ8FRUm
-    KZM16oCBwHlA0DNTbkaT/WUGbDAEkzRaw8cLQbWdqHY1yJEWFqrC3jV7yxow
-    ksIPdxYz1clJHg+b0A+fzOr2F+f/hfKevP+/ccXQGIdvwg3vxZnEyzWVi9rk
-    GChl0szjjvFdgtbiAc7VND7cknhPY6Grg5un/u0KTp+/XN3rgjwhpEaeob/1
-    L0q56lyl23I7Fhqzjh3VPg3+zz9cp7t7CGBkjCrBzUNEfBSI8PudkSyIL/x3
-    lYqTcAUJQ9qOvuN7Bb3vJSXN8g==]
+profile::linux::splunk::universalforwarder::splunk_dot_secret_file_content: "%{lookup('profile::windows::splunk::universalforwarder::splunk_dot_secret_file_content')}"
 profile::windows::splunk::universalforwarder::splunk_dot_secret_file_content: >
     ENC[PKCS7,MIICKwYJKoZIhvcNAQcDoIICHDCCAhgCAQAxggEhMIIBHQIBADAFMAACAQEw
     DQYJKoZIhvcNAQEBBQAEggEAM048Gcz5dTJ/OvSjEPuqFhs0lcC8cGbevspx
