@@ -13,7 +13,7 @@ class profile::windows::activedirectory::users(
     dsc_username    => 'ad_principal_manager',
     dsc_password    => {
     'user'     => 'this is ignored', # this is ignored...... its a PSCredential thing...
-    'password' => Sensitive($domain_administrator_password),
+    'password' => Sensitive.new($domain_administrator_password),
   },
     dsc_description => 'Managed by Puppet! Changes made manually may be lost.',
   }
@@ -26,7 +26,7 @@ class profile::windows::activedirectory::users(
     dsc_username    => 'sql_server_admin',
     dsc_password    => {
     'user'     => 'this is ignored', # this is ignored...... its a PSCredential thing...
-    'password' => Sensitive($domain_administrator_password),
+    'password' => Sensitive.new($domain_administrator_password),
   },
     dsc_description => 'Managed by Puppet! Changes made manually may be lost.',
   }

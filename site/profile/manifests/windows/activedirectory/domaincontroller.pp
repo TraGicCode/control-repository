@@ -38,14 +38,14 @@ class profile::windows::activedirectory::domaincontroller(
       dsc_domainname                    => $domain_name,
       dsc_safemodeadministratorpassword => {
         'user'     => 'this is ignored', # this is ignored...... its a PSCredential thing...
-        'password' => Sensitive($safe_mode_administrator_password),
+        'password' => Sensitive.new($safe_mode_administrator_password),
       },
       # NOTE:
       # The domain credentials are not used/utilized if this is the first domain in a new forest.  These are only actually used
       # when your creating a child domain and want to join the child domain to the parent domain.
       dsc_domainadministratorcredential => {
         'user'     => $domain_administrator_user,
-        'password' => Sensitive($domain_administrator_password),
+        'password' => Sensitive.new($domain_administrator_password),
       },
       dsc_domainnetbiosname             => $domain_net_bios_name, # 15 character limit...
       dsc_databasepath                  => 'C:\\Windows\\NTDS',
@@ -89,14 +89,14 @@ class profile::windows::activedirectory::domaincontroller(
       dsc_domainname                    => $domain_name,
       dsc_safemodeadministratorpassword => {
         'user'     => 'this is ignored', # this is ignored...... its a PSCredential thing...
-        'password' => Sensitive($safe_mode_administrator_password),
+        'password' => Sensitive.new($safe_mode_administrator_password),
       },
       # NOTE:
       # The domain credentials are not used/utilized if this is the first domain in a new forest.  These are only actually used
       # when your creating a child domain and want to join the child domain to the parent domain.
       dsc_domainadministratorcredential => {
         'user'     => $domain_administrator_user,
-        'password' => Sensitive($domain_administrator_password),
+        'password' => Sensitive.new($domain_administrator_password),
       },
       dsc_databasepath                  => 'C:\\Windows\\NTDS',
       dsc_logpath                       => 'C:\\Windows\\NTDS',
