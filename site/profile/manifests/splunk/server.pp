@@ -60,7 +60,7 @@ class profile::splunk::server {
     section           => 'wineventlog-index',
     key_val_separator => ' = ',
     setting           => 'definition',
-    value             => '(index=g_wineventlog OR index=main)',
+    value             => '(index="g_wineventlog" OR index="main")',
     require           => Class['splunk'],
   }
 
