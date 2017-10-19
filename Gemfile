@@ -6,7 +6,7 @@ gem 'puppet', puppetversion
 gem 'puppetlabs_spec_helper', '>= 1.0.0'
 gem 'puppet-lint', '>= 1.0.0'
 gem 'facter', '>= 1.7.0'
-gem 'rspec-puppet', :git => 'https://github.com/tragiccode/rspec-puppet.git', :branch => 'handle_more_w32_gems'
+gem 'rspec-puppet'
 gem 'guard-rake'
 gem 'ra10ke'
 gem 'generate-puppetfile'
