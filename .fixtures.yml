@@ -3,12 +3,12 @@ fixtures:
     profile: "#{source_dir}/site/profile"
     role: "#{source_dir}/site/role"
   repositories:
-    apt:
-      repo: 'https://github.com/puppetlabs/puppetlabs-apt'
-      ref:  '4.2.0'
     archive:
       repo: 'https://github.com/voxpupuli/puppet-archive'
-      ref:  '2.0.0'
+      ref:  '2.1.0'
+    apt:
+      repo: 'https://github.com/puppetlabs/puppetlabs-apt'
+      ref:  '4.3.0'
     chocolatey:
       repo: 'https://github.com/puppetlabs/puppetlabs-chocolatey'
       ref:  '3.0.0'
