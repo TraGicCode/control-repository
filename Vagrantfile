@@ -247,7 +247,7 @@ Vagrant.configure('2') do |config|
   config.vm.define 'wsusserv-001' do |node|
     node.vm.hostname = 'wsusserv-001'
     node.vm.network :private_network, :ip => '10.20.1.15'
-    node.vm.box = 'tragiccode/windows-2016-standard'
+    node.vm.box = 'tragiccode/windows-server-2016-standard'
     node.vm.provider "virtualbox" do |v|
       v.memory = 2048
       v.linked_clone = true
