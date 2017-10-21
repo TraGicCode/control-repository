@@ -268,3 +268,6 @@ A quick way to get into an IRB console to play around with ruby code is to use p
 ```
 > vagrant winrm-upload 'C:\vox\puppet-windowsfeature' 'C:\ProgramData\Puppetlabs\code\modules' dc-001
 ```
+
+# Possible Issues with vagrant
+https://github.com/hashicorp/vagrant/issues/8785
