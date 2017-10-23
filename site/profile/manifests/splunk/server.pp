@@ -54,15 +54,15 @@ class profile::splunk::server {
   # definition = index=main
   # [msad-index]
   # definition = index=main
-  ini_setting { 'windows-app-infrastructure-wineventlog-index-macro':
-    ensure            => present,
-    path              => '/opt/splunk/etc/apps/splunk_app_windows_infrastructure/default/macros.conf',
-    section           => 'wineventlog-index',
-    key_val_separator => ' = ',
-    setting           => 'definition',
-    value             => '(index="g_wineventlog" OR index="main")',
-    require           => Class['splunk'],
-  }
+ # ini_setting { 'windows-app-infrastructure-wineventlog-index-macro':
+ #   ensure            => present,
+ #  path              => '/opt/splunk/etc/apps/splunk_app_windows_infrastructure/default/macros.conf',
+ #  section           => 'wineventlog-index',
+ #  key_val_separator => ' = ',
+ #   setting           => 'definition',
+ #   value             => '(index="g_wineventlog" OR index="main")',
+ #   require           => Class['splunk'],
+ # }
 
 
   # TODO: Somehow automate installation of Splunk Technology Addon because i need to COPY the extracted folder on the splunk server
