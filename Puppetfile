@@ -27,6 +27,7 @@ mod 'puppetlabs/reboot', '1.2.1'
 mod 'puppetlabs/registry', '1.1.4'
 mod 'puppetlabs/ruby', '1.0.0'
 mod 'puppetlabs/stdlib', '4.20.0'
+mod 'puppetlabs/wsus_client', '1.0.3'
 mod 'stahnma/epel', '1.2.2'
 mod 'golja/gnupg', '1.2.3'
 
