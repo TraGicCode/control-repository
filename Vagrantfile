@@ -57,7 +57,7 @@ Vagrant.configure('2') do |config|
   config.vm.define :windowsagent do |node|
     node.vm.hostname = 'winagent-001'
     node.vm.network :private_network, :ip => '10.20.1.3'
-    node.vm.box = 'tragiccode/windows-2016-standard'
+    node.vm.box = 'tragiccode/windows-server-2016-standard'
     node.vm.provider "virtualbox" do |v|
       v.linked_clone = true
     end
@@ -65,12 +65,13 @@ Vagrant.configure('2') do |config|
     node.vm.provision :pe_agent do |p|
       p.master_vm = 'puppetmaster'
     end
-    # node.vm.provision "shell", inline: <<-POWERSHELL
-    # [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true};
-    # $webClient = New-Object System.Net.WebClient;
-    # $webClient.DownloadFile('https://testmaster.local:8140/packages/current/install.ps1', 'install.ps1');
-    # .\\install.ps1
-    # POWERSHELL
+    node.vm.provision :hosts, :sync_hosts => true
+    node.vm.provision "shell", inline: <<-POWERSHELL
+    [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true};
+    $webClient = New-Object System.Net.WebClient;
+    $webClient.DownloadFile('https://puppetmaster-001.local:8140/packages/current/install.ps1', 'install.ps1');
+    .\\install.ps1
+    POWERSHELL
   end
 
   config.vm.define :linuxforwarder do |node|
