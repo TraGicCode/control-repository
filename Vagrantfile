@@ -1,4 +1,4 @@
-PE_VERSION = '2017.3.1'
+PE_VERSION = '2017.3.2'
 
 # Way to install vagrant plugins automatically on vagrant up
 # required_plugins = %w(vagrant-reload)
