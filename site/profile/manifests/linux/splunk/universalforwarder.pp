@@ -29,9 +29,9 @@ class profile::linux::splunk::universalforwarder(
 
 
   class { 'splunk::params':
-    server   => 'splunkserver-001.local',
-    version  => '7.0.0',
-    build    => 'c8a78efdd40f',
+    server  => 'splunkserver-001.local',
+    version => '7.0.0',
+    build   => 'c8a78efdd40f',
   }
 
 

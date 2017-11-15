@@ -7,9 +7,9 @@ class profile::windows::splunk::universalforwarder(
   redact('splunk_dot_secret_file_content')
 
   class { 'splunk::params':
-    server   => 'splunkserver-001.local',
-    version  => '7.0.0',
-    build    => 'c8a78efdd40f',
+    server  => 'splunkserver-001.local',
+    version => '7.0.0',
+    build   => 'c8a78efdd40f',
   }
 
   class { 'splunk::forwarder':

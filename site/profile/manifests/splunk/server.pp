@@ -6,8 +6,8 @@ class profile::splunk::server {
   #      Currently i don't have an automated way to enable remote forwarding in splunk on the server
   #      settings => forwarding and receiving => Receive Data => Configure Receiving => enable
   class { 'splunk::params':
-      version  => '7.0.0',
-      build    => 'c8a78efdd40f',
+      version => '7.0.0',
+      build   => 'c8a78efdd40f',
   }
 
   include splunk
