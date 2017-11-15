@@ -12,6 +12,7 @@ describe 'role::ravendb' do
         staged_package:         nil,
       }
     end
+
     it { is_expected.to compile }
   end
 end

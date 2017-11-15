@@ -10,7 +10,7 @@ describe 'role::grafanaserver' do
         kernel: 'Linux',
         architecture: 'amd64',
         lsbdistcodename: 'xenial',
-        :os                     => { family: 'Debian', },
+        os: { family: 'Debian' },
         # :jenkins_plugins        => nil,
       }
     end

@@ -7,7 +7,7 @@ describe 'role::splunkserver' do
         osfamily: 'Debian',
         kernel: 'Linux',
         architecture: 'amd64',
-        :os                     => { family: 'Debian', },
+        os: { family: 'Debian' },
       }
     end
 

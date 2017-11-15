@@ -9,7 +9,7 @@ describe 'role::squidproxy' do
         operatingsystemrelease: '16.04',
         kernel: 'Linux',
         architecture: 'amd64',
-        :os                     => { family: 'Debian', },
+        os: { family: 'Debian' },
       }
     end
 

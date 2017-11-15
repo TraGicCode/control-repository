@@ -28,7 +28,7 @@ describe 'role::puppetserver' do
         # staging_windir:         'C:\\ProgramData\\staging',
         # path:                   'C:\\ProgramData\\staging',
         # staged_package:         nil,
-        :os                     => { family: 'Debian', },
+        os: { family: 'Debian' },
         # networking: { 'primary' => 'Ethernet' },
       }
     end

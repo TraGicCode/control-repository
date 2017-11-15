@@ -12,7 +12,7 @@ describe 'role::vault' do
         kernel: 'Linux',
         networking: { 'ip' => '10.0.2.10' },
         hostname: 'g-x-00-wi-pup001',
-        :os                     => { family: 'Debian', },
+        os: { family: 'Debian' },
       }
     end
 
