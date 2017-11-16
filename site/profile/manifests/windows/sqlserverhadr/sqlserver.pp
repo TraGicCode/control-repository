@@ -41,7 +41,7 @@ class profile::windows::sqlserverhadr::sqlserver(
   #   dsc_staticipaddress               => $fail_over_cluster_static_ip,
   #   dsc_domainadministratorcredential => {
   #       'user'     => $domain_administrator_user,
-  #       'password' => Sensitive($domain_administrator_password),
+  #       'password' => $domain_administrator_password,
   #     },
   # }
 
