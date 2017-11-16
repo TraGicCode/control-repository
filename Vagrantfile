@@ -19,7 +19,6 @@ Vagrant.configure('2') do |config|
 
   config.vm.define :puppetmaster do |node|
     node.vm.hostname = 'puppetmaster-001.local'
-    node.vm.network "public_network", ip: "192.168.1.70"
     node.vm.network :private_network, :ip => '10.20.1.2'
     node.vm.box = 'puppetlabs/ubuntu-16.04-64-nocm'
     node.vm.synced_folder ".", "/vagrant"
