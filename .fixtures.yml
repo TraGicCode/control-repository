@@ -47,7 +47,7 @@ fixtures:
       ref:  'v8.0.0'
     ravendb: 
       repo: 'https://github.com/tragiccode/tragiccode-ravendb'
-      ref:  'v0.2.0'
+      ref:  'v0.3.0'
     reboot:
       repo: 'https://github.com/puppetlabs/puppetlabs-reboot'
       ref:  '1.2.1'
