@@ -2,9 +2,10 @@
 #
 #
 class role::test {
-  include profile::base
-  include profile::linux::splunk::universalforwarder
-
-  Class['profile::base']
-  -> Class['profile::linux::splunk::universalforwarder']
+  # TODO Export a resource with the domain information so that other resources can figure out how to join the domain correctly.
+  @@host { $facts['fqdn']:
+      #host_aliases =< [],
+      ip           => $facts['networking']['ip'],
+  }
+  Host <<| |>>
 }
