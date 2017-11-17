@@ -8,6 +8,8 @@ puppet_enterprise::master::code_manager::post_environment_hooks:
 #NOTE: i never got this to work
 pe_puppetdb::pe::listen_address: '0.0.0.0'
 
+profile::windows::common::activedirectory::domain_administrator_user: 'tragiccode\ad_principal_manager'
+
 profile::windows::activedirectory::domaincontroller::domain_net_bios_name: 'TRAGICCODE'
 profile::windows::activedirectory::domaincontroller::domain_administrator_user: "%{lookup('profile::windows::common::activedirectory::domain_administrator_user')}"
 profile::windows::activedirectory::domaincontroller::is_first_dc: false
