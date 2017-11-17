@@ -8,7 +8,6 @@ puppet_enterprise::master::code_manager::post_environment_hooks:
 #NOTE: i never got this to work
 pe_puppetdb::pe::listen_address: '0.0.0.0'
 
-profile::windows::activedirectory::domaincontroller::domain_name: "%{lookup('profile::windows::common::activedirectory::domain_name')}"
 profile::windows::activedirectory::domaincontroller::domain_net_bios_name: 'TRAGICCODE'
 profile::windows::activedirectory::domaincontroller::domain_administrator_user: "%{lookup('profile::windows::common::activedirectory::domain_administrator_user')}"
 profile::windows::activedirectory::domaincontroller::is_first_dc: false
@@ -17,25 +16,17 @@ profile::windows::activedirectory::domaincontroller::first_dc_internal_ipv4_addr
 profile::windows::dnsclient::primary_dnsserver_internal_ipv4_address: 10.20.1.7
 profile::windows::dnsclient::alternate_dnsserver_internal_ipv4_address: 10.20.1.8
 
-profile::windows::activedirectory::domainmemberserver::domain_name: "%{lookup('profile::windows::common::activedirectory::domain_name')}"
+profile::windows::activedirectory::domainmemberserver::domain_name: "%{lookup('profile::windows::activedirectory::data::domain_name')}"
 profile::windows::activedirectory::domainmemberserver::domain_join_username: "%{lookup('profile::windows::common::activedirectory::domain_administrator_user')}"
 
-profile::linux::base::domain_name: "%{lookup('profile::windows::common::activedirectory::domain_name')}"
+profile::linux::base::domain_name: "%{lookup('profile::windows::activedirectory::data::domain_name')}"
 
 profile::windows::sqlserverhadr::sqlserver::domain_administrator_user: "%{lookup('profile::windows::common::activedirectory::domain_administrator_user')}"
 profile::windows::sqlserverhadr::sqlserver::fail_over_cluster_static_ip: 10.20.1.22
 
-# Example1 : Preventing hiera duplication
-profile::domaincontrollertest::some_parameter: 'this is a random value'
-profile::domainmemberserver::some_parameter_again: 'this is another random value'
-profile::domainbase::domain_name: 'tragiccode.local'
-# Example2 : Preventing hiera duplication
-profile::domaincontrollertest_again::domain_name: "%{lookup('profile::windows::common::activedirectory::domain_name')}"
 
-
-# All constants/common stuff that needs to be reused across profiles goes here
-profile::windows::common::activedirectory::domain_name: 'tragiccode.local'
-profile::windows::common::activedirectory::domain_administrator_user: 'tragiccode\ad_principal_manager'
+# Base/Data classes should go below here
+profile::windows::activedirectory::data::domain_name: 'tragiccode.local'
 
 
 

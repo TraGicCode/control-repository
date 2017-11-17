@@ -9,14 +9,14 @@
 # @param domain_administrator_password [String] The password for the domain administrator account for the domain.
 #
 class profile::windows::activedirectory::domaincontroller(
-  Pattern[/\./] $domain_name,
   String[1, 15] $domain_net_bios_name,
   String $safe_mode_administrator_password,
   String $domain_administrator_user,
   String $domain_administrator_password,
   Boolean $is_first_dc,
   Optional[Pattern[/^\d+\.\d+\.\d+\.\d+$/]] $first_dc_internal_ipv4_address = undef,
-) {
+  Pattern[/\./] $domain_name = $profile::windows::activedirectory::data::domain_name,
+) inherits profile::windows::activedirectory::data {
 
   redact('safe_mode_administrator_password')
   redact('domain_administrator_password')

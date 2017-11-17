@@ -7,11 +7,11 @@
 #
 # TODO: Look at making the dc ip addresses not hardcoded?
 class profile::windows::activedirectory::domainmemberserver(
-  Pattern[/\./] $domain_name,
   String $domain_join_username,
   String $domain_join_password,
   # String $domain_join_ou,
-) {
+  Pattern[/\./] $domain_name = $profile::windows::activedirectory::data::domain_name,
+) inherits profile::windows::activedirectory::data {
 
   redact('domain_join_password')
 

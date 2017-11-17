@@ -1,7 +1,9 @@
 # Class: profile::windows::activedirectory::dnsserver
 #
 #
-class profile::windows::activedirectory::dnsserver {
+class profile::windows::activedirectory::dnsserver(
+  Pattern[/\./] $domain_name = $profile::windows::activedirectory::data::domain_name,
+) inherits profile::windows::activedirectory::data {
     # Remove all 0's since these are the host portion of the ip
     $network = regsubst( $facts['networking']['network'], '(\.0)+$', '')
     # Extract parts of the ip into an array
@@ -20,7 +22,7 @@ class profile::windows::activedirectory::dnsserver {
 
     dsc_xdnsserveradzone { 'Forward Lookup Zone':
       dsc_ensure           => 'present',
-      dsc_name             => 'tragiccode.local',
+      dsc_name             => $domain_name,
       dsc_replicationscope => 'Forest',
       dsc_dynamicupdate    => 'Secure',
     }
