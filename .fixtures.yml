@@ -5,10 +5,10 @@ fixtures:
   repositories:
     archive:
       repo: 'https://github.com/voxpupuli/puppet-archive'
-      ref:  '2.1.0'
+      ref:  '2.2.0'
     apt:
       repo: 'https://github.com/puppetlabs/puppetlabs-apt'
-      ref:  '4.4.0'
+      ref:  '4.4.1'
     chocolatey:
       repo: 'https://github.com/puppetlabs/puppetlabs-chocolatey'
       ref:  '3.0.0'
@@ -26,10 +26,10 @@ fixtures:
       ref:  'v7.2.0'
     inifile:
       repo: 'https://github.com/puppetlabs/puppetlabs-inifile'
-      ref:  '2.0.0'
+      ref:  '2.1.0'
     java:
       repo: 'https://github.com/puppetlabs/puppetlabs-java'
-      ref:  '2.1.1'
+      ref:  '2.3.0'
     jenkins:
       repo: 'https://github.com/jenkinsci/puppet-jenkins'
       ref:  '23df7764d58aed80b573621b102f82a702217a7a'
@@ -71,7 +71,7 @@ fixtures:
       ref:  'v3.0.0'
     stdlib:
       repo: 'https://github.com/puppetlabs/puppetlabs-stdlib'
-      ref:  '4.22.0'
+      ref:  '4.23.0'
     vault:
       repo: 'https://github.com/jsok/puppet-vault'
       ref:  'v1.2.8'
