@@ -105,16 +105,18 @@ GEM
     declarative-option (0.1.0)
     deep_merge (1.1.1)
     diff-lcs (1.3)
-    diffy (3.2.0)
     docker-api (1.34.0)
       excon (>= 0.47.0)
       multi_json
     excon (0.59.0)
     facter (2.5.1)
+    facter (2.5.1-x64-mingw32)
+      ffi (~> 1.9.5)
     faraday (0.13.1)
       multipart-post (>= 1.2, < 3)
     fast_gettext (1.1.0)
     ffi (1.9.18)
+    ffi (1.9.18-x64-mingw32)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
     fog (1.41.0)
@@ -300,7 +302,6 @@ GEM
     guard-rake (1.0.0)
       guard
       rake
-    hashdiff (0.3.7)
     her (0.6.8)
       activemodel (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -312,8 +313,6 @@ GEM
       trollop (~> 2.0)
     highline (1.6.21)
     hocon (1.2.5)
-    httparty (0.15.6)
-      multi_xml (>= 0.5.2)
     httpclient (2.8.3)
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)
@@ -361,7 +360,6 @@ GEM
       metaclass (~> 0.0.1)
     molinillo (0.6.4)
     multi_json (1.12.2)
-    multi_xml (0.6.0)
     multipart-post (2.0.0)
     nenv (0.3.0)
     net-scp (1.2.1)
@@ -370,14 +368,11 @@ GEM
     net-telnet (0.1.1)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
+    nokogiri (1.8.1-x64-mingw32)
+      mini_portile2 (~> 2.3.0)
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
-    octocatalog-diff (1.5.0)
-      diffy (>= 3.1.0)
-      hashdiff (>= 0.3.0)
-      httparty (>= 0.11.0)
-      rugged (>= 0.25.0b2)
     oga (2.11)
       ast
       ruby-ll (~> 2.1)
@@ -405,6 +400,17 @@ GEM
       gettext-setup (>= 0.10, < 1)
       hiera (>= 3.2.1, < 4)
       locale (~> 2.1)
+    puppet (5.3.3-x64-mingw32)
+      facter (> 2.0, < 4)
+      ffi (~> 1.9.6)
+      gettext-setup (>= 0.10, < 1)
+      hiera (>= 3.2.1, < 4)
+      locale (~> 2.1)
+      minitar (~> 0.6.1)
+      win32-dir (= 0.4.9)
+      win32-process (= 0.7.5)
+      win32-security (= 0.2.5)
+      win32-service (= 0.8.8)
     puppet-lint (2.3.3)
     puppet-syntax (2.4.1)
       rake
@@ -479,7 +485,6 @@ GEM
       ast
     ruby-progressbar (1.9.0)
     ruby_dep (1.5.0)
-    rugged (0.26.0)
     semverse (2.0.0)
     serverspec (2.41.3)
       multi_json
@@ -512,10 +517,19 @@ GEM
       thread_safe (~> 0.1)
     uber (0.1.0)
     unicode-display_width (1.3.0)
+    win32-dir (0.4.9)
+      ffi (>= 1.0.0)
+    win32-process (0.7.5)
+      ffi (>= 1.0.0)
+    win32-security (0.2.5)
+      ffi
+    win32-service (0.8.8)
+      ffi
     xml-simple (1.1.5)
 
 PLATFORMS
   ruby
+  x64-mingw32
 
 DEPENDENCIES
   beaker
@@ -528,7 +542,6 @@ DEPENDENCIES
   hiera-eyaml
   mdl
   metadata-json-lint
-  octocatalog-diff
   pry
   pry-byebug
   pry-rescue
