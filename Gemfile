@@ -16,7 +16,6 @@ gem 'beaker-rspec'
 gem 'beaker-pe'
 gem 'hiera-eyaml'
 gem 'mdl' # markdown linting
-gem 'octocatalog-diff'
 
 # Debugging tools
 gem 'pry'                # Prey Debugger: Consle driven debugger.  Stops the execution in the middle of a call to allow inspection of ruby variables
