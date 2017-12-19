@@ -35,15 +35,15 @@ class profile::windows::sqlserverhadr::sqlserver(
     dsc_routemetric       => 256,
   }
 
-  dsc_xcluster { 'SQLCluster':
-    ensure                            => 'present',
-    dsc_name                          => 'SQLCluster',
-    dsc_staticipaddress               => $fail_over_cluster_static_ip,
-    dsc_domainadministratorcredential => {
-        'user'     => $domain_administrator_user,
-        'password' => $domain_administrator_password,
-      },
-  }
+ # dsc_xcluster { 'SQLCluster':
+ #   ensure                            => 'present',
+ #   dsc_name                          => 'SQLCluster',
+ #   dsc_staticipaddress               => $fail_over_cluster_static_ip,
+ #   dsc_domainadministratorcredential => {
+ #       'user'     => $domain_administrator_user,
+ #       'password' => $domain_administrator_password,
+ #     },
+ # }
 
   splunkforwarder_input { 'windows-eventlog-failoverclustering-operational-index':
     section => 'WinEventLog://Microsoft-Windows-FailoverClustering/Operational',
