@@ -1,7 +1,6 @@
 # Class: profile::windows::sqlserverhadr::sqlserver
-# Step By Step on how to do this in azure = https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sql/virtual-machines-windows-portal-sql-availability-group-tutorial
-# https://github.com/mrptsai/_old/blob/0426d32231ae472078cd8d1a5b7ad329cf42c022/dsc-scripts/sqlao-cluster/config-sqlao-cluster.ps1
 #
+# NOTE: The FileShare must live on a node that is not in the cluster ( in my case i selected my dc )
 class profile::windows::sqlserverhadr::filesharewitness(
   String $domain_administrator_user,
   String $domain_administrator_password,
@@ -10,10 +9,11 @@ class profile::windows::sqlserverhadr::filesharewitness(
 
   redact('domain_administrator_password')
 
+  # New-SmbShare -Name "FileShareWitness" -Path 'C:\FileShareWitness' -ChangeAccess @("tragiccode\supercluster$", "tragiccode\ad_principal_manager")
   dsc_xsmbshare { 'FileShareForWitness':
     dsc_ensure      => 'present' ,
     dsc_name        => 'FileShareForWitness',
-    dsc_path        => 'C:\\',
+    dsc_path        => 'C:\\WSFC-FileShare-Witness',
     # dsc_readaccess => "User1"
     # dsc_noaccess = @("User3", "User4")
     dsc_description => 'Used for fail over clustering with sql server',

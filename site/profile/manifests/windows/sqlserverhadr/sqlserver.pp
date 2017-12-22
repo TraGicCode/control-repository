@@ -1,7 +1,6 @@
 # Class: profile::windows::sqlserverhadr::sqlserver
 # Step By Step on how to do this in azure = https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sql/virtual-machines-windows-portal-sql-availability-group-tutorial
-# https://github.com/mrptsai/_old/blob/0426d32231ae472078cd8d1a5b7ad329cf42c022/dsc-scripts/sqlao-cluster/config-sqlao-cluster.ps1
-#
+# https://www.mssqltips.com/sqlservertip/4928/configure-network-binding-order-for-a-windows-server-2016-failover-cluster/
 class profile::windows::sqlserverhadr::sqlserver(
   String $domain_administrator_user,
   String $domain_administrator_password,
@@ -25,7 +24,18 @@ class profile::windows::sqlserverhadr::sqlserver(
     dsc_name   => 'RSAT-Clustering-PowerShell',
   }
 
-
+# new-netroute -DestinationPrefix '0.0.0.0/0' -InterfaceAlias 'Ethernet 2' -AddressFamily IPv4 -NextHop '10.20.1.9' -RouteMetric 256
+# This is so i can create the cluster with its ip on the same subnet as Ethernet 2 in my vagrant box
+# Set-DnsClientServerAddress -InterfaceAlias 'Ethernet 2' -ServerAddresses ("10.20.1.7")
+# I need to disable DHCP on port forwarding NIC or it will not be ignored and when the cluster is created the NIC will be added as a network!
+# This is the magic sauce here for getting our cluster to ignore the 10.0.2.15 network that vagrant creates/uses for port forwarding
+# Get-NetAdapter -Name 'Ethernet' | Set-NetIPInterface -DHCP Disabled
+#
+# Create cluster powershell here
+#
+#
+# Repeat on second node but run this afterward
+# Add-ClusterNode -Name sql-002 -Cluster supercluster -NoStorage -Verbose
   dsc_xroute { 'Default-Gateway':
     dsc_ensure            => 'present',
     dsc_interfacealias    => 'Ethernet 2',
