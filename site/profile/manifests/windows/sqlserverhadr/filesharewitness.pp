@@ -14,7 +14,7 @@ class profile::windows::sqlserverhadr::filesharewitness(
     dsc_name         => 'FileShareWitness',
     dsc_path         => 'C:\\WSFC-FileShare-Witness',
     dsc_readaccess   => [ 'tragiccode\\ad_principal_manager' ],
-    dsc_changeaccess => [ 'tragiccode\\my-cluster' ],
+    dsc_changeaccess => [ 'tragiccode\\supercluster$' ],
     dsc_description  => 'Used to break the tie in windows server failover clustering for SQL Server Always-On',
     require          => File['C:\\FileShareWitness'],
   }
