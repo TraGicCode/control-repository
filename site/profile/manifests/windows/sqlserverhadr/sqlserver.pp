@@ -36,14 +36,28 @@ class profile::windows::sqlserverhadr::sqlserver(
 #
 # Repeat on second node but run this afterward
 # Add-ClusterNode -Name sql-002 -Cluster supercluster -NoStorage -Verbose
-  # dsc_xroute { 'Default-Gateway':
-  #   dsc_ensure            => 'present',
-  #   dsc_interfacealias    => 'Ethernet 2',
-  #   dsc_addressfamily     => 'IPv4',
-  #   dsc_destinationprefix => '0.0.0.0/0',
-  #   dsc_nexthop           => '10.20.1.9',
-  #   dsc_routemetric       => 256,
-  # }
+  dsc_xroute { 'Default-Gateway':
+    dsc_ensure            => 'present',
+    dsc_interfacealias    => 'Ethernet 2',
+    dsc_addressfamily     => 'IPv4',
+    dsc_destinationprefix => '0.0.0.0/0',
+    dsc_nexthop           => '10.20.1.9',
+    dsc_routemetric       => 256,
+  }
+
+  dsc_xdhcpclient { 'DHCP-Client-Ethernet-IPv4':
+    dsc_state          => 'Disabled',
+    dsc_interfacealias => 'Ethernet',
+    dsc_addressfamily  => 'IPv4',
+  }
+
+  
+  dsc_xdhcpclient { 'DHCP-Client-Ethernet-IPv6':
+    dsc_state          => 'Disabled',
+    dsc_interfacealias => 'Ethernet',
+    dsc_addressfamily  => 'IPv6',
+  }
+
 
  # dsc_xcluster { 'SQLCluster':
  #   ensure                            => 'present',
