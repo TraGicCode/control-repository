@@ -18,8 +18,4 @@ class profile::windows::sqlserverhadr::filesharewitness(
     dsc_description  => 'Used to break the tie in windows server failover clustering for SQL Server Always-On',
     require          => File['C:\\FileShareWitness'],
   }
-
-  dsc_xclusterquorum { 's':
-    dsc_ensure => 'present',
-  }
 }
