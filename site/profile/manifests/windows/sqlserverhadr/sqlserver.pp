@@ -32,36 +32,47 @@ class profile::windows::sqlserverhadr::sqlserver(
 # Get-NetAdapter -Name 'Ethernet' | Set-NetIPInterface -DHCP Disabled
 #
 # Create cluster powershell here
-#
+# 
+# New-Cluster -Name SQLCluster -Node sql-001 -StaticAddress 10.20.1.22 -NoStorage
 #
 # Repeat on second node but run this afterward
 # Add-ClusterNode -Name sql-002 -Cluster supercluster -NoStorage -Verbose
-if $facts['virtual'] == 'virtualbox' {
-  dsc_xroute { 'Default-Gateway':
-    dsc_ensure            => 'present',
-    dsc_interfacealias    => 'Ethernet 2',
-    dsc_addressfamily     => 'IPv4',
-    dsc_destinationprefix => '0.0.0.0/0',
-    dsc_nexthop           => $facts['networking']['interfaces']['Ethernet 2']['ip'],
-    dsc_routemetric       => 256,
-  }
+# if $facts['virtual'] == 'virtualbox' {
+# Remove-ClusterResource -Name "Cluster IP Address 10.0.2.0" -Force
+#   dsc_xroute { 'Default-Gateway':
+#     dsc_ensure            => 'present',
+#     dsc_interfacealias    => 'Ethernet 2',
+#     dsc_addressfamily     => 'IPv4',
+#     dsc_destinationprefix => '0.0.0.0/0',
+#     dsc_nexthop           => $facts['networking']['interfaces']['Ethernet 2']['ip'],
+#     dsc_routemetric       => 256,
+#   }
 
-  dsc_xdhcpclient { 'DHCP-Client-Ethernet-IPv4':
-    dsc_state          => 'Disabled',
-    dsc_interfacealias => 'Ethernet',
-    dsc_addressfamily  => 'IPv4',
-  }
-}
+#   dsc_xdhcpclient { 'DHCP-Client-Ethernet-IPv4':
+#     dsc_state          => 'Disabled',
+#     dsc_interfacealias => 'Ethernet',
+#     dsc_addressfamily  => 'IPv4',
+#   }
+# }
 
- # dsc_xcluster { 'SQLCluster':
- #   ensure                            => 'present',
- #   dsc_name                          => 'SQLCluster',
- #   dsc_staticipaddress               => $fail_over_cluster_static_ip,
- #   dsc_domainadministratorcredential => {
- #       'user'     => $domain_administrator_user,
- #       'password' => $domain_administrator_password,
- #     },
- # }
+ dsc_xcluster { 'SQLCluster':
+   ensure                            => 'present',
+   dsc_name                          => 'SQLCluster',
+   dsc_staticipaddress               => $fail_over_cluster_static_ip,
+   dsc_domainadministratorcredential => {
+       'user'     => $domain_administrator_user,
+       'password' => $domain_administrator_password,
+     },
+ }
+
+ if $facts['virtual'] == 'virtualbox' {
+  exec { 'remove-virtualbox-nat-ip-from-cluster':
+    command     => 'Remove-ClusterResource -Name "Cluster IP Address 10.0.2.0" -Force',
+    logoutput   => true,
+    refreshonly => true,
+    provider    => powershell,
+  }
+ }
 
   splunkforwarder_input { 'windows-eventlog-failoverclustering-operational-index':
     section => 'WinEventLog://Microsoft-Windows-FailoverClustering/Operational',
