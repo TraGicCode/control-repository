@@ -39,3 +39,6 @@ mod 'jenkins',
 mod 'nservicebusservicecontrol',
     git: 'https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol',
     ref: 'master'
+mod 'wsusserver',
+    git: 'https://github.com/TraGicCode/tragiccode-wsusserver',
+    ref: 'feature/computer-target-group-type-and-provider'
