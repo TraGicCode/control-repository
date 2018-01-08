@@ -45,6 +45,10 @@ class profile::windows::windowsupdateserver {
     number_of_synchronizations_per_day => 1,
   }
 
+  resources { 'wsusserver_computer_target_group':
+    purge => true,
+  }
+
   $google_projects = ['services', 'development', 'staging', 'production']
 
   wsusserver_computer_target_group { $google_projects:
