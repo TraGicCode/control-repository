@@ -40,3 +40,6 @@ mod 'jenkins',
 mod 'nservicebusservicecontrol',
     git: 'https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol',
     ref: 'master'
+mod 'environmentrefresh',
+    git: 'https://github.com/TraGicCode/tragiccode-environmentrefresh.git',
+    ref: 'feature/implement-type-and-provider'

@@ -6,6 +6,10 @@ class role::test {
     provider => 'chocolatey',
   }
 
+  refresh_environment { 'my-stuff':
+   # subscribe => Notify['test'],
+  }
+
   archive { 'C:\\americanblinds-logo.png':
     ensure => present,
     source => 's3://americanblindsmarketingimages/images/americanblinds-logo.png',
