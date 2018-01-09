@@ -30,6 +30,7 @@ mod 'puppetlabs/stdlib', '4.23.0'
 mod 'puppetlabs/wsus_client', '1.0.3'
 mod 'stahnma/epel', '1.3.0'
 mod 'tragiccode/ravendb', '0.4.0'
+mod 'tragiccode/wsusserver', '1.0.0'
 mod 'golja/gnupg', '1.2.3'
 
 # Discovered elements from existing Puppetfile
@@ -39,6 +40,3 @@ mod 'jenkins',
 mod 'nservicebusservicecontrol',
     git: 'https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol',
     ref: 'master'
-mod 'wsusserver',
-    git: 'https://github.com/TraGicCode/tragiccode-wsusserver',
-    ref: 'feature/computer-target-group-type-and-provider'
