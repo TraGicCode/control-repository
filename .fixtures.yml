@@ -50,7 +50,7 @@ fixtures:
       ref:  'v0.4.0'
     reboot:
       repo: 'https://github.com/puppetlabs/puppetlabs-reboot'
-      ref:  '1.2.1'
+      ref:  '2.0.0'
     registry:
       repo: 'https://github.com/puppetlabs/puppetlabs-registry'
       ref:  '2.0.1'
