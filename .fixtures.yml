@@ -53,7 +53,7 @@ fixtures:
       ref:  '1.2.1'
     registry:
       repo: 'https://github.com/puppetlabs/puppetlabs-registry'
-      ref:  '1.1.4'
+      ref:  '2.0.1'
     ruby:
       repo: 'https://github.com/puppetlabs/puppetlabs-ruby'
       ref:  '1.0.0'
