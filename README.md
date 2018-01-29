@@ -28,6 +28,11 @@ The following can be run to generate puppet code to update your own machines hos
     > vagrant hosts puppetize | puppet apply
 ```
 
+# Running puppet commands from the host machine
+```powershell
+    > vagrant ssh puppetmaster -c "sudo puppet node purge dc-001.attlocal.com"
+```
+
 # Using Code Manager
 1.) Install Pe-Client tools on your local workstation
 2.) Run the following to quickly configure PE Client tools

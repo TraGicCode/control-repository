@@ -57,7 +57,7 @@ class profile::windows::activedirectory::domaincontroller(
 
     dsc_xdnsserveraddress { 'DnsServerAddresses':
       ensure             => 'present',
-      dsc_address        => '127.0.0.1',
+      dsc_address        => $first_dc_internal_ipv4_address,
       dsc_interfacealias => 'Ethernet 2',
       dsc_addressfamily  => 'IPv4',
       dsc_validate       => true,
