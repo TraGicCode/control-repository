@@ -30,7 +30,6 @@ mod 'puppetlabs/stdlib', '4.24.0'
 mod 'puppetlabs/wsus_client', '1.0.3'
 mod 'stahnma/epel', '1.3.0'
 mod 'tragiccode/ravendb', '0.4.0'
-mod 'tragiccode/wsusserver', '1.0.0'
 mod 'golja/gnupg', '1.2.3'
 
 # Discovered elements from existing Puppetfile
@@ -43,3 +42,6 @@ mod 'nservicebusservicecontrol',
 mod 'environmentrefresh',
     git: 'https://github.com/TraGicCode/tragiccode-environmentrefresh.git',
     ref: 'feature/implement-type-and-provider'
+mod 'wsusserver',
+    git: 'https://github.com/TraGicCode/tragiccode-wsusserver.git',
+    ref: 'feature/cleanup-wizard-task'
