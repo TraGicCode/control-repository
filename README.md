@@ -1,6 +1,7 @@
+#### Table of Contents
+
 # Introduction
 The Goal of this repository is to provide the ability to quickly spin up a puppet enterprise environment for quickly testing changes without having to touch your actual puppet enterprise server.
-
 
 # Requirements
 1.) Install Vagrant
@@ -281,3 +282,14 @@ A quick way to get into an IRB console to play around with ruby code is to use p
 
 # Possible Issues with vagrant
 https://github.com/hashicorp/vagrant/issues/8785
+
+# MCollective Useful Commands
+
+## Disable/Enable Agents
+```powershell
+> mco rpc puppet disable message="testing disable - mfyffe" --with-identity mytestnode.local
+```
+
+```powershell
+> mco rpc puppet enable --with-identity mytestnode.local
+```
