@@ -1,4 +1,4 @@
-class role::test {
+class role::test_failing_role {
 
 
   package { 'awscli':
