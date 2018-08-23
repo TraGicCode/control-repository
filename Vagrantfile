@@ -1,6 +1,6 @@
 # Find PE Versions here
 # http://versions.puppet.com.s3-website-us-west-2.amazonaws.com/
-PE_VERSION = '2018.1.2'
+PE_VERSION = '2018.1.4'
 
 # Way to install vagrant plugins automatically on vagrant up
 # required_plugins = %w(vagrant-reload)
