@@ -319,6 +319,7 @@ puppet agent -t --environment $branch
 ```
 
 NOTE: this strategy is just a commit and hand of to CI/CD Server to merge it through to all the other puppet environments.
+NOTE: Just like "Continuous Deliver for PE" it's important to understand what you should do in git and what git work "CD for PE" wil handle for you.  https://puppet.com/docs/continuous-delivery/1.x/setting_up.html#concept-1698
 
 ## How to use large files in your profile module
 
