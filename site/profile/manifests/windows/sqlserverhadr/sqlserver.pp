@@ -55,24 +55,24 @@ class profile::windows::sqlserverhadr::sqlserver(
 #   }
 # }
 
- dsc_xcluster { 'SQLCluster':
-   ensure                            => 'present',
-   dsc_name                          => 'SQLCluster',
-   dsc_staticipaddress               => $fail_over_cluster_static_ip,
-   dsc_domainadministratorcredential => {
-       'user'     => $domain_administrator_user,
-       'password' => $domain_administrator_password,
-     },
- }
+dsc_xcluster { 'SQLCluster':
+  ensure                            => 'present',
+  dsc_name                          => 'SQLCluster',
+  dsc_staticipaddress               => $fail_over_cluster_static_ip,
+  dsc_domainadministratorcredential => {
+      'user'     => $domain_administrator_user,
+      'password' => $domain_administrator_password,
+    },
+}
 
- if $facts['virtual'] == 'virtualbox' {
+if $facts['virtual'] == 'virtualbox' {
   exec { 'remove-virtualbox-nat-ip-from-cluster':
     command     => 'Remove-ClusterResource -Name "Cluster IP Address 10.0.2.0" -Force',
     logoutput   => true,
     refreshonly => true,
     provider    => powershell,
   }
- }
+}
 
   splunkforwarder_input { 'windows-eventlog-failoverclustering-operational-index':
     section => 'WinEventLog://Microsoft-Windows-FailoverClustering/Operational',
