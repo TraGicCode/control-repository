@@ -1,4 +1,4 @@
-forge 'http://forge.puppetlabs.com'
+forge 'https://forge.puppetlabs.com'
 
 # Modules discovered by generate-puppetfile
 mod 'arioch/redis', '3.1.0'
