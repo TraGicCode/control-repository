@@ -293,3 +293,124 @@ https://github.com/hashicorp/vagrant/issues/8785
 ```powershell
 > mco rpc puppet enable --with-identity mytestnode.local
 ```
+
+
+
+
+
+## Deployment Information
+
+## Development
+
+Develop on the master branch using a feature-branch workflow.  Commits merged into master will be automatically tested, promoted, and deployed to each successive environment tier by the CI/CD System.
+
+NOTE: Each branch of this repository represents a deployable and testable puppet environment
+
+In order to deploy a given branch as a puppet environment, run:
+
+```
+puppet code deploy $branch --wait
+```
+
+After the puppet environment is deployed, you can test a puppet agent against that branch by:
+
+```
+puppet agent -t --environment $branch
+```
+
+NOTE: this strategy is just a commit and hand of to CI/CD Server to merge it through to all the other puppet environments.
+
+## How to use large files in your profile module
+
+For large files you want to use in your profiles you don't want them in your repository ( git doesn't handle large binaries well ).  Instead you should upload the files to S3, take a checksum of the files ( shown in S3 when you upload them ), put it in the following s3 bucket path:
+
+for example:
+s3.amazon.aws.com/webops/puppet_files/$profilename/largefile.iso
+
+in your files directory create a staging.yaml with the content of:
+
+```
+---
+largefile.iso: 'md5sum_of_file'
+evenlargerfile.iso: 'md5sum_of_file'
+```
+
+The masters will then have a class applied to him called 'puppet_files' which will reference these and stage them at a predictable URLs for you:
+
+puppet:///puppet_files/$profilename/largefile.iso
+http://$master/puppet_files/$profilename/largefile.iso
+smb://$master/puppet_files/$profilename/largefile.iso
+
+You can then use remote_file, the built in puppet file resource to retrieve the files or use the "attach_master" on windows to attach the smb share as the Z drive / unc path on your machines to reference them later.
+
+The above stuff needs more information but essentially you can download remote files from s3 onto the master into a specific file location like so
+
+```
+class profile::master::files::jdk (
+  $srv_root = '/opt/tse-files',
+) {
+  file { "${srv_root}/jdk":
+    ensure => directory,
+    mode   => '0755',
+  }
+
+  remote_file { 'jdk-8u45-windows-x64.exe':
+    source  => 'https://s3-us-west-2.amazonaws.com/tseteam/files/jdk-8u45-windows-x64.exe',
+    path    => "${srv_root}/jdk/jdk-8u45-windows-x64.exe",
+    headers => {
+      'user-agent' => 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko',
+      'Cookie'     => 'oraclelicense=accept-securebackup-cookie;gpw_e24=http://edelivery.oracle.com'
+    }, # Oracle makes you accept the license agreement -_-
+    mode    => '0644',
+    require => File["${srv_root}/jdk"],
+  }
+}
+```
+
+Then you could, for example, setup a http file server on your puppet master
+```
+class profile::master::fileserver {
+  include 'stdlib'
+  include 'profile::firewall'
+  include 'profile::apache'
+
+  # Detect Vagrant
+  case $::virtual {
+    'virtualbox': {
+      $admin_file_owner = 'vagrant'
+      $admin_file_group = 'vagrant'
+    }
+    default: {
+      $admin_file_owner = 'root'
+      $admin_file_group = 'root'
+    }
+  }
+
+  apache::vhost { 'tse-files':
+    vhost_name    => '*',
+    port          => '81',
+    docroot       => '/opt/tse-files',
+    priority      => '10',
+    docroot_owner => $admin_file_owner,
+    docroot_group => $admin_file_group,
+  }
+
+  firewall { '110 apache allow all':
+    dport  => '81',
+    chain  => 'INPUT',
+    proto  => 'tcp',
+    action => 'accept',
+  }
+
+  # The *::finalize class includes some configuration that should be applied
+  # after everything is up and fully operational. Some of this configuration is
+  # used to signal to external watchers that the master is fully configured and
+  # ready.
+  class { 'profile::master::fileserver::finalize':
+    stage => 'deploy_app',
+  }
+
+}
+```
+
+now we can download files on windows from the puppetmaster.  Not sure about smb.
