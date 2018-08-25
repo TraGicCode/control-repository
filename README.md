@@ -294,7 +294,9 @@ https://github.com/hashicorp/vagrant/issues/8785
 > mco rpc puppet enable --with-identity mytestnode.local
 ```
 
+## Puppet Best Practices
 
+https://github.com/puppetlabs/best-practices
 
 
 
