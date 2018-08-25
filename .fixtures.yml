@@ -15,6 +15,9 @@ fixtures:
     concat:
       repo: 'https://github.com/puppetlabs/puppetlabs-concat'
       ref:  '4.1.1'
+    docker:
+      repo: 'https://github.com/puppetlabs/puppetlabs-docker'
+      ref:  '2.0.0'
     dsc:
       repo: 'https://github.com/puppetlabs/puppetlabs-dsc'
       ref:  '1.4.1'
