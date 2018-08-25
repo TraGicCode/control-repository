@@ -28,14 +28,12 @@ mod 'puppetlabs/registry', '2.0.1'
 mod 'puppetlabs/ruby', '1.0.0'
 mod 'puppetlabs/stdlib', '4.24.0'
 mod 'puppetlabs/wsus_client', '1.0.3'
+mod 'rtyler/jenkins', '1.7.0'
 mod 'stahnma/epel', '1.3.0'
 mod 'tragiccode/ravendb', '0.4.0'
 mod 'golja/gnupg', '1.2.3'
 
 # Discovered elements from existing Puppetfile
-mod 'jenkins',
-    git: 'https://github.com/jenkinsci/puppet-jenkins',
-    commit: '23df7764d58aed80b573621b102f82a702217a7a'
 mod 'nservicebusservicecontrol',
     git: 'https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol',
     ref: 'master'

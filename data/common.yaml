@@ -26,9 +26,11 @@ profile::linux::base::domain_name: "%{lookup('profile::windows::activedirectory:
 profile::windows::sqlserverhadr::sqlserver::domain_administrator_user: "%{lookup('profile::windows::common::activedirectory::domain_administrator_user')}"
 profile::windows::sqlserverhadr::sqlserver::fail_over_cluster_static_ip: 10.20.1.22
 
+profile::linux::jenkins::slave::autojoiner_username: jenkins_autojoiner
 
 # Base/Data classes should go below here
 profile::windows::activedirectory::data::domain_name: 'tragiccode.local'
 
-
-
+lookup_options:
+  '^profile::.+::sensitive_\w+$':
+    convert_to: 'Sensitive'

@@ -29,3 +29,14 @@ profile::windows::splunk::universalforwarder::splunk_dot_secret_file_content: >
     GChl0szjjvFdgtbiAc7VND7cknhPY6Grg5un/u0KTp+/XN3rgjwhpEaeob/1
     L0q56lyl23I7Fhqzjh3VPg3+zz9cp7t7CGBkjCrBzUNEfBSI8PudkSyIL/x3
     lYqTcAUJQ9qOvuN7Bb3vJSXN8g==]
+profile::linux::jenkins::slave::sensitive_autojoiner_password: >
+    ENC[PKCS7,MIIBeQYJKoZIhvcNAQcDoIIBajCCAWYCAQAxggEhMIIBHQIBADAFMAACAQEw
+    DQYJKoZIhvcNAQEBBQAEggEAWEkm3t56LerCZBnv5XgTh8N0YaXASN+kLII8
+    ny/zn5dHTU5iNZsbJAtPPwUArtfbN11IW4pzIc8D4KjVTbkliYGN6q5JH9nv
+    7ph0UeGRKcjgCqJiZJcTAgxwuZIsjzS1RNWB03y6LGE2/xofmy0jjFInoqAX
+    2suCNnX5gJAv7YHrvK2w7m31gHqQukkuGb0jtYPElWhUFJhrzCSA4OoIBhgQ
+    QQ8T/W6ExZHzjMSKZA35FxvjR/U5Y46pYWV6LhwjO4WnRKVaAemG4t4I16bb
+    wimqwsK7GC4nkbWi/AY3H1JTScMpzu4IDusHJm2vAFja4hLwm9N/0VFCwSUZ
+    VPpNIDA8BgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBCXIZNzNcq9PcO0r2Li
+    1DVbgBDW5scV2x/lsC0J2gENwujJ]
+

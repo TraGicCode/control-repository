@@ -34,8 +34,8 @@ fixtures:
       repo: 'https://github.com/puppetlabs/puppetlabs-java'
       ref:  '2.4.0'
     jenkins:
-      repo: 'https://github.com/jenkinsci/puppet-jenkins'
-      ref:  '23df7764d58aed80b573621b102f82a702217a7a'
+      repo: 'https://github.com/voxpupuli/puppet-jenkins'
+      ref:  'v1.7.0'
     node_encrypt:
       repo: 'https://github.com/binford2k/binford2k-node_encrypt'
       ref:  'v0.3.2'
