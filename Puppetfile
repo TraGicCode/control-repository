@@ -32,6 +32,7 @@ mod 'rtyler/jenkins', '1.7.0'
 mod 'stahnma/epel', '1.3.0'
 mod 'tragiccode/ravendb', '0.4.0'
 mod 'golja/gnupg', '1.2.3'
+mod 'WhatsARanjit/node_manager', '0.7.1'
 
 # Discovered elements from existing Puppetfile
 mod 'nservicebusservicecontrol',

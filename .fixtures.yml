@@ -39,6 +39,9 @@ fixtures:
     node_encrypt:
       repo: 'https://github.com/binford2k/binford2k-node_encrypt'
       ref:  'v0.3.2'
+    node_manager:
+      repo: 'https://github.com/WhatsARanjit/puppet-node_manager'
+      ref:  '0.7.1'
     nservicebusservicecontrol:
       repo: 'https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol'
       branch: 'master'
