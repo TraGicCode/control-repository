@@ -19,16 +19,14 @@ class profile::linux::puppetenterprise::puppetserver(
 
 
 
-  # node_group { 'DomainControllers':
-  #   ensure               => 'present',
-  #   rule                 => ['and', ['~', ['fact', 'fqdn'], 'dc-001.localdomain']],
-  #   classes              => {
-  #     'role::domaincontroller' => {},},
-  #   environment          => 'production',
-  #   override_environment => false,
-  #   parent               => 'All Nodes',
-  #   provider             => 'https',
-  # }
+  node_group { 'All Environments':
+    ensure               => present,
+    description          => 'Environment group parent and default',
+    environment          => 'production',
+    override_environment => true,
+    parent               => 'All Nodes',
+    rule                 => ['and', ['~', 'name', '.*']],
+  }
 
 
   @@dsc_xdnsrecord { 'puppet':
