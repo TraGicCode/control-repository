@@ -42,7 +42,7 @@ node_group { 'PE Agent - Customized':
 node_group { 'All Environments':
   ensure               => present,
   description          => 'Environment group parent and default',
-  environment          => $default_environment,
+  environment          => 'production',
   override_environment => true,
   parent               => 'All Nodes',
   rule                 => ['and', ['~', 'name', '.*']],
@@ -57,7 +57,7 @@ node_group { 'Agent-specified environment':
   rule                 => [ ],
 }
 
-$environments.each |$env| {
+['production', 'staging', 'development'].each |$env| {
   $title_env = capitalize($env)
 
   node_group { "${title_env} environment":
