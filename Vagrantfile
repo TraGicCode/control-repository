@@ -43,7 +43,7 @@ Vagrant.configure('2') do |config|
           sudo cp /vagrant/keys/* /etc/puppetlabs/puppet/keys/
           sudo chown pe-puppet:pe-puppet /etc/puppetlabs/puppet/keys/*
 
-          sudo puppet module install WhatsARanjit-node_manager --version 0.4.2
+          sudo puppet module install WhatsARanjit-node_manager --version 0.7.1
           sudo puppet apply /vagrant/PuppetMaster.pp --debug
           
           sudo puppet agent --test
