@@ -39,42 +39,42 @@ node_group { 'PE Agent - Customized':
   provider             => 'https',
 }
 
-node_group { 'All Environments':
-  ensure               => present,
-  description          => 'Environment group parent and default',
-  environment          => 'production',
-  override_environment => true,
-  parent               => 'All Nodes',
-  rule                 => ['and', ['~', 'name', '.*']],
-}
+# node_group { 'All Environments':
+#   ensure               => present,
+#   description          => 'Environment group parent and default',
+#   environment          => 'production',
+#   override_environment => true,
+#   parent               => 'All Nodes',
+#   rule                 => ['and', ['~', 'name', '.*']],
+# }
 
-node_group { 'Agent-specified environment':
-  ensure               => present,
-  description          => 'This environment group exists for unusual testing and development only. Expect it to be empty',
-  environment          => 'agent-specified',
-  override_environment => true,
-  parent               => 'All Environments',
-  rule                 => [ ],
-}
+# node_group { 'Agent-specified environment':
+#   ensure               => present,
+#   description          => 'This environment group exists for unusual testing and development only. Expect it to be empty',
+#   environment          => 'agent-specified',
+#   override_environment => true,
+#   parent               => 'All Environments',
+#   rule                 => [ ],
+# }
 
-['production', 'staging', 'development'].each |$env| {
-  $title_env = capitalize($env)
+# ['production', 'staging', 'development'].each |$env| {
+#   $title_env = capitalize($env)
 
-  node_group { "${title_env} environment":
-    ensure               => present,
-    environment          => $env,
-    override_environment => true,
-    parent               => 'All Environments',
-    rule                 => ['and', ['=', ['trusted', 'extensions', 'pp_environment'], $env]],
-  }
+#   node_group { "${title_env} environment":
+#     ensure               => present,
+#     environment          => $env,
+#     override_environment => true,
+#     parent               => 'All Environments',
+#     rule                 => ['and', ['=', ['trusted', 'extensions', 'pp_environment'], $env]],
+#   }
 
-  node_group { "${title_env} one-time run exception":
-    ensure               => present,
-    description          => "Allow ${env} nodes to request a different puppet environment for a one-time run",
-    environment          => 'agent-specified',
-    override_environment => true,
-    parent               => "${title_env} environment",
-    rule                 => ['and', ['~', ['fact', 'agent_specified_environment'], '.+']],
-  }
-}
+#   node_group { "${title_env} one-time run exception":
+#     ensure               => present,
+#     description          => "Allow ${env} nodes to request a different puppet environment for a one-time run",
+#     environment          => 'agent-specified',
+#     override_environment => true,
+#     parent               => "${title_env} environment",
+#     rule                 => ['and', ['~', ['fact', 'agent_specified_environment'], '.+']],
+#   }
+# }
 
