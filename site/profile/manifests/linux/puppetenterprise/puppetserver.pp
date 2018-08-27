@@ -16,19 +16,6 @@ class profile::linux::puppetenterprise::puppetserver(
     notify => Service['pe-console-services'],
   }
 
-
-
-
-  node_group { 'All Environments':
-    ensure               => present,
-    description          => 'Environment group parent and default',
-    environment          => 'production',
-    override_environment => true,
-    parent               => 'All Nodes',
-    rule                 => ['and', ['~', 'name', '.*']],
-  }
-
-
   @@dsc_xdnsrecord { 'puppet':
     dsc_ensure => 'present',
     dsc_name   => 'puppet',

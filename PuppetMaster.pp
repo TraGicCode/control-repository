@@ -25,16 +25,56 @@ node_group { 'PE Master - Customized':
   provider             => 'https',
 }
 
-  node_group { 'PE Agent - Customized':
-    ensure               => 'present',
-    rule                 => ['and', ['~', ['fact', 'aio_agent_version'], '.+']],
-    classes              => {
-      'puppet_enterprise::profile::agent' => {
-        'package_inventory_enabled' => true,
-      },
+node_group { 'PE Agent - Customized':
+  ensure               => 'present',
+  rule                 => ['and', ['~', ['fact', 'aio_agent_version'], '.+']],
+  classes              => {
+    'puppet_enterprise::profile::agent' => {
+      'package_inventory_enabled' => true,
     },
-    environment          => 'production',
-    override_environment => false,
-    parent               => 'PE Agent',
-    provider             => 'https',
+  },
+  environment          => 'production',
+  override_environment => false,
+  parent               => 'PE Agent',
+  provider             => 'https',
+}
+
+node_group { 'All Environments':
+  ensure               => present,
+  description          => 'Environment group parent and default',
+  environment          => $default_environment,
+  override_environment => true,
+  parent               => 'All Nodes',
+  rule                 => ['and', ['~', 'name', '.*']],
+}
+
+node_group { 'Agent-specified environment':
+  ensure               => present,
+  description          => 'This environment group exists for unusual testing and development only. Expect it to be empty',
+  environment          => 'agent-specified',
+  override_environment => true,
+  parent               => 'All Environments',
+  rule                 => [ ],
+}
+
+$environments.each |$env| {
+  $title_env = capitalize($env)
+
+  node_group { "${title_env} environment":
+    ensure               => present,
+    environment          => $env,
+    override_environment => true,
+    parent               => 'All Environments',
+    rule                 => ['and', ['=', ['trusted', 'extensions', 'pp_environment'], $env]],
   }
+
+  node_group { "${title_env} one-time run exception":
+    ensure               => present,
+    description          => "Allow ${env} nodes to request a different puppet environment for a one-time run",
+    environment          => 'agent-specified',
+    override_environment => true,
+    parent               => "${title_env} environment",
+    rule                 => ['and', ['~', ['fact', 'agent_specified_environment'], '.+']],
+  }
+}
+
