@@ -102,6 +102,7 @@ Vagrant.configure('2') do |config|
     node.vm.box = 'puppetlabs/ubuntu-16.04-64-nocm'
     node.vm.provider "virtualbox" do |v|
       v.linked_clone = true
+      v.memory = 2048
     end
     node.vm.provision :hosts, :sync_hosts => true
     node.vm.provision :pe_agent do |p|
