@@ -78,7 +78,7 @@ Vagrant.configure('2') do |config|
 
   config.vm.define :windowsagent2 do |node|
     node.vm.hostname = 'winagent-002'
-    node.vm.network :private_network, :ip => '10.20.1.3'
+    node.vm.network :private_network, :ip => '10.20.1.4'
     node.vm.box = 'mwrock/Windows2016'
     node.vm.provider "virtualbox" do |v|
       v.linked_clone = true
@@ -96,9 +96,22 @@ Vagrant.configure('2') do |config|
     POWERSHELL
   end
 
-  config.vm.define :linuxforwarder do |node|
-    node.vm.hostname = 'linuxforwarder-001.local'
-    node.vm.network :private_network, :ip => '10.20.1.4'
+  config.vm.define :linuxagent1 do |node|
+    node.vm.hostname = 'linuxagent-001.local'
+    node.vm.network :private_network, :ip => '10.20.1.5'
+    node.vm.box = 'puppetlabs/ubuntu-16.04-64-nocm'
+    node.vm.provider "virtualbox" do |v|
+      v.linked_clone = true
+    end
+    node.vm.provision :hosts, :sync_hosts => true
+    node.vm.provision :pe_agent do |p|
+      p.master_vm = 'puppetmaster'
+    end
+  end
+
+  config.vm.define :linuxagent2 do |node|
+    node.vm.hostname = 'linuxagent-002.local'
+    node.vm.network :private_network, :ip => '10.20.1.6'
     node.vm.box = 'puppetlabs/ubuntu-16.04-64-nocm'
     node.vm.provider "virtualbox" do |v|
       v.linked_clone = true
@@ -111,7 +124,7 @@ Vagrant.configure('2') do |config|
 
   config.vm.define :splunkserver do |node|
     node.vm.hostname = 'splunkserver-001.local'
-    node.vm.network :private_network, :ip => '10.20.1.5'
+    node.vm.network :private_network, :ip => '10.20.1.7'
     node.vm.box = 'puppetlabs/ubuntu-16.04-64-nocm'
     node.vm.provider "virtualbox" do |v|
       v.linked_clone = true
@@ -122,25 +135,9 @@ Vagrant.configure('2') do |config|
     end
   end
 
-  config.vm.define :splunkforwarder do |node|
-    node.vm.hostname = 'splunkforwarder-001'
-    node.vm.network :private_network, :ip => '10.20.1.6'
-    node.vm.box = 'tragiccode/windows-2016-standard'
-    node.vm.provider "virtualbox" do |v|
-      v.linked_clone = true
-    end
-    node.vm.provision :hosts, :sync_hosts => true
-    node.vm.provision "shell", inline: <<-POWERSHELL
-    [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true};
-    $webClient = New-Object System.Net.WebClient;
-    $webClient.DownloadFile('https://puppetmaster-001.local:8140/packages/current/install.ps1', 'install.ps1');
-    .\\install.ps1
-    POWERSHELL
-  end
-
   config.vm.define 'dc-001' do |node|
     node.vm.hostname = 'dc-001'
-    node.vm.network :private_network, :ip => '10.20.1.7'
+    node.vm.network :private_network, :ip => '10.20.1.8'
     node.vm.box = 'tragiccode/windows-2016-standard'
     node.vm.provider "virtualbox" do |v|
       v.memory = 2048
@@ -158,7 +155,7 @@ Vagrant.configure('2') do |config|
 
     config.vm.define 'dc-002' do |node|
     node.vm.hostname = 'dc-002'
-    node.vm.network :private_network, :ip => '10.20.1.8'
+    node.vm.network :private_network, :ip => '10.20.1.9'
     node.vm.box = 'tragiccode/windows-2016-standard'
     node.vm.provider "virtualbox" do |v|
       v.memory = 2048
@@ -177,7 +174,7 @@ Vagrant.configure('2') do |config|
   
   config.vm.define 'sql-001' do |node|
     node.vm.hostname = 'sql-001'
-    node.vm.network :private_network, :ip => '10.20.1.9'
+    node.vm.network :private_network, :ip => '10.20.1.10'
     node.vm.box = 'tragiccode/windows-2016-standard'
     node.vm.provider "virtualbox" do |v|
       v.memory = 2048
@@ -195,7 +192,7 @@ Vagrant.configure('2') do |config|
 
   config.vm.define 'sql-002' do |node|
     node.vm.hostname = 'sql-002'
-    node.vm.network :private_network, :ip => '10.20.1.10'
+    node.vm.network :private_network, :ip => '10.20.1.11'
     node.vm.box = 'tragiccode/windows-2016-standard'
     node.vm.provider "virtualbox" do |v|
       v.memory = 2048
@@ -213,7 +210,7 @@ Vagrant.configure('2') do |config|
 
   config.vm.define 'proget-001' do |node|
     node.vm.hostname = 'proget-001'
-    node.vm.network :private_network, :ip => '10.20.1.11'
+    node.vm.network :private_network, :ip => '10.20.1.12'
     node.vm.box = 'tragiccode/windows-2016-standard'
     node.vm.provider "virtualbox" do |v|
       v.memory = 2048
@@ -231,7 +228,7 @@ Vagrant.configure('2') do |config|
 
   config.vm.define 'jenkinsmaster-001' do |node|
     node.vm.hostname = 'jenkinsmaster-001.local'
-    node.vm.network :private_network, :ip => '10.20.1.12'
+    node.vm.network :private_network, :ip => '10.20.1.13'
     node.vm.box = 'puppetlabs/ubuntu-16.04-64-nocm'
     node.vm.provider "virtualbox" do |v|
       v.linked_clone = true
@@ -244,7 +241,7 @@ Vagrant.configure('2') do |config|
 
   config.vm.define 'grafana-001' do |node|
     node.vm.hostname = 'grafana-001.local'
-    node.vm.network :private_network, :ip => '10.20.1.13'
+    node.vm.network :private_network, :ip => '10.20.1.14'
     node.vm.box = 'puppetlabs/ubuntu-16.04-64-nocm'
     node.vm.provider "virtualbox" do |v|
       v.linked_clone = true
@@ -257,7 +254,7 @@ Vagrant.configure('2') do |config|
 
   config.vm.define 'vault-001' do |node|
     node.vm.hostname = 'vault-001.local'
-    node.vm.network :private_network, :ip => '10.20.1.14'
+    node.vm.network :private_network, :ip => '10.20.1.15'
     node.vm.box = 'puppetlabs/ubuntu-16.04-64-nocm'
     node.vm.provider "virtualbox" do |v|
       v.linked_clone = true
@@ -270,26 +267,8 @@ Vagrant.configure('2') do |config|
 
   config.vm.define 'wsusserv-001' do |node|
     node.vm.hostname = 'wsusserv-001'
-    node.vm.network :private_network, :ip => '10.20.1.15'
-    node.vm.box = 'tragiccode/windows-server-2016-standard'
-    node.vm.provider "virtualbox" do |v|
-      v.memory = 2048
-      v.linked_clone = true
-      v .customize ["modifyvm", :id, "--vram", 48]
-    end
-    node.vm.provision :hosts, :sync_hosts => true
-    node.vm.provision "shell", inline: <<-POWERSHELL
-    [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true};
-    $webClient = New-Object System.Net.WebClient;
-    $webClient.DownloadFile('https://puppetmaster-001.local:8140/packages/current/install.ps1', 'install.ps1');
-    .\\install.ps1
-    POWERSHELL
-  end
-
-  config.vm.define 'wsusclie-001' do |node|
-    node.vm.hostname = 'wsusclie-001'
     node.vm.network :private_network, :ip => '10.20.1.16'
-    node.vm.box = 'tragiccode/windows-2016-standard'
+    node.vm.box = 'tragiccode/windows-server-2016-standard'
     node.vm.provider "virtualbox" do |v|
       v.memory = 2048
       v.linked_clone = true
