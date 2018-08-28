@@ -1,7 +1,7 @@
 class profile::linux::puppetlabs::cd4pe {
   include docker
 
-  docker::image { 'puppet/continuous-delivery-for-puppet-enterprise:latest':
+  docker::image { 'puppet/continuous-delivery-for-puppet-enterprise':
     image_tag => 'latest',
   }
 
