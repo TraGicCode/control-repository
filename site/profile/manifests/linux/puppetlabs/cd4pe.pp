@@ -13,6 +13,10 @@ class profile::linux::puppetlabs::cd4pe {
     image_tag => '5.8.3',
   }
 
+  docker::image { 'gitlab/gitlab-ce':
+    image_tag => 'latest',
+  }
+
   docker_network { 'cd4pe-network':
     ensure      => 'present',
     driver      => 'bridge',
@@ -38,6 +42,21 @@ class profile::linux::puppetlabs::cd4pe {
     net     => 'cd4pe-network',
     ports   => ['8081:8081'],
     volumes => ['data_s3:/var/opt/jfrog/artifactory'],
+  }
+
+  docker::run { 'cd4pe-gitlab':
+    image   => 'gitlab/gitlab-ce:latest',
+    net     => 'cd4pe-network',
+    ports   => [
+      '9080:80',
+      '8043:443',
+      '8022:22',
+    ],
+    volumes => [
+      'gitlab_etc:/etc/gitlab',
+      'gitlab_opt:/var/opt/gitlab',
+      'gitlab_log:/var/log/gitlab',
+    ],
   }
 
   docker::run { 'cd4pe':
