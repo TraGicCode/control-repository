@@ -43,7 +43,7 @@ node_group { 'All Environments':
   ensure               => present,
   description          => 'Environment group parent and default',
   environment          => 'production',
-  override_environment => true,
+  override_environment => true, # This is super confusing but this just indicates if this is an environment group or classification group.
   parent               => 'All Nodes',
   rule                 => ['and', ['~', 'name', '.*']],
 }
