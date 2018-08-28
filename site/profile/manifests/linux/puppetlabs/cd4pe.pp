@@ -41,7 +41,7 @@ class profile::linux::puppetlabs::cd4pe {
   }
 
   docker::run { 'cd4pe':
-    image   => 'pcr-internal.puppet.net/pipelines/pfi:latest',
+    image   => 'puppet/continuous-delivery-for-puppet-enterprise:latest',
     net     => 'cd4pe-network',
     ports   => ['8080:8080', '8000:8000', '7000:7000'],
     volumes => [
