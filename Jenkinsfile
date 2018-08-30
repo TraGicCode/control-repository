@@ -40,9 +40,13 @@ pipeline {
       }
     }
   }
+
   post {
-    always {
-      cleanWs()
+    success {
+          deleteDir()
+        }
+    failure {
+          deleteDir()
+        }
     }
-  }
 }
