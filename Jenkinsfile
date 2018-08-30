@@ -1,5 +1,5 @@
 pipeline {
-  agent any
+  agent { node { local 'control-repo' } }
   stages {
     stage('Syntax Check Control Repo'){
       steps {
