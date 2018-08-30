@@ -40,13 +40,9 @@ pipeline {
       }
     }
   }
-
   post {
-    success {
-          deleteDir()
-        }
-    failure {
-          deleteDir()
-        }
+    always {
+      deleteDir() /* clean up our workspace */
     }
+   }
 }
