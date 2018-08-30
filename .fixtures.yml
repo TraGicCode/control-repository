@@ -51,6 +51,9 @@ fixtures:
     ravendb: 
       repo: 'https://github.com/tragiccode/tragiccode-ravendb'
       ref:  'v0.4.0'
+    rbac:
+      repo: 'https://github.com/puppetlabs/pltraining-rbac'
+      ref:  'v0.0.7'
     reboot:
       repo: 'https://github.com/puppetlabs/puppetlabs-reboot'
       ref:  '2.0.0'

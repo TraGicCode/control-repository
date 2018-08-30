@@ -16,6 +16,26 @@ class profile::linux::puppetenterprise::puppetserver(
     notify => Service['pe-console-services'],
   }
 
+  rbac_role { 'jenkins_puppet_deployer_role':
+    ensure      => present,
+    description => 'Role used for deploying the control repo code in our jenkins pipeline.',
+    permissions =>  [
+      { 'action'      => 'deploy_code',
+        'instance'    => '*',
+        'object_type' => 'environment',
+      },
+    ],
+  }
+
+  rbac_user { 'jenkins_puppet_deployer':
+    ensure       => present,
+    display_name => 'jenkins_puppet_deployer',
+    email        => 'jenkins_puppet_deployer@tragiccode.local',
+    password     => 'test123!',
+    roles        => ['jenkins_puppet_deployer_role'],
+    require      => Rbac_role['jenkins_puppet_deployer_role'],
+  }
+
   @@dsc_xdnsrecord { 'puppet':
     dsc_ensure => 'present',
     dsc_name   => 'puppet',
