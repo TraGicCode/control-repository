@@ -42,7 +42,7 @@ pipeline {
   }
   post {
     cleanup {
-      deleteDir() /* clean up our workspace */
+      cleanWs() /* clean up our workspace */
     }
   }
 }
