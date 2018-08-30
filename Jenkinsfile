@@ -19,26 +19,26 @@ pipeline {
       }
     }
 
-    stage("Promote To Environment"){
-      steps {
-        puppetCode(environment: env.BRANCH_NAME, credentialsId: 'pe-access-token')
-      }
-    }
+    // stage("Promote To Environment"){
+    //   steps {
+    //     puppetCode(environment: env.BRANCH_NAME, credentialsId: 'pe-access-token')
+    //   }
+    // }
 
-    stage("Release To QA"){
-      when { branch "master" }
-      steps {
-        puppetJob(environment: 'production', query: 'inventory[certname] { trusted.extensions.pp_environment = "staging" and nodes { deactivated is null } }', credentialsId: 'pe-access-token')
-      }
-    }
+    // stage("Release To QA"){
+    //   when { branch "master" }
+    //   steps {
+    //     puppetJob(environment: 'production', query: 'inventory[certname] { trusted.extensions.pp_environment = "staging" and nodes { deactivated is null } }', credentialsId: 'pe-access-token')
+    //   }
+    // }
 
-    stage("Release To Production"){
-      when { branch "master" }
-      steps {
-        input 'Ready to release to Production?'
-        puppetJob(environment: 'production', query: 'inventory[certname] { trusted.extensions.pp_environment = "production" and nodes { deactivated is null } }', credentialsId: 'pe-access-token')
-      }
-    }
+    // stage("Release To Production"){
+    //   when { branch "master" }
+    //   steps {
+    //     input 'Ready to release to Production?'
+    //     puppetJob(environment: 'production', query: 'inventory[certname] { trusted.extensions.pp_environment = "production" and nodes { deactivated is null } }', credentialsId: 'pe-access-token')
+    //   }
+    // }
   }
   post {
     always {
