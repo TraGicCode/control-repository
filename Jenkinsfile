@@ -19,11 +19,11 @@ pipeline {
       }
     }
 
-    // stage("Promote To Environment"){
-    //   steps {
-    //     puppetCode(environment: env.BRANCH_NAME, credentialsId: 'pe-access-token')
-    //   }
-    // }
+    stage("Promote To Environment"){
+      steps {
+        puppetCode(environment: env.BRANCH_NAME, credentialsId: 'pe-access-token')
+      }
+    }
 
     // stage("Release To QA"){
     //   when { branch "master" }
