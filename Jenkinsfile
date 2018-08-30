@@ -1,5 +1,5 @@
 pipeline {
-   agent any
+  agent any
   stages {
     stage('Syntax Check Control Repo'){
       steps {
@@ -26,14 +26,14 @@ pipeline {
     }
 
     stage("Release To QA"){
-      when { branch "production" }
+      when { branch "master" }
       steps {
         puppetJob(environment: 'production', query: 'inventory[certname] { trusted.extensions.pp_environment = "staging" and nodes { deactivated is null } }', credentialsId: 'pe-access-token')
       }
     }
 
     stage("Release To Production"){
-      when { branch "production" }
+      when { branch "master" }
       steps {
         input 'Ready to release to Production?'
         puppetJob(environment: 'production', query: 'inventory[certname] { trusted.extensions.pp_environment = "production" and nodes { deactivated is null } }', credentialsId: 'pe-access-token')

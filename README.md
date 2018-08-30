@@ -417,3 +417,110 @@ class profile::master::fileserver {
 ```
 
 now we can download files on windows from the puppetmaster.  Not sure about smb.
+
+
+## Rolling our own Jenkins deployment pipeline
+Lets talk about a couple of ways we can do a phased deployment of our puppet code promoting it from 1 environment to the next
+using a jenkins pipeline.
+
+================
+
+1. branch/puppet environment per environment that you have ( development, staging, and production )
+
+pros
+------
+- true code seperation between environments
+- Safety net in which if the code pass dev environment and got promoted to staging and something bad happened and you killed the pipeline you can have peace of mind if someone goes in and does a puppet agent run on all nodes in all environments you wont have a production outage or really bad things happen.
+
+cons
+------
+- rolling back requires a change to go out so that someone later doesn't force run puppet causing cached catalogs to not be used or no-noop to happen
+- Long lived branches that you have to manage or get some other thing like jenkins to manage the merging for you.  I assume if you merge to dev and it blows up in production then you just make the fix and make your way through the pipeline again.  The long live branches will differ in commits because of this but the code will eventually be the same when you make it through the pipeline successfully.
+- since our aim is to control the push out of puppet changes we will need to do one of the following to prevent uncontrolled puppet runs with the new code
+    1. Cached-Catalogs on agents
+
+    ```
+        ini_setting { 'puppet agent use_cached_catalog':
+        ensure  => $ensure_setting,
+        path    => $puppet_conf,
+        section => 'agent',
+        setting => 'use_cached_catalog',
+        # lint:ignore:quoted_booleans
+        value   => 'true',
+        # lint:endignore
+    }
+    ```
+    
+    2. noop mode
+
+    ```
+        ini_setting { 'puppet agent use_cached_catalog':
+        ensure  => $ensure_setting,
+        path    => $puppet_conf,
+        section => 'agent',
+        setting => 'noop',
+        # lint:ignore:quoted_booleans
+        value   => 'true',
+        # lint:endignore
+    }
+    ```
+
+  3. You can even use a combination of both to keep track of changes instead of autocorrect
+
+
+================
+
+2. 1 branch/puppet environment used for all nodes and you simply use a fact ( trusted.extensions.pp_environment = "production" ) to control deployments to nodes
+
+pros
+------
+- No long-lived branches.  Simply have 1 master/production branch
+
+cons
+------
+- rolling back requires a change to go out so that someone later doesn't force run puppet causing cached catalogs to not be used or no-noop to happen
+- Because there is no code seperation via long lived branches if someone makes it partially through the pipeline and someone comes in later and does a puppet job on all
+  nodes in all environemnts it could cause an outage!
+- since our aim is to control the push out of puppet changes we will need to do one of the following to prevent uncontrolled puppet runs with the new code
+    1. Cached-Catalogs on agents
+
+    ```
+    ini_setting { 'puppet agent use_cached_catalog':
+        ensure  => $ensure_setting,
+        path    => $puppet_conf,
+        section => 'agent',
+        setting => 'use_cached_catalog',
+        # lint:ignore:quoted_booleans
+        value   => 'true',
+        # lint:endignore
+    }
+    ```
+    
+    2. noop mode
+
+    ```
+    ini_setting { 'puppet agent use_cached_catalog':
+        ensure  => $ensure_setting,
+        path    => $puppet_conf,
+        section => 'agent',
+        setting => 'noop',
+        # lint:ignore:quoted_booleans
+        value   => 'true',
+        # lint:endignore
+    }
+    ```
+
+  3. You can even use a combination of both to keep track of changes instead of autocorrect
+
+
+
+  ================
+
+  3. Something simliar to cd4pe and
+    - Create a temp branch with the change
+    - push temp branch
+    - perform code deploy
+    - create a child group to you target deployment environment that overrides the environment to use your temp branch and pin desired nodes to group
+    - perform a puppet job run on the temp environment
+    - if puppet run fails delete child group and branch and exist pipeline
+    - if puppet run succeeds delete child group and merge changes into target environment's long lived branch. 
