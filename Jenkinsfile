@@ -4,7 +4,7 @@ pipeline {
     stage('Syntax Check Control Repo'){
       steps {
         sh(script: '''
-          bundle install
+          bundle install --path .bundle
           bundle exec rake syntax --verbose
         ''')
       }
@@ -13,7 +13,7 @@ pipeline {
     stage('Validate Puppetfile in Control Repo'){
       steps {
         sh(script: '''
-          bundle install
+          bundle install --path .bundle
           bundle exec rake r10k:syntax
         ''')
       }
