@@ -4,7 +4,7 @@ class profile::linux::jenkins::slave(
 ) {
 
   class { 'jenkins::slave':
-      masterurl                => 'http://10.20.1.12:4440',
+      masterurl                => 'http://jenkinsmaster-001.local:4440',
       ui_user                  => $autojoiner_username,
       ui_pass                  => $sensitive_autojoiner_password.unwrap(),
       slave_name               => $facts['hostname'],
