@@ -524,3 +524,8 @@ cons
     - perform a puppet job run on the temp environment
     - if puppet run fails delete child group and branch and exist pipeline
     - if puppet run succeeds delete child group and merge changes into target environment's long lived branch. 
+
+
+==========================
+This is a type of workflow using cached catalogs on agents
+    https://puppet.com/docs/pe/2018.1/direct_puppet_a_workflow_for_controlling_change.html
