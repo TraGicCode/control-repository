@@ -529,3 +529,64 @@ cons
 ==========================
 This is a type of workflow using cached catalogs on agents
     https://puppet.com/docs/pe/2018.1/direct_puppet_a_workflow_for_controlling_change.html
+
+
+
+Direct Deployment workflow ( this currently deploys to all nodes )
+---------------------------
+This policy is used when you want to release changes that you are making a small change you now will not cause any issues
+
+In Short it says i want to go ahead and promote a change and run it to ALL nodes in a given environment right now!
+
+1. Create all branches before hand that you want
+1. Pick a commit to deploy to an environment.
+1. cd4pe will go a git reset or git update-ref.  no sure which one and push to github.
+1. cd4pe then does a code manager deploy so pe essentially checkouts this updated branch
+1. cd4pe then calls out to orchestrator to kick of puppet runs on all nodes in this update environment.  It's a depoy all!
+
+
+
+Temporary Branch Deployment ( reduce your blast radius so the deployment isn't this big bang )
+-----------------------------
+It's the same as direct deployment in that you are promoting a change to an entire environment except instead of updating the branch that represent the target environment you want to deploy the change to.
+it creates a new git branch creating a new environment for this deployment ( production_cdpe_102 ).  It will then createa  child environment group of the target environment and assign this environment to it add all the nodes
+in the target environment.  What does this give you that you don't get in the "Direct Deployment"?  You don't get rolling deployments to slowly roll out a new change. For Example deploy to 2 nodes at a time
+
+1. Create all branch beforehand that you want
+1. Pick a commit to deploy to an environment
+1. Pick how you want to do a rolling deployment:
+    - Deploy to 2 nodes at a time
+1. cd4pe will create a new branch off your target environment ( production_cdpe_102 ) and will git reset or git update-ref the commit you want to deploy to this environment
+1. cd4pe then does a code manager deploy so pe essentially checkouts this updated branch
+1. cd4pe will create a child environment group for production_cdpe_102 and pin 2 nodes to it.
+1. cd4pe will trigger an orchestration job on these 2 nodes
+1. cd4pe will grab 2 more nodes and so on and so on.
+1. cd4pe will delete the temp branch and the temp environment group once all nodes have been applied the change
+1. cd4pe will then update the target branch to the commit you jsut deployed
+
+If you configure it to abort the deployment if any nodes have failures with this policy it will cleanup the branch and node group and never advance the target branch on the commit that didnt work unlike direct deployment policy
+
+NOTE: As soon as you pick "temp branch policy" you get a new option you can configured to stagger the rolling deployment because well that is what this is!  Its mandatory and examples are below
+
+Stagger Settings:
+    Deploy 10 nodes at a time with a 60 second delay
+
+Production Environment - production
+    - Production Environment Rolling Deployment 22 - production_cd4pe_22
+
+
+Incremental Branch Deployment
+-------------------------------
+This works almost identical to the temp branch policy except the temp branches hang around forever for history purposes if you need them.  The idea here is you can go back and look at git to see deployment history in git.
+
+Same as above except instead of deleting the branch it leaves it around and points your target environment to this incremental branch! the target branch is no longer being used and is kind of just there for history!
+
+NOTE: You still get the SAME settings as temp branch deployment.  The stagger settings so this is still a rolling deployment
+
+Blue Green Deployment
+------------------------------
+Its similiar to incremetnal branch in that it creates 2 branches blue and green and only maintains and keeps 2 and they constantly move.  The idea here is that as you do deployments you always have a safe version of code available and you can revert to it easily without having all the branches in git like the incremental branch strategy
+
+1. Same as temp branch deployment.  it creates a child group for blue or green.  once it all passes it deletes the temp group and assigns a new environment to the target environment and makes it blue or green respectively
+
+NOTE: This one is also a rolling deployment!
