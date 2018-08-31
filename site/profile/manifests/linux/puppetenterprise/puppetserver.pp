@@ -14,16 +14,34 @@ class profile::linux::puppetenterprise::puppetserver(
     ensure => present,
     notify => Service['pe-console-services'],
   }
-
+  # environment - deploy code with code manager
+  # orchestrator - start/view/stop orchestrator jobs
+  # puppet_agent - ability to run puppet via orchestrator
+  # nodes - ability to query puppetdb
   rbac_role { 'jenkins_puppet_deployer_role':
     ensure      => present,
     description => 'Role used for deploying the control repo code in our jenkins pipeline.',
     permissions =>  [
-      { 'action'      => 'deploy_code',
-        'instance'    => '*',
-        'object_type' => 'environment',
-      },
-    ],
+    {
+      'object_type' => 'environment',
+      'action'      => 'deploy_code',
+      'instance'    => '*',
+    },
+    {
+      'object_type' => 'orchestrator',
+      'action'      => 'view',
+      'instance'    => '*',
+    },
+    {
+      'object_type' => 'puppet_agent',
+      'action'      => 'run',
+      'instance'    => '*',
+    },
+    {
+      'object_type' => 'nodes',
+      'action'      => 'view_data',
+      'instance'    => '*'
+    }],
   }
 
   rbac_user { 'jenkins_puppet_deployer':
