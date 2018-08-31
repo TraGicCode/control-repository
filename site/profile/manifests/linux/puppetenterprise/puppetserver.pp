@@ -12,7 +12,6 @@ class profile::linux::puppetenterprise::puppetserver(
 
   file { '/etc/puppetlabs/puppet/autosign.conf':
     ensure => present,
-    source => $file_source_auto_sign_conf,
     notify => Service['pe-console-services'],
   }
 
