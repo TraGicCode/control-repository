@@ -36,7 +36,7 @@ pipeline {
     stage("Deploy To Staging"){
       when { branch "production" }
       steps {
-        input 'Ready to release to Production?'
+        input 'Ready to release to Staging?'
         puppetJob(environment: 'production', query: 'inventory[certname] { trusted.extensions.pp_environment = "staging" and nodes { deactivated is null } }', credentialsId: 'pe-access-token')
       }
     }
@@ -44,6 +44,7 @@ pipeline {
     stage("Deploy To Production"){
       when { branch "production" }
       steps {
+        input 'Ready to release to Production?'
         puppetJob(environment: 'production', query: 'inventory[certname] { trusted.extensions.pp_environment = "production" and nodes { deactivated is null } }', credentialsId: 'pe-access-token')
       }
     }
