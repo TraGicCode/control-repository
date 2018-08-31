@@ -544,7 +544,7 @@ In Short it says i want to go ahead and promote a change and run it to ALL nodes
 1. cd4pe then does a code manager deploy so pe essentially checkouts this updated branch
 1. cd4pe then calls out to orchestrator to kick of puppet runs on all nodes in this update environment.  It's a depoy all!
 
-
+'
 
 Temporary Branch Deployment ( reduce your blast radius so the deployment isn't this big bang )
 -----------------------------
