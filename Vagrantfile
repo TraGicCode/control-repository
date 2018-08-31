@@ -145,24 +145,18 @@ Vagrant.configure('2') do |config|
     POWERSHELL
   end
 
+
   config.vm.define 'stagingnode' do |node|
-    node.vm.hostname = 'stagingnode-001'
+    node.vm.hostname = 'stagingnode-002.local'
     node.vm.network :private_network, :ip => '10.20.1.8'
-    node.vm.box = 'mwrock/Windows2016'
+    node.vm.box = 'puppetlabs/ubuntu-16.04-64-nocm'
     node.vm.provider "virtualbox" do |v|
       v.linked_clone = true
     end
     node.vm.provision :hosts, :sync_hosts => true
-    node.vm.provision :pe_agent do |p|
-      p.master_vm = 'puppetmaster'
-    end
-    node.vm.provision :hosts, :sync_hosts => true
-    node.vm.provision "shell", inline: <<-POWERSHELL
-    [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true};
-    $webClient = New-Object System.Net.WebClient;
-    $webClient.DownloadFile('https://puppetmaster-001.local:8140/packages/current/install.ps1', 'install.ps1');
-    .\\install.ps1 extension_requests:pp_environment=staging
-    POWERSHELL
+    node.vm.provision "shell", inline: <<-BASH
+    curl -k https://puppetmaster-001.local:8140/packages/current/install.bash | sudo bash -s extension_requests:pp_environment=staging
+    BASH
   end
 
   config.vm.define 'productionnode' do |node|
