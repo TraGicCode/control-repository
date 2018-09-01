@@ -1,0 +1,21 @@
+pipeline {
+  agent { node { label 'control-repo' } }
+  stages {
+    stage('Syntax Check Control Repo') {
+      steps {
+        input(message: 'Choose a Deployment Pattern',    
+              parameters: [
+                choice(name: 'Deployment Pattern', choices: "All Servers At Once\nRolling Deployment")
+              ])
+        sh(script: '''
+          echo 'test'
+        ''')
+      }
+    }
+  }
+  post {
+    always {
+      deleteDir() /* clean up our workspace */
+    }
+   }
+}
