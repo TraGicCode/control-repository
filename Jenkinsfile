@@ -15,6 +15,7 @@ def promote(Map parameters = [:]) {
 }
 
 pipeline {
+options { skipDefaultCheckout() }
   agent { node { label 'control-repo' } }
   stages {
     stage('Syntax Check Control Repo') {
@@ -37,7 +38,8 @@ pipeline {
     stage("Promote To Development"){
       when { branch "master" }
       steps {
-        git url: 'https://github.com/TraGicCode/control-repository.git', branch: 'development'
+        // this does a checkout of the branch in the current workspace
+        // git url: 'https://github.com/TraGicCode/control-repository.git', branch: 'development'
         promote(from: 'master', to: 'development')
       }
     }
