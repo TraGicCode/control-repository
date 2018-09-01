@@ -27,7 +27,8 @@ pipeline {
         // this does a checkout of the branch in the current workspace
         // According to the pipeline snippet generator this is a easier to use wrapper for the checkout step
         // git url: 'https://github.com/TraGicCode/control-repository.git', branch: '*/development'
-        git url: 'git://github.com/TraGicCode/control-repository.git', branch: '*/development'
+        checkout([$class: 'GitSCM', branches: [[name: '*/development']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '49516de6-9391-48b4-ba58-2aeb4acca97b', name: 'origin', url: 'https://github.com/TraGicCode/control-repository.git']]])
+
         promote(from: 'master', to: 'development')
       }
     }
