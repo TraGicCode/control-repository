@@ -9,10 +9,15 @@ def promote(Map parameters = [:]) {
   String to = parameters.to
 
   merge(from, to)
+//   // Required plugin: 	SSH Agent
+//   sshagent (credentials: ['control-repo-github-ssh-key']) {
+//     sh "git push origin " + to
+//   }
 
-  sshagent (credentials: ['control-repo-github-ssh-key']) {
-    sh "git push origin " + to
-  }
+  withCredentials([usernamePassword(credentialsId: '49516de6-9391-48b4-ba58-2aeb4acca97b', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+    sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/TraGicCode/control-repository HEAD')
+}
+
 }
 
 pipeline {
