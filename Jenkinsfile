@@ -24,6 +24,7 @@ pipeline {
     stage("Promote To Development"){
       when { branch "master" }
       steps {
+
           
         // this does a checkout of the branch in the current workspace
         // According to the pipeline snippet generator this is a easier to use wrapper for the checkout step
