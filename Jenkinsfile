@@ -39,26 +39,25 @@ pipeline {
 //   https://puppetmaster-001.local:4433/classifier-api/v1/groups
 //   """)
 
-    withCredentials([string(credentialsId: 'pe-access-token', variable: 'TOKEN')]) {
-    httpRequest (consoleLogResponseBody: true, 
-        contentType: 'APPLICATION_JSON', 
-        httpMode: 'POST', 
-        customHeaders: [
-            [name: 'X-Authentication', value: '$TOKEN']
-        ],
-        requestBody: """
-        { 
-            "name": "XXXX22",
-            "parent": "00000000-0000-4000-8000-000000000000",
-            "environment": "production",
-            "classes": {}
-        }
-        """,
-        url: "https://puppetmaster-001.local:4433/classifier-api/v1/groups", 
-        validResponseCodes: '200')
 
-        }
-        }
+  httpRequest (consoleLogResponseBody: true, 
+      contentType: 'APPLICATION_JSON', 
+      httpMode: 'POST', 
+      customHeaders: [
+          [name: 'X-Authentication', value: '0Tc-Buvn9oYLAaCXy8nVCaz3SXHHvBdONIhGd45kfMk4', maskValue: true]
+      ],
+      requestBody: """
+    { 
+        "name": "XXXX22",
+        "parent": "00000000-0000-4000-8000-000000000000",
+        "environment": "production",
+        "classes": {}
+    }
+    """,
+      url: "https://puppetmaster-001.local:4433/classifier-api/v1/groups", 
+      validResponseCodes: '200')
+
+      }
     }
 
     stage("CodeManager Deploy Environment") {
