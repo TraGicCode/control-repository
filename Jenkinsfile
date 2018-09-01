@@ -39,14 +39,6 @@ pipeline {
 //   https://puppetmaster-001.local:4433/classifier-api/v1/groups
 //   """)
 
-  def command = """
-    { 
-        "name": "XXXX22",
-        "parent": "00000000-0000-4000-8000-000000000000",
-        "environment": "production",
-        "classes": {}
-    }
-    """
 
   httpRequest (consoleLogResponseBody: true, 
       contentType: 'APPLICATION_JSON', 
@@ -54,7 +46,14 @@ pipeline {
       customHeaders: [
           [name: 'X-Authentication', value: '0Tc-Buvn9oYLAaCXy8nVCaz3SXHHvBdONIhGd45kfMk4']
       ],
-      requestBody: command,
+      requestBody: """
+    { 
+        "name": "XXXX22",
+        "parent": "00000000-0000-4000-8000-000000000000",
+        "environment": "production",
+        "classes": {}
+    }
+    """,
       url: "https://puppetmaster-001.local:4433/classifier-api/v1/groups", 
       validResponseCodes: '200')
 
