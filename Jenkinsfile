@@ -3,6 +3,10 @@ pipeline {
   stages {
     stage('Syntax Check Control Repo') {
       steps {
+        input(message: 'Choose an environment',    
+              parameters: [
+                [$class: 'ChoiceParameterDefinition', choices: "Dev\nQA\nProd", name: 'Env']
+              ])
         sh(script: '''
           bundle install --path .bundle
           bundle exec rake syntax --verbose
