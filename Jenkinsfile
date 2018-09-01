@@ -5,8 +5,8 @@ pipeline {
       steps {
         input(message: 'Choose a Deployment Pattern',    
               parameters: [
-                /*[$class: 'ChoiceParameterDefinition', choices: "All Servers At Once\nRolling Deployment", name: 'DeploymentPattern']*/
                 choice(name: 'Deployment Pattern', choices: "All Servers At Once\nRolling Deployment")
+                choice(name: 'Deployment Pattern2', choices: "All Servers At Once\nRolling Deployment")
               ])
         sh(script: '''
           bundle install --path .bundle
