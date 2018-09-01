@@ -10,9 +10,9 @@ def promote(Map parameters = [:]) {
 
   merge(from, to)
 
-  //sshagent(['control-repo-github']) {
+  sshagent (credentials: ['control-repo-github-ssh-key']) {
     sh "git push origin " + to
-  //}
+  }
 }
 
 pipeline {
