@@ -70,7 +70,7 @@ pipeline {
 //       validResponseCodes: '200')
 
 //       }
-//     }
+     }
 
     stage("CodeManager Deploy Environment") {
       when { branch "master" }
