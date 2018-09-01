@@ -68,9 +68,8 @@ pipeline {
 //     """,
 //       url: "https://puppetmaster-001.local:4433/classifier-api/v1/groups", 
 //       validResponseCodes: '200')
-
-//       }
-     }
+      }
+    }
 
     stage("CodeManager Deploy Environment") {
       when { branch "master" }
