@@ -37,7 +37,7 @@ pipeline {
     stage("Promote To Development"){
       when { branch "master" }
       steps {
-        git url: 'https://github.com/TraGicCode/control-repository.git', branch: 'master'
+        git url: 'https://github.com/TraGicCode/control-repository.git', branch: 'development'
         promote(from: 'master', to: 'development')
       }
     }
