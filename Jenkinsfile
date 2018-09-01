@@ -30,7 +30,7 @@ pipeline {
         promote(from: '${GIT_COMMIT}', to: 'development')
         // promote(from: 'origin/master', to: 'development')
         sh("""
-        curl -X POST -H 'Content-Type: application/json' -H "X-Authentication:0Tc-Buvn9oYLAaCXy8nVCaz3SXHHvBdONIhGd45kfMk4" \
+        curl -k -X POST -H 'Content-Type: application/json' -H "X-Authentication:0Tc-Buvn9oYLAaCXy8nVCaz3SXHHvBdONIhGd45kfMk4" \
   -d '{ "name": "XXXX",
         "parent": "00000000-0000-4000-8000-000000000000",
         "environment": "production",
