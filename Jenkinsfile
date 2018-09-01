@@ -30,9 +30,8 @@ pipeline {
         // According to the pipeline snippet generator this is a easier to use wrapper for the checkout step
         git url: 'https://github.com/TraGicCode/control-repository.git', branch: 'development'
         // sh('env')
-        // promote(from: '${GIT_COMMIT}', to: 'development')
+        promote(from: '${GIT_COMMIT}', to: 'development')
         // promote(from: 'origin/master', to: 'development')
-        promote(from: 'master', to: 'development')
       }
     }
 
