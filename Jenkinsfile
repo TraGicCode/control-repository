@@ -3,9 +3,10 @@ pipeline {
   stages {
     stage('Syntax Check Control Repo') {
       steps {
-        input(message: 'Choose an environment',    
+        input(message: 'Choose a Deployment Pattern',    
               parameters: [
-                [$class: 'ChoiceParameterDefinition', choices: "Dev\nQA\nProd", name: 'Env']
+                /*[$class: 'ChoiceParameterDefinition', choices: "All Servers At Once\nRolling Deployment", name: 'DeploymentPattern']*/
+                choices(name: 'Deployment Pattern', choices: ['1', '2'])
               ])
         sh(script: '''
           bundle install --path .bundle
