@@ -25,7 +25,7 @@ pipeline {
       when { branch "master" }
       steps {
         // this does a checkout of the branch in the current workspace
-        // git url: 'https://github.com/TraGicCode/control-repository.git', branch: 'development'
+        git url: 'https://github.com/TraGicCode/control-repository.git', branch: '*/development'
         promote(from: 'master', to: 'development')
       }
     }
