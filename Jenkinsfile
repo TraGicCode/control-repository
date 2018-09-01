@@ -1,7 +1,6 @@
 #!/usr/bin/env groovy
 
 def merge(from, to) {
-  sh('git checkout ' + to)
   sh('git merge ' + from + ' --ff-only')
 }
 
@@ -26,7 +25,7 @@ pipeline {
       steps {
         // this does a checkout of the branch in the current workspace
         // According to the pipeline snippet generator this is a easier to use wrapper for the checkout step
-        // git url: 'https://github.com/TraGicCode/control-repository.git', branch: '*/development'
+        git url: 'https://github.com/TraGicCode/control-repository.git', branch: '*/development'
         sh('env')
         promote(from: 'master', to: 'development')
       }
