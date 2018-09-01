@@ -3,11 +3,10 @@ pipeline {
   stages {
     stage('Syntax Check Control Repo') {
       steps {
-        input(message: 'Choose a Deployment Pattern',    
-              parameters: [
-                choice(name: 'Deployment Pattern', choices: "All Servers At Once\nRolling Deployment")
-                choice(name: 'Deployment Pattern2', choices: "All Servers At Once\nRolling Deployment")
-              ])
+        // input(message: 'Choose a Deployment Pattern',    
+        //       parameters: [
+        //         choice(name: 'Deployment Pattern', choices: "All Servers At Once\nRolling Deployment")
+        //       ])
         sh(script: '''
           bundle install --path .bundle
           bundle exec rake syntax --verbose
