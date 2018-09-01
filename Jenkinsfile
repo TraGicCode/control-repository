@@ -37,6 +37,7 @@ pipeline {
     stage("Promote To Development"){
       when { branch "master" }
       steps {
+        git url: 'https://github.com:puppetlabs/pmm-puppet-site', branch: 'master'
         promote(from: 'master', to: 'development')
       }
     }
