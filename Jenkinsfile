@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 def merge(from, to) {
   sh('git checkout ' + to)
   sh('git merge ' + from + ' --ff-only')
@@ -15,25 +17,9 @@ def promote(Map parameters = [:]) {
 }
 
 pipeline {
-options { skipDefaultCheckout() }
+// options { skipDefaultCheckout() }
   agent { node { label 'control-repo' } }
   stages {
-    stage('Syntax Check Control Repo') {
-      steps {
-        sh(script: '''
-          echo 'test'
-        ''')
-      }
-    }
-
-    stage('Validate Puppetfile In Control Repo') {
-      steps {
-        sh(script: '''
-          echo 'test'
-        ''')
-      }
-    }
-
 
     stage("Promote To Development"){
       when { branch "master" }
