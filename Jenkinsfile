@@ -12,13 +12,25 @@ def promote(Map parameters = [:]) {
 
   withCredentials([usernamePassword(credentialsId: '49516de6-9391-48b4-ba58-2aeb4acca97b', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
     sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/TraGicCode/control-repository HEAD')
+  }
 }
 
+def createEnvironmentNodeGroup(Map parameters = [:]) {
+    String environment = parameters.environment
+    String parent      = parameters.parent
+    String accessToken = parameters.accessToken
+
+    sh("echo ${environment}")
+    sh("echo ${parent}")
+    sh("echo ${accessToken}")
 }
 
 pipeline {
 // options { skipDefaultCheckout() }
   agent { node { label 'control-repo' } }
+  environment {
+    PE_ACCESS_TOKEN = credentials('pe-access-token')
+  }
   stages {
 
     stage("Promote To Development"){
@@ -39,26 +51,26 @@ pipeline {
 //   https://puppetmaster-001.local:4433/classifier-api/v1/groups
 //   """)
 
+  createEnvironmentNodeGroup(environment: 'xxx2', parent: 'production', accessToken: env.PE_ACCESS_TOKEN)
+//   httpRequest (consoleLogResponseBody: true, 
+//       contentType: 'APPLICATION_JSON', 
+//       httpMode: 'POST', 
+//       customHeaders: [
+//           [name: 'X-Authentication', value: '0Tc-Buvn9oYLAaCXy8nVCaz3SXHHvBdONIhGd45kfMk4', maskValue: true]
+//       ],
+//       requestBody: """
+//     { 
+//         "name": "XXXX22",
+//         "parent": "00000000-0000-4000-8000-000000000000",
+//         "environment": "production",
+//         "classes": {}
+//     }
+//     """,
+//       url: "https://puppetmaster-001.local:4433/classifier-api/v1/groups", 
+//       validResponseCodes: '200')
 
-  httpRequest (consoleLogResponseBody: true, 
-      contentType: 'APPLICATION_JSON', 
-      httpMode: 'POST', 
-      customHeaders: [
-          [name: 'X-Authentication', value: '0Tc-Buvn9oYLAaCXy8nVCaz3SXHHvBdONIhGd45kfMk4', maskValue: true]
-      ],
-      requestBody: """
-    { 
-        "name": "XXXX22",
-        "parent": "00000000-0000-4000-8000-000000000000",
-        "environment": "production",
-        "classes": {}
-    }
-    """,
-      url: "https://puppetmaster-001.local:4433/classifier-api/v1/groups", 
-      validResponseCodes: '200')
-
-      }
-    }
+//       }
+//     }
 
     stage("CodeManager Deploy Environment") {
       when { branch "master" }
