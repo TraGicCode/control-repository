@@ -65,7 +65,7 @@ pipeline {
         // promote(from: '${GIT_COMMIT}', to: 'development')
         // promote(from: 'origin/master', to: 'development')
         createEnvironmentBranch(environment: env.PE_TEMP_ENVIRONMENT)
-        createEnvironmentNodeGroup(environment: 'temporary', parent: 'production', accessToken: env.PE_ACCESS_TOKEN, masterFqdn: env.PE_MASTER_FQDN)
+        createEnvironmentNodeGroup(environment: env.PE_TEMP_ENVIRONMENT, parent: 'production', accessToken: env.PE_ACCESS_TOKEN, masterFqdn: env.PE_MASTER_FQDN)
       }
     }
 
