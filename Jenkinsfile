@@ -1,5 +1,12 @@
 #!/usr/bin/env groovy
 
+import groovy.json.JsonSlurperClassic
+
+@NonCPS
+def jsonSlurper(json) {
+    new JsonSlurperClassic().parseText(json)
+}
+
 def createEnvironmentNodeGroup(Map parameters = [:]) {
     String environment = parameters.environment
     String parent      = parameters.parent
