@@ -3,29 +3,29 @@
 pipeline {
   agent { node { label 'control-repo' } }
   stages {
-    stage('Install Ruby Dependencies') {
-        steps {
-            sh(script: 'bundle install --path .bundle')
-        }
-    }
-    stage('Syntax Check Control Repo') {
-      steps {
-        sh(script: 'bundle exec rake syntax --verbose')
-      }
-    }
+    // stage('Install Ruby Dependencies') {
+    //     steps {
+    //         sh(script: 'bundle install --path .bundle')
+    //     }
+    // }
+    // stage('Syntax Check Control Repo') {
+    //   steps {
+    //     sh(script: 'bundle exec rake syntax --verbose')
+    //   }
+    // }
 
-    stage('Validate Puppetfile In Control Repo') {
-      steps {
-        sh(script: 'bundle exec rake r10k:syntax')
-      }
-    }
+    // stage('Validate Puppetfile In Control Repo') {
+    //   steps {
+    //     sh(script: 'bundle exec rake r10k:syntax')
+    //   }
+    // }
 
-    stage("CodeManager Deploy Environment") {
-      when { branch "production" }
-      steps {
-        puppetCode(environment: env.BRANCH_NAME, credentialsId: 'pe-access-token')
-      }
-    }
+    // stage("CodeManager Deploy Environment") {
+    //   when { branch "production" }
+    //   steps {
+    //     puppetCode(environment: env.BRANCH_NAME, credentialsId: 'pe-access-token')
+    //   }
+    // }
 
     stage("Deploy To Development"){
       when { branch "production" }
