@@ -71,7 +71,7 @@ pipeline {
       when { branch "master" }
       steps {
         createEnvironmentBranch(environment: env.PE_TEMP_ENVIRONMENT)
-        createEnvironmentNodeGroup(environment: env.PE_TEMP_ENVIRONMENT, parent: 'production', accessToken: env.PE_ACCESS_TOKEN, masterFqdn: env.PE_MASTER_FQDN)
+        createEnvironmentNodeGroup(environment: env.PE_TEMP_ENVIRONMENT, parent: 'Production Environment', accessToken: env.PE_ACCESS_TOKEN, masterFqdn: env.PE_MASTER_FQDN)
       }
     }
 
