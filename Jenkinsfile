@@ -16,7 +16,7 @@ def createEnvironmentNodeGroup(Map parameters = [:]) {
 
     
     def response = httpRequest(
-        consoleLogResponseBody: false, 
+        consoleLogResponseBody: true, 
         contentType: 'APPLICATION_JSON', 
         httpMode: 'GET', 
         customHeaders: [
@@ -24,8 +24,8 @@ def createEnvironmentNodeGroup(Map parameters = [:]) {
         ],,
         url: "https://${masterFqdn}:4433/classifier-api/v1/groups", 
         validResponseCodes: '200')
-    def jsonData = jsonSlurper(response.content).data
-    sh("echo ${response}")
+    def jsonData = jsonSlurper(response.getContent()).data
+    sh("echo ${jsonData}")
     httpRequest(
         consoleLogResponseBody: true, 
         contentType: 'APPLICATION_JSON', 
