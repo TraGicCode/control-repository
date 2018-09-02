@@ -13,7 +13,7 @@ pipeline {
           if(env.DEPLOYMENT_PATTERN == 'Rolling Deployment') {
             env.STAGGER_SETTINGS = input message: 'Stagger Settings', 
             parameters: [
-              string(defaultValue: '2', description: '# of nodes to deploy to concurrently', name: 'Deploy to N Node(s) at a Time', trim: false)
+              string(defaultValue: '2', description: '# of nodes to deploy to concurrently', name: 'Deploy to N Node(s) at a Time', trim: false),
               string(defaultValue: '60', description: '# of seconds to wait once beforing continuing to the rest of the nodes', name: 'Wait N seconds between deploys', trim: false)
             ]
           }
