@@ -58,8 +58,11 @@ pipeline {
     stage("Test To Development"){
       when { branch "master" }
       steps {
-        sh('puppet job --help')
-        detectAffectedNodesViaNoop(masterFqdn: env.PE_MASTER_FQDN, accessToken: env.PE_ACCESS_TOKEN)
+        script {
+          def jobResult = sh(returnStdout: true, script: 'puppet job --query \'inventory[certname] { trusted.extensions.pp_environment = "production" and nodes { deactivated is null }\' --noop --format json')
+          echo jobResult
+        }
+        // detectAffectedNodesViaNoop(masterFqdn: env.PE_MASTER_FQDN, accessToken: env.PE_ACCESS_TOKEN)
       }
     }
   }
