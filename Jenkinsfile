@@ -1,91 +1,23 @@
 #!/usr/bin/env groovy
 
-import groovy.json.JsonSlurperClassic
-
-@NonCPS
-def jsonSlurper(json) {
-    new JsonSlurperClassic().parseText(json)
-}
-
-def createEnvironmentNodeGroup(Map parameters = [:]) {
-    String environment = parameters.environment
-    String parent      = parameters.parent
-    String accessToken = parameters.accessToken
-    String masterFqdn  = parameters.masterFqdn
-
-
-    
-    def response = httpRequest(
-        consoleLogResponseBody: false, 
-        contentType: 'APPLICATION_JSON', 
-        httpMode: 'GET', 
-        customHeaders: [
-            [name: 'X-Authentication', value: accessToken, maskValue: true ]
-        ],,
-        url: "https://${masterFqdn}:4433/classifier-api/v1/groups", 
-        validResponseCodes: '200')
-    def jsonData = jsonSlurper(response.content)
-    def parentEnvironmentGroup = jsonData.find { it.name == parent }
-
-    httpRequest(
-        consoleLogResponseBody: true, 
-        contentType: 'APPLICATION_JSON', 
-        httpMode: 'POST', 
-        customHeaders: [
-            [name: 'X-Authentication', value: accessToken, maskValue: true ]
-        ],
-        requestBody: """
-        { 
-            "name": "Jenkins Canary Environment Group",
-            "parent": "${parentEnvironmentGroup.id}",
-            "environment": "${environment}",
-            "classes": {}
-        }
-        """,
-        url: "https://${masterFqdn}:4433/classifier-api/v1/groups", 
-        validResponseCodes: '200')
-}
-
-def createEnvironmentBranch(Map parameters = [:]) {
-    String environment = parameters.environment
-    sh("git checkout -b ${environment}")
-    withCredentials([usernamePassword(credentialsId: '49516de6-9391-48b4-ba58-2aeb4acca97b', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-        sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/TraGicCode/control-repository HEAD')
-    }
-}
-
 pipeline {
-  // options { skipDefaultCheckout() }
   agent { node { label 'control-repo' } }
-  environment {
-    PE_ACCESS_TOKEN = credentials('pe-access-token')
-    PE_MASTER_FQDN  = 'puppetmaster-001.local'
-    PE_TEMP_ENVIRONMENT = "jenkins_${env.BUILD_ID}"
-  }
   stages {
-
-    stage("Promote To Development"){
-      when { branch "master" }
+    stage('Syntax Check Control Repo') {
       steps {
-        createEnvironmentBranch(environment: env.PE_TEMP_ENVIRONMENT)
-        createEnvironmentNodeGroup(environment: env.PE_TEMP_ENVIRONMENT, parent: 'Production environment', accessToken: env.PE_ACCESS_TOKEN, masterFqdn: env.PE_MASTER_FQDN)
+        input {
+          message 'Choose a Deployment Pattern'
+          parameters {
+            choice choices: ['All Servers At Once', 'Rolling Deployment'], description: 'Pick the strategy to use for this deployment', name: 'Deployment Pattern'
+            string defaultValue: '2', description: 'The stagger settings', name: 'Deploy to N Nodes at a Time', trim: false
+          }
+        }
+
+        sh(script: '''
+          echo 'test'
+        ''')
       }
     }
-
-    stage("CodeManager Deploy Environment") {
-      when { branch "master" }
-      steps {
-        puppetCode(environment: 'development', credentialsId: 'pe-access-token')
-      }
-    }
-
-    stage("Deploy To Development"){
-      when { branch "master" }
-      steps {
-        puppetJob(environment: 'development', query: 'inventory[certname] { trusted.extensions.pp_environment = "development" and nodes { deactivated is null } }', credentialsId: 'pe-access-token')
-      }
-    }
-
   }
   post {
     always {
