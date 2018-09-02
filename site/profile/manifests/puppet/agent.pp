@@ -7,5 +7,6 @@ class profile::puppet::agent {
     # lint:ignore:quoted_booleans
     value   => 'true',
     # lint:endignore
+
   }
 }
