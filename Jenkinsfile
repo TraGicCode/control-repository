@@ -16,7 +16,7 @@ def createEnvironmentNodeGroup(Map parameters = [:]) {
 
     
     def response = httpRequest(
-        consoleLogResponseBody: true, 
+        consoleLogResponseBody: false, 
         contentType: 'APPLICATION_JSON', 
         httpMode: 'GET', 
         customHeaders: [
