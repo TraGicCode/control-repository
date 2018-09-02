@@ -24,7 +24,7 @@ def createEnvironmentNodeGroup(Map parameters = [:]) {
         ],,
         url: "https://${masterFqdn}:4433/classifier-api/v1/groups", 
         validResponseCodes: '200')
-    def jsonData = jsonSlurper(response.content).values
+    def jsonData = jsonSlurper(response.content)
     for (group in jsonData) {
         sh("echo ${group}")
     }
