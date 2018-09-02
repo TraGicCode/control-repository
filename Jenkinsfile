@@ -11,6 +11,7 @@ pipeline {
                 choice(choices: ['All Servers At Once', 'Rolling Deployment'], description: 'Pick the strategy to use for this deployment', name: ''), 
                 string(defaultValue: '2', description: 'some extra thing', name: 'some extra thing description', trim: false)
               ]
+          echo input
         }
 
         input message: 'Stagger Settings', 
