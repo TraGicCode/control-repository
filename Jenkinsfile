@@ -43,7 +43,9 @@ def createEnvironmentNodeGroup(Map parameters = [:]) {
 def createEnvironmentBranch(Map parameters = [:]) {
     String environment = parameters.environment
     sh("git checkout -b ${environment}")
-    sh('git push origin HEAD')
+    withCredentials([usernamePassword(credentialsId: '49516de6-9391-48b4-ba58-2aeb4acca97b', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+        sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/TraGicCode/control-repository HEAD')
+    }
 }
 
 pipeline {
