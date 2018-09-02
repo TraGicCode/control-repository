@@ -11,6 +11,11 @@ pipeline {
                 string(defaultValue: '2', description: 'The stagger settings', name: 'Deploy to N Nodes at a Time', trim: false)
               ]
 
+              input message: 'Stagger Settings', 
+              parameters: [
+                string(defaultValue: '2', description: 'The stagger settings', name: 'Deploy to N Nodes at a Time', trim: false)
+              ]
+
 
         sh(script: '''
           echo 'test'
