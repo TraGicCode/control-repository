@@ -17,17 +17,18 @@ pipeline {
               string(defaultValue: '2', description: '# of nodes to deploy to concurrently', name: 'Stagger Count', trim: false),
               string(defaultValue: '60', description: '# of seconds to wait once beforing continuing to the rest of the nodes', name: 'Wait N seconds between deploys', trim: false)
             ]
-          }
-          echo staggerSettings['Stagger Count']
-          development_nodes = puppet.query 'inventory[certname] { trusted.extensions.pp_environment = "development" and nodes { deactivated is null } }', credentials: 'pe-access-token'
-          certnames = []
-          for (Map node : development_nodes) {
-            certnames.add(node.certname) //Extract the certnames from the query results
-          }
-          phase_groups = certnames.collate(staggerSettings['Stagger Count']) //Break node list into groups of N
-          for (ArrayList phase_nodes : phase_groups) {
-            puppet.job 'production', nodes: phase_nodes //Run Puppet on each sub group
-            input 'Ready to continue?' //Pause the deployment between phases for review
+
+            echo staggerSettings['Stagger Count']
+            development_nodes = puppet.query 'inventory[certname] { trusted.extensions.pp_environment = "development" and nodes { deactivated is null } }', credentials: 'pe-access-token'
+            certnames = []
+            for (Map node : development_nodes) {
+              certnames.add(node.certname) //Extract the certnames from the query results
+            }
+            phase_groups = certnames.collate(staggerSettings['Stagger Count']) //Break node list into groups of N
+            for (ArrayList phase_nodes : phase_groups) {
+              puppet.job 'production', nodes: phase_nodes //Run Puppet on each sub group
+              input 'Ready to continue?' //Pause the deployment between phases for review
+            }
           }
         }
 
