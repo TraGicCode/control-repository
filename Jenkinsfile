@@ -9,7 +9,7 @@ pipeline {
           message 'Choose a Deployment Pattern'
           parameters {
             choice choices: ['All Servers At Once', 'Rolling Deployment'], description: 'Pick the strategy to use for this deployment', name: 'Deployment Pattern'
-            string defaultValue: '2', description: 'The stagger settings', name: 'Deploy to N Nodes at a Time', trim: false
+            // string defaultValue: '2', description: 'The stagger settings', name: 'Deploy to N Nodes at a Time', trim: false
           }
         }
 
