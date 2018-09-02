@@ -10,7 +10,8 @@ pipeline {
             choice(choices: ['All Servers At Once', 'Rolling Deployment'], description: 'Pick the strategy to use for this deployment', name: 'DEPLOYMENT_PATTERN')
         }
       }
-      when { params.DEPLOYMENT_PATTERN equals 'Rolling Deployment' }
+
+      when { expression { return params.DEPLOYMENT_PATTERN == 'Rolling Deployment' } }
       steps {
 
         input message: 'Stagger Settings', 
