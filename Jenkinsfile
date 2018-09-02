@@ -7,7 +7,7 @@ pipeline {
         steps {
             sh(script: 'bundle install --path .bundle')
             // stash(name: 'everything', includes: '**')
-            stash(name: 'bundle', includes: '.bundle')
+            stash(name: 'bundle', includes: '.bundle/')
         }
     }
     stage('Syntax Check Control Repo') {
