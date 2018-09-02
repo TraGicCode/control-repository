@@ -16,7 +16,7 @@ pipeline {
             // If things have changed then execute the query
             if (numChangedClasses > 0) {
             echo nodeQuery
-            affectedNodes  = puppet.query nodeQuery
+            affectedNodes  = puppet.query(nodeQuery, credentials: 'pe-access-token')
             // If nothing has been affected by the change we don't need to try to
             // initiate the run
             if (affectedNodes.size() > 0) {
