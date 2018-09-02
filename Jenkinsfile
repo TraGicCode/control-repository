@@ -52,6 +52,7 @@ pipeline {
   environment {
     PE_ACCESS_TOKEN = credentials('pe-access-token')
     PE_MASTER_FQDN  = 'puppetmaster-001.local'
+    TOKEN = credentials('pe-access-token')
   }
   stages {
 
