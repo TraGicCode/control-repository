@@ -26,9 +26,8 @@ pipeline {
             }
             phase_groups = certnames.collate(staggerSettings['Stagger Count'] as Integer) //Break node list into groups of N
             for (ArrayList phase_nodes : phase_groups) {
-              puppet.job 'production', nodes: phase_nodes //Run Puppet on each sub group
-               puppetJob(environment: 'production', nodes: phase_nodes, credentialsId: 'pe-access-token')
-              input 'Ready to continue?' //Pause the deployment between phases for review
+              puppetJob(environment: 'production', nodes: phase_nodes, credentialsId: 'pe-access-token') //Run Puppet on each sub group
+              sleep(time: staggerSettings['Wait N seconds between deploys'] as Integer, unit: 'SECONDS')
             }
           }
         }
