@@ -4,7 +4,7 @@ pipeline {
   agent { node { label 'control-repo' } }
   stages {
     stage("Deploy To Development"){
-      when { branch "production" }
+      // when { branch "production" }
       steps {
         script {
             // Get all of the classes that have changed
