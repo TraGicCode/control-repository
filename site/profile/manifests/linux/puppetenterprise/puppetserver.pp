@@ -41,6 +41,17 @@ class profile::linux::puppetenterprise::puppetserver(
       'object_type' => 'nodes',
       'action'      => 'view_data',
       'instance'    => '*'
+    },
+    # This is only needed for creating the temp environment in jenkins
+    {
+      'object_type' => 'node_groups',
+      'action'      => 'modify_children',
+      'instance'    => '*'
+    },
+    {
+      'object_type' => 'node_groups',
+      'action'      => 'view',
+      'instance'    => '*'
     }],
   }
 
