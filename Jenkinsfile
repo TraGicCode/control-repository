@@ -24,8 +24,8 @@ def createEnvironmentNodeGroup(Map parameters = [:]) {
         ],,
         url: "https://${masterFqdn}:4433/classifier-api/v1/groups", 
         validResponseCodes: '200')
-    def jsonData = jsonSlurper(response.getContent()).data
-    sh("echo ${jsonData}")
+    // def jsonData = jsonSlurper(response.getContent()).data
+    sh("echo ${response.content}")
     httpRequest(
         consoleLogResponseBody: true, 
         contentType: 'APPLICATION_JSON', 
