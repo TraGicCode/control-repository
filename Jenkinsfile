@@ -7,7 +7,7 @@ pipeline {
       input {
           message "Choose a Deployment Pattern"
           parameters {
-            choice(choices: ['All Servers At Once', 'Rolling Deployment'], description: 'Pick the strategy to use for this deployment', name: 'DEPLOYMENT_PATTERN'), 
+            choice(choices: ['All Servers At Once', 'Rolling Deployment'], description: 'Pick the strategy to use for this deployment', name: 'DEPLOYMENT_PATTERN')
         }
       }
       when { params.DEPLOYMENT_PATTERN == 'Rolling Deployment' }
