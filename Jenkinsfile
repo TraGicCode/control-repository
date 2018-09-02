@@ -28,7 +28,7 @@ def createEnvironmentNodeGroup(Map parameters = [:]) {
     // for (group in jsonData) {
     //     sh("echo ${group.name}")
     // }
-    sh("echo ${jsonData.find { it == parent }}")
+    sh("echo ${jsonData.find { it.name == parent }}")
 
     httpRequest(
         consoleLogResponseBody: true, 
