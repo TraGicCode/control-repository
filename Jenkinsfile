@@ -1,26 +1,26 @@
 #!/usr/bin/env groovy
 
-def merge(from, to) {
-  sh('git merge ' + from + ' --ff-only')
-}
-
-def promote(Map parameters = [:]) {
-  String from = parameters.from
-  String to = parameters.to
-
-  merge(from, to)
-
-  withCredentials([usernamePassword(credentialsId: '49516de6-9391-48b4-ba58-2aeb4acca97b', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-    sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/TraGicCode/control-repository HEAD')
-  }
-}
-
 def createEnvironmentNodeGroup(Map parameters = [:]) {
     String environment = parameters.environment
     String parent      = parameters.parent
     String accessToken = parameters.accessToken
     String masterFqdn  = parameters.masterFqdn
 
+
+    
+    def response = httpRequest(
+        consoleLogResponseBody: true, 
+        contentType: 'APPLICATION_JSON', 
+        httpMode: 'GET', 
+        customHeaders: [
+            [name: 'X-Authentication', value: accessToken, maskValue: true ]
+        ],,
+        url: "https://${masterFqdn}:4433/classifier-api/v1/groups", 
+        validResponseCodes: '200')
+    def jsonData = jsonSlurper(response.content).data
+    for (group in jsonData) {
+        echo group
+    }
     httpRequest(
         consoleLogResponseBody: true, 
         contentType: 'APPLICATION_JSON', 
@@ -61,9 +61,6 @@ pipeline {
     stage("Promote To Development"){
       when { branch "master" }
       steps {
-        // git url: 'https://github.com/TraGicCode/control-repository.git', branch: 'development'
-        // promote(from: '${GIT_COMMIT}', to: 'development')
-        // promote(from: 'origin/master', to: 'development')
         createEnvironmentBranch(environment: env.PE_TEMP_ENVIRONMENT)
         createEnvironmentNodeGroup(environment: env.PE_TEMP_ENVIRONMENT, parent: 'production', accessToken: env.PE_ACCESS_TOKEN, masterFqdn: env.PE_MASTER_FQDN)
       }
