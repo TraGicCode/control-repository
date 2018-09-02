@@ -3,16 +3,15 @@
 pipeline {
   agent { node { label 'control-repo' } }
   stages {
-    stage('Syntax Check Control Repo') {
-      input {
-          message "Choose a Deployment Pattern"
-          parameters {
-            choice(choices: ['All Servers At Once', 'Rolling Deployment'], description: 'Pick the strategy to use for this deployment', name: 'DEPLOYMENT_PATTERN')
-        }
-      }
-
-      when { expression { return DEPLOYMENT_PATTERN == 'Rolling Deployment' } }
+    stage('Deploy to development') {
       steps {
+        script {
+          def input = input message: 'Choose a Deployment Pattern', 
+              parameters: [
+                choice(choices: ['All Servers At Once', 'Rolling Deployment'], description: 'Pick the strategy to use for this deployment', name: ''), 
+                string(defaultValue: '2', description: 'some extra thing', name: 'some extra thing description', trim: false)
+              ]
+        }
 
         input message: 'Stagger Settings', 
         parameters: [
