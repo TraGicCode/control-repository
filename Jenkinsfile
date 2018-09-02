@@ -26,7 +26,7 @@ def createEnvironmentNodeGroup(Map parameters = [:]) {
         validResponseCodes: '200')
     def jsonData = jsonSlurper(response.content)
     for (group in jsonData) {
-        sh("echo ${group}")
+        sh("echo ${group.name}")
     }
     httpRequest(
         consoleLogResponseBody: true, 
