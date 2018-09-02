@@ -19,55 +19,51 @@ def createEnvironmentNodeGroup(Map parameters = [:]) {
     String environment = parameters.environment
     String parent      = parameters.parent
     String accessToken = parameters.accessToken
+    String masterFqdn  = parameters.masterFqdn
 
-    sh("echo ${environment}")
-    sh("echo ${parent}")
-    sh("echo ${accessToken}")
+    httpRequest(
+        consoleLogResponseBody: true, 
+        contentType: 'APPLICATION_JSON', 
+        httpMode: 'POST', 
+        customHeaders: [
+            [name: 'X-Authentication', value: accessToken, maskValue: true ]
+        ],
+        requestBody: """
+        { 
+            "name": "XXXX22",
+            "parent": "00000000-0000-4000-8000-000000000000",
+            "environment": "${environment}",
+            "classes": {}
+        }
+        """,
+        url: "https://${masterFqdn}:4433/classifier-api/v1/groups", 
+        validResponseCodes: '200')
+}
+
+def createEnvironmentBranch(Map parameters = [:]) {
+    String environment = parameters.environment
+    sh("git checkout -b ${environment}")
+    sh('git push origin HEAD')
 }
 
 pipeline {
-// options { skipDefaultCheckout() }
+  // options { skipDefaultCheckout() }
   agent { node { label 'control-repo' } }
   environment {
     PE_ACCESS_TOKEN = credentials('pe-access-token')
+    PE_MASTER_FQDN  = 'puppetmaster-001.local'
+    PE_TEMP_ENVIRONMENT = "jenkins_${env.BUILD_ID}"
   }
   stages {
 
     stage("Promote To Development"){
       when { branch "master" }
       steps {
-
-//         git url: 'https://github.com/TraGicCode/control-repository.git', branch: 'development'
-//         // sh('env')
-//         promote(from: '${GIT_COMMIT}', to: 'development')
-//         // promote(from: 'origin/master', to: 'development')
-//         sh("""
-//         curl -k -X POST -H 'Content-Type: application/json' -H "X-Authentication:0Tc-Buvn9oYLAaCXy8nVCaz3SXHHvBdONIhGd45kfMk4" \
-//   -d '{ "name": "XXXX",
-//         "parent": "00000000-0000-4000-8000-000000000000",
-//         "environment": "production",
-//         "classes": {}
-//       }' \
-//   https://puppetmaster-001.local:4433/classifier-api/v1/groups
-//   """)
-
-  createEnvironmentNodeGroup(environment: 'xxx2', parent: 'production', accessToken: env.PE_ACCESS_TOKEN)
-//   httpRequest (consoleLogResponseBody: true, 
-//       contentType: 'APPLICATION_JSON', 
-//       httpMode: 'POST', 
-//       customHeaders: [
-//           [name: 'X-Authentication', value: '0Tc-Buvn9oYLAaCXy8nVCaz3SXHHvBdONIhGd45kfMk4', maskValue: true]
-//       ],
-//       requestBody: """
-//     { 
-//         "name": "XXXX22",
-//         "parent": "00000000-0000-4000-8000-000000000000",
-//         "environment": "production",
-//         "classes": {}
-//     }
-//     """,
-//       url: "https://puppetmaster-001.local:4433/classifier-api/v1/groups", 
-//       validResponseCodes: '200')
+        // git url: 'https://github.com/TraGicCode/control-repository.git', branch: 'development'
+        // promote(from: '${GIT_COMMIT}', to: 'development')
+        // promote(from: 'origin/master', to: 'development')
+        createEnvironmentBranch(environment: env.PE_TEMP_ENVIRONMENT)
+        createEnvironmentNodeGroup(environment: 'temporary', parent: 'production', accessToken: env.PE_ACCESS_TOKEN, masterFqdn: env.PE_MASTER_FQDN)
       }
     }
 
