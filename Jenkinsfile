@@ -9,7 +9,7 @@ pipeline {
           env.DEPLOYMENT_PATTERN = input message: 'Choose a Deployment Pattern', 
               parameters: [
                 choice(choices: ['All Servers At Once', 'Rolling Deployment'], description: 'Pick the strategy to use for this deployment', name: 'Deployment Pattern'), 
-                string(defaultValue: '2', description: 'some extra thing', name: 'Stagger Settings', trim: false)
+                // string(defaultValue: '2', description: 'some extra thing', name: 'Stagger Settings', trim: false)
               ]
           if(env.DEPLOYMENT_PATTERN == 'Rolling Deployment') {
             env.STAGGER_SETTINGS = input message: 'Stagger Settings', 
