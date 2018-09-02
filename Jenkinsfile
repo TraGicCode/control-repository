@@ -25,10 +25,7 @@ def createEnvironmentNodeGroup(Map parameters = [:]) {
         url: "https://${masterFqdn}:4433/classifier-api/v1/groups", 
         validResponseCodes: '200')
     def jsonData = jsonSlurper(response.content)
-    // for (group in jsonData) {
-    //     sh("echo ${group.name}")
-    // }
-    sh("echo ${jsonData.find { it.name == parent }}")
+    def parentEnvironmentGroup = jsonData.find { it.name == parent }
 
     httpRequest(
         consoleLogResponseBody: true, 
@@ -40,7 +37,7 @@ def createEnvironmentNodeGroup(Map parameters = [:]) {
         requestBody: """
         { 
             "name": "Jenkins Canary Environment Group",
-            "parent": "00000000-0000-4000-8000-000000000000",
+            "parent": "${parentEnvironmentGroup.id}",
             "environment": "${environment}",
             "classes": {}
         }
