@@ -6,12 +6,14 @@ pipeline {
     stage('Install Ruby Dependencies') {
         steps {
             sh(script: 'bundle install --path .bundle')
-            stash(name: 'everything', includes: '**')
+            // stash(name: 'everything', includes: '**')
+            stash(name: 'bundle', includes: '.bundle')
         }
     }
     stage('Syntax Check Control Repo') {
       steps {
-        unstash(name: 'everything')
+        // unstash(name: 'everything')
+        unstash(name: 'bundle')
         sh(script: 'bundle exec rake syntax --verbose')
       }
     }
