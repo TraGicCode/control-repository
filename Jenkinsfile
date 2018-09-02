@@ -24,7 +24,7 @@ pipeline {
             for (Map node : development_nodes) {
               certnames.add(node.certname) //Extract the certnames from the query results
             }
-            phase_groups = certnames.collate(staggerSettings['Stagger Count']) //Break node list into groups of N
+            phase_groups = certnames.collate(staggerSettings['Stagger Count'] as Integer) //Break node list into groups of N
             for (ArrayList phase_nodes : phase_groups) {
               puppet.job 'production', nodes: phase_nodes //Run Puppet on each sub group
               input 'Ready to continue?' //Pause the deployment between phases for review
