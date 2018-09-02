@@ -10,7 +10,7 @@ pipeline {
             // Get all of the classes that have changed
             changedClasses    = sh(returnStdout: true, script: 'ruby ./scripts/get_changed_classes.rb').trim().split('\n')
             // Get the number of classes that have changed
-            numChangedClasses = sh(returnStdout: true, script: './scripts/count_changed_classes.rb').trim().toInteger()
+            numChangedClasses = sh(returnStdout: true, script: 'ruby ./scripts/count_changed_classes.rb').trim().toInteger()
             // Generate a query that we will use
             nodeQuery         = ('nodes { resources { type = "Class" and title in ' + ("[\"" + changedClasses.join("\",\"") + "\"]") + ' } and catalog_environment = "' + env.BRANCH_NAME +'" }').toString()
             // If things have changed then execute the query
