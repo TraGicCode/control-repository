@@ -11,7 +11,7 @@ pipeline {
         }
       }
 
-      when { expression { return params.DEPLOYMENT_PATTERN == 'Rolling Deployment' } }
+      when { expression { return DEPLOYMENT_PATTERN == 'Rolling Deployment' } }
       steps {
 
         input message: 'Stagger Settings', 
