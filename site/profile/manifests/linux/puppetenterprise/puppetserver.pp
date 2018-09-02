@@ -52,6 +52,11 @@ class profile::linux::puppetenterprise::puppetserver(
       'object_type' => 'node_groups',
       'action'      => 'view',
       'instance'    => '*'
+    },
+    {
+      'object_type' => 'node_groups',
+      'action'      => 'set_environment',
+      'instance'    => '*'
     }],
   }
 
