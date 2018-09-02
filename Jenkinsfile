@@ -12,7 +12,7 @@ pipeline {
             // Get the number of classes that have changed
             numChangedClasses = sh(returnStdout: true, script: 'ruby ./scripts/count_changed_classes.rb').trim().toInteger()
             // Generate a query that we will use
-            nodeQuery         = ('nodes { resources { type = "Class" and title in ' + ("[\"" + changedClasses.join("\",\"") + "\"]") + ' } and catalog_environment = "' + env.BRANCH_NAME +'" }').toString()
+            nodeQuery         = ('nodes { resources { type = "Class" and title in ' + ("[\"" + changedClasses.join("\",\"") + "\"]") + ' } and catalog_environment = "' + 'production' +'" }').toString()
             // If things have changed then execute the query
             if (numChangedClasses > 0) {
             echo nodeQuery
