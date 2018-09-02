@@ -20,7 +20,7 @@ pipeline {
             // If nothing has been affected by the change we don't need to try to
             // initiate the run
             if (affectedNodes.size() > 0) {
-                puppet.job env.BRANCH_NAME, query: nodeQuery
+                puppetJob(environment: 'production', query: nodeQuery, credentialsId: 'pe-access-token')
             } else {
                 echo "Classes: " + changedClasses.join(",") + " changed. But no nodes were affected, skipping run."
             }
@@ -28,7 +28,6 @@ pipeline {
                 echo "No classes changed, skipping this step."
             }
         }
-        puppetJob(environment: 'production', query: 'inventory[certname] { trusted.extensions.pp_environment = "development" and nodes { deactivated is null } }', credentialsId: 'pe-access-token')
       }
     }
   }
