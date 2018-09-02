@@ -19,7 +19,7 @@ pipeline {
             ]
 
             echo staggerSettings['Stagger Count']
-            development_nodes = puppet.query 'inventory[certname] { trusted.extensions.pp_environment = "development" and nodes { deactivated is null } }', credentials: 'pe-access-token'
+            development_nodes = puppet.query 'inventory[certname] {  nodes { deactivated is null } }', credentials: 'pe-access-token'
             certnames = []
             for (Map node : development_nodes) {
               certnames.add(node.certname) //Extract the certnames from the query results
