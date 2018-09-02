@@ -17,6 +17,7 @@ pipeline {
               string(defaultValue: '60', description: '# of seconds to wait once beforing continuing to the rest of the nodes', name: 'Wait N seconds between deploys', trim: false)
             ]
           }
+          echo env.STAGGER_SETTINGS
           development_nodes = puppet.query 'inventory[certname] { trusted.extensions.pp_environment = "development" and nodes { deactivated is null } }', credentials: 'pe-access-token'
           certnames = []
           for (Map node : development_nodes) {
