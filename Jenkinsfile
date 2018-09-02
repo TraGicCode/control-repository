@@ -60,6 +60,7 @@ pipeline {
       when { branch "master" }
       steps {
         script {
+          sh 'printenv'
           def jobResult = sh(returnStdout: true, script: 'puppet job run --query \'inventory[certname] { trusted.extensions.pp_environment = "production" and nodes { deactivated is null }\' --noop --format json')
           echo jobResult
         }
