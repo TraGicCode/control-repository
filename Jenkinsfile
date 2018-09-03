@@ -3,6 +3,11 @@
 pipeline {
   agent { node { label 'control-repo' } }
   stages {
+    stage('Install Ruby Dependencies') {
+        steps {
+            sh(script: 'bundle install --path .bundle')
+        }
+    }
     stage('Check for trashy commits') {
       steps {
          sh(script: '''
