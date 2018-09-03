@@ -1,70 +1,66 @@
 #!/usr/bin/env groovy
 
-import groovy.json.JsonSlurperClassic
-
-@NonCPS
-def jsonSlurper(json) {
-    new JsonSlurperClassic().parseText(json)
-}
-
-def createEnvironmentNodeGroup(Map parameters = [:]) {
-    String environment = parameters.environment
-    String parent      = parameters.parent
-    String accessToken = parameters.accessToken
-    String masterFqdn  = parameters.masterFqdn
-
-
-    
-    def response = httpRequest(
-        consoleLogResponseBody: false, 
-        contentType: 'APPLICATION_JSON', 
-        httpMode: 'GET', 
-        customHeaders: [
-            [name: 'X-Authentication', value: accessToken, maskValue: true ]
-        ],,
-        url: "https://${masterFqdn}:4433/classifier-api/v1/groups", 
-        validResponseCodes: '200')
-    def jsonData = jsonSlurper(response.content)
-    def parentEnvironmentGroup = jsonData.find { it.name == parent }
-
-    httpRequest(
-        consoleLogResponseBody: true, 
-        contentType: 'APPLICATION_JSON', 
-        httpMode: 'POST', 
-        customHeaders: [
-            [name: 'X-Authentication', value: accessToken, maskValue: true ]
-        ],
-        requestBody: """
-        { 
-            "name": "Jenkins Canary Environment Group",
-            "parent": "${parentEnvironmentGroup.id}",
-            "environment": "${environment}",
-            "classes": {}
-        }
-        """,
-        url: "https://${masterFqdn}:4433/classifier-api/v1/groups", 
-        validResponseCodes: '200')
-}
-
-
 pipeline {
   agent { node { label 'control-repo' } }
-  environment {
-    PE_ACCESS_TOKEN = credentials('pe-access-token')
-    PE_MASTER_FQDN  = 'puppetmaster-001.local'
-    TOKEN = credentials('pe-access-token')
-  }
   stages {
-
-    stage("Test To Development"){
-      when { branch "master" }
+    stage('Syntax Check Control Repo') {
       steps {
-        script {
-          sh 'printenv'
-          def jobResult = sh(returnStdout: true, script: 'puppet job run --query \'inventory[certname] { trusted.extensions.pp_environment = "production" and nodes { deactivated is null }\' --noop --format json')
-          echo jobResult
-        }
-        // detectAffectedNodesViaNoop(masterFqdn: env.PE_MASTER_FQDN, accessToken: env.PE_ACCESS_TOKEN)
+        // input(message: 'Choose a Deployment Pattern',    
+        //       parameters: [
+        //         choice(name: 'Deployment Pattern', choices: "All Servers At Once\nRolling Deployment")
+        //       ])
+        sh(script: '''
+          bundle install --path .bundle
+          bundle exec rake syntax --verbose
+        ''')
+      }
+    }
+
+    stage('Validate Puppetfile In Control Repo') {
+      steps {
+        sh(script: '''
+          bundle install --path .bundle
+          bundle exec rake r10k:syntax
+        ''')
+      }
+    }
+
+    stage('Validate Puppetfile In Control Repo') {
+      steps {
+        sh(script: '''
+          bundle install --path .bundle
+          bundle exec rake r10k:syntax
+        ''')
+      }
+    }
+
+    stage("CodeManager Deploy Environment") {
+      when { branch "production" }
+      steps {
+        puppetCode(environment: env.BRANCH_NAME, credentialsId: 'pe-access-token')
+      }
+    }
+
+    stage("Deploy To Development"){
+      when { branch "production" }
+      steps {
+        puppetJob(environment: 'production', query: 'inventory[certname] { trusted.extensions.pp_environment = "development" and nodes { deactivated is null } }', credentialsId: 'pe-access-token')
+      }
+    }
+
+    stage("Deploy To Staging"){
+      when { branch "production" }
+      steps {
+        input 'Ready to release to Staging?'
+        puppetJob(environment: 'production', query: 'inventory[certname] { trusted.extensions.pp_environment = "staging" and nodes { deactivated is null } }', credentialsId: 'pe-access-token')
+      }
+    }
+
+    stage("Deploy To Production"){
+      when { branch "production" }
+      steps {
+        input 'Ready to release to Production?'
+        puppetJob(environment: 'production', query: 'inventory[certname] { trusted.extensions.pp_environment = "production" and nodes { deactivated is null } }', credentialsId: 'pe-access-token')
       }
     }
   }
