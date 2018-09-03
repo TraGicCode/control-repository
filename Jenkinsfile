@@ -62,7 +62,7 @@ pipeline {
         script {
           sh(script: 'echo \'test123!\' | puppet access login --username jenkins_puppet_deployer')
           def jobResult = sh(returnStdout: true, script: """
-          puppet job run --query "inventory[certname] { trusted.extensions.pp_environment = \\"production\\" and nodes { deactivated is null }" --noop --format json
+          puppet job run --query \\"inventory[certname] { trusted.extensions.pp_environment = \\"production\\" and nodes { deactivated is null }\\" --noop --format json
           """)
           echo jobResult
         }
