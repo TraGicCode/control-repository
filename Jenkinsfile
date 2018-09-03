@@ -66,7 +66,7 @@ pipeline {
           echo jsonData.items
           def affectedNodes = jsonData.items.find { it.metrics.changed > 0 }
           for (Map node : affectedNodes) {
-              echo "This node is affected: ${node.name}")
+              echo("This node is affected: ${node.name}")
             }
         }
         // detectAffectedNodesViaNoop(masterFqdn: env.PE_MASTER_FQDN, accessToken: env.PE_ACCESS_TOKEN)
