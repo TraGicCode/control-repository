@@ -60,8 +60,8 @@ pipeline {
       when { branch "master" }
       steps {
         script {
-          sh(script: 'echo \'test123!\' | puppet access login --username jenkins_puppet_deployer').trim().split('\n')
-          def jobResult = sh(returnStdout: true, script: 'puppet job run --noop --format json --query "inventory[certname] { trusted.extensions.pp_environment = \'development\' and nodes { deactivated is null } }"')
+          sh(script: 'echo \'test123!\' | puppet access login --username jenkins_puppet_deployer')
+          def jobResult = sh(returnStdout: true, script: 'puppet job run --noop --format json --query "inventory[certname] { trusted.extensions.pp_environment = \'development\' and nodes { deactivated is null } }"').trim().split('\n')
           def jsonData = jsonSlurper(jobResult)
           echo jsonData.items
           
