@@ -18,5 +18,5 @@ class profile::linux::jenkins::slave(
       manage_client_jar        => true,
   }
 
-  notify { "Testing use_cached_catalog": }
+  notify { 'Testing use_cached_catalog': }
 }

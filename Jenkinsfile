@@ -3,7 +3,18 @@
 pipeline {
   agent { node { label 'control-repo' } }
   stages {
-    stage('Syntax Check Control Repo') {
+    stage('Check for trashy commits') {
+      steps {
+         sh(script: '''
+          bundle install --path .bundle
+          bundle exec rake check:dot_underscore
+          bundle exec rake check:git_ignore
+          bundle exec rake check:symlinks
+          bundle exec rake check:test_file
+        ''')
+      }
+    }
+    stage('Syntax Check ( PuppetFile )') {
       steps {
         // input(message: 'Choose a Deployment Pattern',    
         //       parameters: [
@@ -11,26 +22,49 @@ pipeline {
         //       ])
         sh(script: '''
           bundle install --path .bundle
+          bundle exec rake r10k:syntax
+        ''')
+      }
+    }
+
+    stage('Syntax Check ( Manifests/Templates/Hiera )') {
+      steps {
+        sh(script: '''
+          bundle install --path .bundle
           bundle exec rake syntax --verbose
         ''')
       }
     }
 
-    stage('Validate Puppetfile In Control Repo') {
+    stage('Puppet Lint') {
       steps {
         sh(script: '''
           bundle install --path .bundle
-          bundle exec rake r10k:syntax
+          bundle exec rake lint
         ''')
       }
     }
 
-    stage('Validate Puppetfile In Control Repo') {
+    stage('Rubocop'){
+      steps {
+        sh(script: '''
+          bundle exec rake rubocop
+        ''')
+      }
+    }
+
+    stage('Unit Tests'){
       steps {
         sh(script: '''
           bundle install --path .bundle
-          bundle exec rake r10k:syntax
+          bundle exec rake spec_prep
+          bundle exec rake spec_standalone
         ''')
+      }
+      post {
+        always {
+          junit '.tmp/rspec_puppet.xml'
+        }
       }
     }
 
