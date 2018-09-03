@@ -62,7 +62,8 @@ pipeline {
         script {
           sh(script: 'echo \'test123!\' | puppet access login --username jenkins_puppet_deployer')
           def jobResult = sh(returnStdout: true, script: 'puppet job run --noop --format json --query "inventory[certname] { trusted.extensions.pp_environment = \'development\' and nodes { deactivated is null } }"')
-          echo jobResult
+          def jsonData = jsonSlurper(jobResult)
+          echo jsonData
           
         }
         // detectAffectedNodesViaNoop(masterFqdn: env.PE_MASTER_FQDN, accessToken: env.PE_ACCESS_TOKEN)
