@@ -65,7 +65,7 @@ pipeline {
           def jsonData = jsonSlurper(jobResult)
           
           def affectedNodes = jsonData.items.find { it.metrics.noop > 0 }
-          echo affectedNodes[0].name
+          sh("echo ${affectedNodes.size}")
           for (def node : affectedNodes) {
               echo("This node is affected: ${node['name']}")
             }
