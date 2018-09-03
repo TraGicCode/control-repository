@@ -64,10 +64,9 @@ pipeline {
           def jobResult = sh(returnStdout: true, script: 'puppet job run --noop --format json --query "inventory[certname] { trusted.extensions.pp_environment = \'development\' and nodes { deactivated is null } }"')
           echo jobResult
           def jsonData = jsonSlurper(jobResult)
-          echo jsonData.items[0].metrics.noop
-          def affectedNodes = jsonData.items.find { it.metrics.noop > 0 }
+          def affectedNodes = jsonData.items.findAll { it.metrics.noop > 0 }
           sh("echo ${affectedNodes.size()}")
-          for (def node : affectedNodes) {
+          for (Map node : affectedNodes) {
               echo("This node is affected: ${node['name']}")
             }
         }
