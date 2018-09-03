@@ -62,7 +62,7 @@ pipeline {
         script {
           sh(script: 'echo \'test123!\' | puppet access login --username jenkins_puppet_deployer')
           def jobResult = sh(returnStdout: true, script: 'puppet job run --noop --format json --query "inventory[certname] { trusted.extensions.pp_environment = \'development\' and nodes { deactivated is null } }"')
-          sh("echo ${jobResult)}")
+          sh("echo ${jobResult}")
           def jsonData = jsonSlurper(jobResult)
           
           def affectedNodes = jsonData.items.find { it.metrics.noop > 0 }
