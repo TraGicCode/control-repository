@@ -63,7 +63,7 @@ pipeline {
           sh(script: 'echo \'test123!\' | puppet access login --username jenkins_puppet_deployer')
           def jobResult = sh(returnStdout: true, script: 'puppet job run --noop --format json --query "inventory[certname] { trusted.extensions.pp_environment = \'development\' and nodes { deactivated is null } }"')
           def jsonData = jsonSlurper(jobResult)
-          echo jsonData.items
+          
           def affectedNodes = jsonData.items.find { it.metrics.changed > 0 }
           for (Map node : affectedNodes) {
               echo("This node is affected: ${node.name}")
