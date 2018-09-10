@@ -57,6 +57,9 @@ fixtures:
     reboot:
       repo: 'https://github.com/puppetlabs/puppetlabs-reboot'
       ref:  '2.0.0'
+    redis:
+      repo: 'https://github.com/arioch/puppet-redis'
+      ref:  'v3.3.0'
     registry:
       repo: 'https://github.com/puppetlabs/puppetlabs-registry'
       ref:  '2.0.1'

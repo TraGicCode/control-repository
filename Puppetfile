@@ -1,7 +1,7 @@
 forge 'https://forge.puppetlabs.com'
 
 # Modules discovered by generate-puppetfile
-mod 'arioch/redis', '3.1.0'
+mod 'arioch/redis', '3.3.0'
 mod 'binford2k/node_encrypt', '0.3.2'
 mod 'camptocamp-systemd', '1.1.1'
 mod 'darin/zypprepo', '1.0.2'
