@@ -77,7 +77,7 @@ fixtures:
       ref:  'v1.13.1'
     splunk:
       repo: 'https://github.com/voxpupuli/puppet-splunk'
-      ref:  'v7.1.0'
+      ref:  'v7.2.1'
     squid:
       repo: 'https://github.com/voxpupuli/puppet-squid'
       ref:  'v1.1.0'
