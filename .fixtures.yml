@@ -65,7 +65,7 @@ fixtures:
       ref:  'v3.3.0'
     registry:
       repo: 'https://github.com/puppetlabs/puppetlabs-registry'
-      ref:  '2.0.1'
+      ref:  '2.0.2'
     ruby:
       repo: 'https://github.com/puppetlabs/puppetlabs-ruby'
       ref:  '1.0.0'
