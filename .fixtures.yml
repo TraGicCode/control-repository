@@ -32,7 +32,7 @@ fixtures:
       ref:  '2.2.0'
     java:
       repo: 'https://github.com/puppetlabs/puppetlabs-java'
-      ref:  '2.4.0'
+      ref:  '3.0.0'
     jenkins:
       repo: 'https://github.com/voxpupuli/puppet-jenkins'
       ref:  'v1.7.0'
