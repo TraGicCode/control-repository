@@ -26,7 +26,7 @@ class profile::windows::sqlserverhadr::sqlserver(
 
 # new-netroute -DestinationPrefix '0.0.0.0/0' -InterfaceAlias 'Ethernet 2' -AddressFamily IPv4 -NextHop '10.20.1.9' -RouteMetric 256
 # This is so i can create the cluster with its ip on the same subnet as Ethernet 2 in my vagrant box
-# Set-DnsClientServerAddress -InterfaceAlias 'Ethernet 2' -ServerAddresses ("10.20.1.7")
+# Set-DnsClientServerAddress -InterfaceAlias 'Ethernet 2' -ServerAddresses ("10.20.1.10")
 # I need to disable DHCP on port forwarding NIC or it will not be ignored and when the cluster is created the NIC will be added as a network!
 # This is the magic sauce here for getting our cluster to ignore the 10.0.2.15 network that vagrant creates/uses for port forwarding
 # Get-NetAdapter -Name 'Ethernet' | Set-NetIPInterface -DHCP Disabled

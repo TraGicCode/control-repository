@@ -127,7 +127,7 @@ Vagrant.configure('2') do |config|
 
   config.vm.define 'devnode' do |node|
     node.vm.hostname = 'devnode-001.local'
-    node.vm.network :private_network, :ip => '10.20.1.7'
+    node.vm.network :private_network, :ip => '10.20.1.10'
     node.vm.box = 'puppetlabs/ubuntu-16.04-64-nocm'
     node.vm.provider "virtualbox" do |v|
       v.linked_clone = true

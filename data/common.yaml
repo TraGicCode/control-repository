@@ -13,9 +13,9 @@ profile::windows::common::activedirectory::domain_administrator_user: 'tragiccod
 profile::windows::activedirectory::domaincontroller::domain_net_bios_name: 'TRAGICCODE'
 profile::windows::activedirectory::domaincontroller::domain_administrator_user: "%{lookup('profile::windows::common::activedirectory::domain_administrator_user')}"
 profile::windows::activedirectory::domaincontroller::is_first_dc: false
-profile::windows::activedirectory::domaincontroller::first_dc_internal_ipv4_address: 10.20.1.7
+profile::windows::activedirectory::domaincontroller::first_dc_internal_ipv4_address: 10.20.1.10
 
-profile::windows::dnsclient::primary_dnsserver_internal_ipv4_address: 10.20.1.7
+profile::windows::dnsclient::primary_dnsserver_internal_ipv4_address: 10.20.1.10
 profile::windows::dnsclient::alternate_dnsserver_internal_ipv4_address: 10.20.1.8
 
 profile::windows::activedirectory::domainmemberserver::domain_name: "%{lookup('profile::windows::activedirectory::data::domain_name')}"
