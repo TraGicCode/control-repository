@@ -86,7 +86,7 @@ fixtures:
       ref:  'v3.2.0'
     stdlib:
       repo: 'https://github.com/puppetlabs/puppetlabs-stdlib'
-      ref:  '4.24.0'
+      ref:  '5.0.0'
     systemd:
       repo: 'https://github.com/camptocamp/puppet-systemd'
       ref:  '2.1.0'
