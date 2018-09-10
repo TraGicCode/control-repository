@@ -5,7 +5,7 @@ fixtures:
   repositories:
     archive:
       repo: 'https://github.com/voxpupuli/puppet-archive'
-      ref:  '2.2.0'
+      ref:  '3.2.0'
     apt:
       repo: 'https://github.com/puppetlabs/puppetlabs-apt'
       ref:  '4.5.0'
