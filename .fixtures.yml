@@ -8,7 +8,7 @@ fixtures:
       ref:  '3.2.0'
     apt:
       repo: 'https://github.com/puppetlabs/puppetlabs-apt'
-      ref:  '4.5.0'
+      ref:  '6.0.0'
     chocolatey:
       repo: 'https://github.com/puppetlabs/puppetlabs-chocolatey'
       ref:  '3.0.0'
