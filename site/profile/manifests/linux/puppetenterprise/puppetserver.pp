@@ -3,7 +3,7 @@ class profile::linux::puppetenterprise::puppetserver(
   String $file_source_auto_sign_conf = 'puppet:///modules/profile/puppetenterprise/puppetserver/autosign.conf',
 ) {
 
-  file { '/etc/puppetlabs/pe-license.key':
+  file { '/etc/puppetlabs/license.key':
     ensure    => present,
     source    => $file_source_pe_license,
     show_diff => false,
