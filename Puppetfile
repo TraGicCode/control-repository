@@ -32,7 +32,7 @@ mod 'puppetlabs/stdlib', '5.0.0'
 mod 'puppetlabs/wsus_client', '1.0.3'
 mod 'rtyler/jenkins', '1.7.0'
 mod 'stahnma/epel', '1.3.1'
-mod 'tragiccode/ravendb', '0.4.0'
+mod 'tragiccode/ravendb', '0.5.1'
 mod 'golja/gnupg', '1.2.3'
 
 # Discovered elements from existing Puppetfile

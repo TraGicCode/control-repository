@@ -30,25 +30,25 @@ class profile::windows::sqlserver {
   }
 
   dsc_sqlsetup { 'Install SQL Server':
-    ensure                  => 'present',
-    dsc_action              => 'Install',
-    dsc_instancename        => 'MSSQLSERVER',
+    ensure                   => 'present',
+    dsc_action               => 'Install',
+    dsc_instancename         => 'MSSQLSERVER',
     # dsc_sourcepath        => 'E:\\' # supposed to be UNC i think..
-    dsc_sourcepath          => 'D:\\',
+    dsc_sourcepath           => 'D:\\',
     #dsc_sourcecredential   => {
     #     'user'     => $domain_administrator_user,
     #     'password' => $domain_administrator_password,
     # },
-    dsc_suppressreboot      => false,
-    dsc_forcereboot         => true,
-    dsc_features            => 'SQLENGINE',
+    dsc_suppressreboot       => false,
+    dsc_forcereboot          => true,
+    dsc_features             => 'SQLENGINE',
     # dsc_instanceid        => 'MSSQLSERVER',
     # dsc_productkey        => 'xxx-xxx-xxx-xxx'
     # lint:ignore:quoted_booleans
-    dsc_updateenabled       => 'true',
+    dsc_updateenabled        => 'true',
     #dsc_updatesource       => 'C:\\'
-    dsc_sqmreporting        => 'true',
-    dsc_errorreporting      => 'true',
+    dsc_sqmreporting         => 'true',
+    dsc_errorreporting       => 'true',
     # lint:endignore
     # dsc_installshareddir  => 'C:\\',
     # dsc_installsharedwowdir => 'C:\\',
@@ -62,7 +62,7 @@ class profile::windows::sqlserver {
     #     'password' => $domain_administrator_password,
     # },
     # dsc_sqlcollation => '',
-    dsc_sqlsysadminaccounts => ['vagrant'],
+    dsc_sqlsysadminaccounts  => ['vagrant'],
     # dsc_securitymode        => 'SQL', # 'SQL' aka mixed.  Don't specify for windows only
     # dsc_sapwd             => 'XXXX' # only applicable if mixed security mode
     # dsc_installsqldatadir => 'C:\\Program Files\\Microsoft SQL Server\\MSSQL13.MSSQLSERVER\\MSSQL\\Data',
@@ -99,7 +99,7 @@ class profile::windows::sqlserver {
     # dsc_failoverclusteripaddress => ['10.0.0.2', '10.0.0.3'],
     # dsc_failoverclusternetworkname => 'blah',
     # dsc_setupprocesstimeout => 7200, # 2 hours
-    dsc_psdscrunascredential  => {
+    dsc_psdscrunascredential => {
         'user'     => 'vagrant',
         'password' => 'vagrant',
     },
