@@ -18,18 +18,18 @@ class profile::windows::sqlserver {
   #   require => Staging::File['SQLServer2014-x64-ENU.iso'],
   #   before  => Mount_iso['c:/staging/profile/SQLServer2014-x64-ENU.iso'],
   # }
-  dsc_xmountimage { 'SQL Server ISO':
+  dsc_mountimage { 'SQL Server ISO':
     dsc_ensure      => 'Present',
     dsc_imagepath   => 'C:\\en_sql_server_2016_developer_with_service_pack_1_x64_dvd_9548071.iso',
     dsc_driveletter => 'D',
   }
 
-  dsc_xwaitforvolume { 'Wait for mounted SQL Server ISO':
+  dsc_waitforvolume { 'Wait for mounted SQL Server ISO':
     dsc_driveletter => 'D',
-    require         => Dsc_xmountimage['SQL Server ISO'],
+    require         => Dsc_mountimage['SQL Server ISO'],
   }
 
-  dsc_xsqlserversetup { 'Install SQL Server':
+  dsc_sqlsetup { 'Install SQL Server':
     ensure                  => 'present',
     dsc_action              => 'Install',
     dsc_instancename        => 'MSSQLSERVER',
@@ -99,7 +99,7 @@ class profile::windows::sqlserver {
     # dsc_failoverclusteripaddress => ['10.0.0.2', '10.0.0.3'],
     # dsc_failoverclusternetworkname => 'blah',
     # dsc_setupprocesstimeout => 7200, # 2 hours
-    dsc_setupcredential     => {
+    dsc_psdscrunascredential  => {
         'user'     => 'vagrant',
         'password' => 'vagrant',
     },
@@ -108,7 +108,7 @@ class profile::windows::sqlserver {
   service { 'MSSQLSERVER':
     ensure  => 'running',
     enable  => true,
-    require => Dsc_xsqlserversetup['Install SQL Server'],
+    require => Dsc_sqlsetup['Install SQL Server'],
   }
 
   package { 'sql-server-management-studio':
