@@ -21,7 +21,6 @@ mod 'puppet/staging', '3.2.0'
 mod 'puppet/windowsfeature', '3.2.1'
 mod 'puppetlabs/apt', '6.0.0'
 mod 'puppetlabs/chocolatey', '3.0.0'
-mod 'chocolatey/chocolatey_server', '0.0.5'
 mod 'puppetlabs/concat', '5.0.0'
 mod 'puppetlabs/dsc', '1.6.0'
 mod 'puppetlabs/iis', '4.4.0'
@@ -40,7 +39,7 @@ mod 'golja/gnupg', '1.2.3'
 
 # Discovered elements from existing Puppetfile
 mod 'chocolatey_server',
-    git: 'https://github.com/chocolatey/puppet-chocolatey_server'
+    git: 'https://github.com/chocolatey/puppet-chocolatey_server',
     ref: 'master'
 mod 'nservicebusservicecontrol',
     git: 'https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol',
