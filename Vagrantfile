@@ -175,7 +175,7 @@ Vagrant.configure('2') do |config|
   config.vm.define 'dc-001' do |node|
     node.vm.hostname = 'dc-001'
     node.vm.network :private_network, :ip => '10.20.1.10'
-    node.vm.box = 'mwrock/Windows2016'
+    node.vm.box = 'jacqinthebox/windowsserver2016'
     node.vm.provider "virtualbox" do |v|
       v.memory = 2048
       v.linked_clone = true
