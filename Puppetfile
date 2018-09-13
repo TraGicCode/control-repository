@@ -39,6 +39,9 @@ mod 'tragiccode/ravendb', '0.5.1'
 mod 'golja/gnupg', '1.2.3'
 
 # Discovered elements from existing Puppetfile
+mod 'chocolatey_server',
+    git: 'https://github.com/chocolatey/puppet-chocolatey_server'
+    ref: 'master'
 mod 'nservicebusservicecontrol',
     git: 'https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol',
     ref: 'master'
