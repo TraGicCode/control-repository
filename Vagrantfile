@@ -59,7 +59,7 @@ Vagrant.configure('2') do |config|
   config.vm.define :windowsagent1 do |node|
     node.vm.hostname = 'winagent-001'
     node.vm.network :private_network, :ip => '10.20.1.3'
-    node.vm.box = 'mwrock/Windows2016'
+    node.vm.box = 'tragiccode/windows-2016'
     node.vm.provider "virtualbox" do |v|
       v.linked_clone = true
     end
