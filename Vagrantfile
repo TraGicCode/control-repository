@@ -53,6 +53,8 @@ Vagrant.configure('2') do |config|
           # Automate first codemanager deploy
           sudo echo 'puppetlabs' | puppet access login --username admin
           puppet code deploy --all --wait
+
+          sudo puppet agent --test
     SHELL
   end
 
