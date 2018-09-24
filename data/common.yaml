@@ -3,6 +3,7 @@ puppet_enterprise::master::code_manager::post_environment_hooks:
   - url: 'https://%{trusted.certname}:4433/classifier-api/v1/update-classes'
     use-client-ssl: true
 
+# Use TLSv1.2 throughout the whole PE Stack
 puppet_enterprise::ssl_protocols:
   - 'TLSv1.2'
 
