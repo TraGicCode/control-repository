@@ -7,6 +7,9 @@ puppet_enterprise::master::code_manager::post_environment_hooks:
 puppet_enterprise::ssl_protocols:
   - 'TLSv1.2'
 
+# Mcollective is deprecated in favor of puppet tasks
+puppet_enterprise::mcollective: absent
+
 puppet_enterprise::license::manage_license_key: false
 
 #Allow access to the puppetdb performance dashboard from non-localhost
