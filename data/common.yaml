@@ -3,6 +3,9 @@ puppet_enterprise::master::code_manager::post_environment_hooks:
   - url: 'https://%{trusted.certname}:4433/classifier-api/v1/update-classes'
     use-client-ssl: true
 
+puppet_enterprise::ssl_protocols:
+  - 'TLSv1.2'
+
 puppet_enterprise::license::manage_license_key: false
 
 #Allow access to the puppetdb performance dashboard from non-localhost
