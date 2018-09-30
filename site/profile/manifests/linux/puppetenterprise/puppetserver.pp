@@ -2,6 +2,12 @@ class profile::linux::puppetenterprise::puppetserver(
   String[1] $file_source_pe_license  = 'puppet:///modules/profile/puppetenterprise/puppetserver/license.key',
   String $file_source_auto_sign_conf = 'puppet:///modules/profile/puppetenterprise/puppetserver/autosign.conf',
 ) {
+  # Example of validation to prevent
+  # assigning profile to a node with an O/S which is not supported
+  # for the profile
+  # if $::facts['kernel'] != 'Linux' {
+  #   fail('Unsupported OS!')
+  # }
 
   file { '/etc/puppetlabs/license.key':
     ensure    => present,
