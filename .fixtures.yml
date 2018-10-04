@@ -15,6 +15,9 @@ fixtures:
     concat:
       repo: 'https://github.com/puppetlabs/puppetlabs-concat'
       ref:  '5.0.0'
+    cron:
+      repo: 'https://github.com/puppetlabs/puppetlabs-cron_core'
+      ref:  '1.0.0'
     docker:
       repo: 'https://github.com/puppetlabs/puppetlabs-docker'
       ref:  '2.0.0'
