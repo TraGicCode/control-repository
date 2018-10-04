@@ -96,9 +96,6 @@ fixtures:
     systemd:
       repo: 'https://github.com/camptocamp/puppet-systemd'
       ref:  '2.1.0'
-    vault:
-      repo: 'https://github.com/jsok/puppet-vault'
-      ref:  'v1.2.8'
     wget:
       repo: 'https://github.com/maestrodev/puppet-wget'
       ref:  'v1.7.3'
