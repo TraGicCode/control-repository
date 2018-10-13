@@ -21,8 +21,8 @@ hierarchy:
     path: "common.yaml"
 
   - name: 'Azure Key Vault Secrets'
-      lookup_key: azure_key_vault::lookup
-      options:
-        vault_name: mfyffe-test-vault
-        vault_api_version: '2016-10-01'
-        metadata_api_version: '2018-02-01'
+    lookup_key: azure_key_vault::lookup
+    options:
+      vault_name: mfyffe-test-vault
+      vault_api_version: '2016-10-01'
+      metadata_api_version: '2018-02-01'
