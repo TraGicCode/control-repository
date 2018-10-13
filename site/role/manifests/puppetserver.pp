@@ -5,8 +5,10 @@ class role::puppetserver {
   include profile::base
   include profile::linux::puppetenterprise::puppetserver
   include profile::linux::splunk::universalforwarder
+  include profile::linux::azure_hiera_test
 
   Class['profile::base']
   -> Class['profile::linux::puppetenterprise::puppetserver']
   -> Class['profile::linux::splunk::universalforwarder']
+  -> Class['profile::linux::azure_hiera_test']
 }

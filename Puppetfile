@@ -41,6 +41,9 @@ mod 'tragiccode/ravendb', '0.5.1'
 mod 'golja/gnupg', '1.2.3'
 
 # Discovered elements from existing Puppetfile
+mod 'azure_key_vault',
+    git: 'https://github.com/hiscox/tragiccode-azure_key_vault.git',
+    ref: 'hiera'
 mod 'chocolatey_server',
     git: 'https://github.com/chocolatey/puppet-chocolatey_server',
     ref: 'master'
