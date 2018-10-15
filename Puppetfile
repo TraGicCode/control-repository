@@ -44,6 +44,9 @@ mod 'golja/gnupg', '1.2.3'
 mod 'azure_key_vault',
     git: 'https://github.com/hiscox/tragiccode-azure_key_vault.git',
     ref: 'hiera'
+mod 'hiera-vault',
+    git: 'https://github.com/petems/hiera-vault.git',
+    ref: 'master'
 mod 'chocolatey_server',
     git: 'https://github.com/chocolatey/puppet-chocolatey_server',
     ref: 'master'

@@ -26,3 +26,15 @@ hierarchy:
   #     vault_name: mfyffe-test-vault
   #     vault_api_version: '2016-10-01'
   #     metadata_api_version: '2018-02-01'
+
+  - name: "Hiera-vault lookup"
+    lookup_key: hiera_vault
+    options:
+      ssl_verify: false
+      address: https://vault.foobar.com:8200
+      token: <insert-your-vault-token-here>
+      default_field: value
+      mounts:
+        generic:
+          - secret/puppet/%{::trusted.certname}/
+          - secret/puppet/common/
