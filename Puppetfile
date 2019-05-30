@@ -56,4 +56,4 @@ mod 'wsusserver',
     ref: 'feature/cleanup-wizard-task'
 mod 'os_patching',
     git: 'https://github.com/nathangiuliani/puppet_os_patching.git',
-    ref: '133-eventlog-puppet-agent-6.4.2'
+    ref: 'issue/133-eventlog-puppet-agent-6.4.2'
