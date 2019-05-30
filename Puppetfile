@@ -1,6 +1,7 @@
 forge 'https://forge.puppetlabs.com'
 
 # Modules discovered by generate-puppetfile
+mod 'albatrossflavour/os_patching', '0.11.1'
 mod 'arioch/redis', '3.3.0'
 mod 'binford2k/node_encrypt', '0.3.3'
 mod 'camptocamp/systemd', '2.1.0'
