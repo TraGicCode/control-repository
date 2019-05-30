@@ -1,10 +1,3 @@
 class role::test {
-
-
-  notify { 'test':
-
-  }
-
-
-
+  include os_patching
 }
