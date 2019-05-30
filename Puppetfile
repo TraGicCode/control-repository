@@ -55,5 +55,5 @@ mod 'wsusserver',
     git: 'https://github.com/TraGicCode/tragiccode-wsusserver.git',
     ref: 'feature/cleanup-wizard-task'
 mod 'os_patching',
-    git: 'https://github.com/nathangiuliani/puppet_os_patching',
+    git: 'https://github.com/nathangiuliani/puppet_os_patching.git',
     ref: '133-eventlog-puppet-agent-6.4.2'
