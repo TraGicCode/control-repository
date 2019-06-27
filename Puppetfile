@@ -1,6 +1,7 @@
 forge 'https://forge.puppetlabs.com'
 
 # Modules discovered by generate-puppetfile
+# mod 'albatrossflavour/os_patching', '0.11.1'
 mod 'arioch/redis', '3.3.0'
 mod 'binford2k/node_encrypt', '0.3.3'
 mod 'camptocamp/systemd', '2.1.0'
@@ -59,3 +60,6 @@ mod 'environmentrefresh',
 mod 'wsusserver',
     git: 'https://github.com/TraGicCode/tragiccode-wsusserver.git',
     ref: 'feature/cleanup-wizard-task'
+mod 'os_patching',
+    git: 'https://github.com/nathangiuliani/puppet_os_patching.git',
+    ref: 'issue/133-eventlog-puppet-agent-6.4.2'

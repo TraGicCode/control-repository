@@ -1,6 +1,6 @@
 # Find PE Versions here
 # http://versions.puppet.com.s3-website-us-west-2.amazonaws.com/
-PE_VERSION = '2019.0.0'
+PE_VERSION = '2019.1.0'
 
 # Way to install vagrant plugins automatically on vagrant up
 # required_plugins = %w(vagrant-reload)
@@ -66,15 +66,12 @@ Vagrant.configure('2') do |config|
       v.linked_clone = true
     end
     node.vm.provision :hosts, :sync_hosts => true
-    node.vm.provision :pe_agent do |p|
-      p.master_vm = 'puppetmaster'
-    end
-    node.vm.provision :hosts, :sync_hosts => true
     node.vm.provision "shell", inline: <<-POWERSHELL
+    [System.Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;
     [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true};
     $webClient = New-Object System.Net.WebClient;
     $webClient.DownloadFile('https://puppetmaster-001.local:8140/packages/current/install.ps1', 'install.ps1');
-    .\\install.ps1
+    .\\install.ps1 -v
     POWERSHELL
   end
 
